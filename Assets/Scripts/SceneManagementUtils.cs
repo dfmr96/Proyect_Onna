@@ -10,6 +10,7 @@ public static class SceneManagementUtils
     public static void LoadSceneByName(string sceneName) { SceneManager.LoadScene(sceneName); }
     public static void LoadSceneByIndex(int sceneIndex) { SceneManager.LoadScene(sceneIndex); }
     public static void LoadActiveScene() { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
+    public static Scene GetActiveScene() { return SceneManager.GetActiveScene(); }
 
     public static void AsyncLoadSceneByName(string sceneName, GameObject loadingScreenPrefab, Slider slider, TextMeshProUGUI text, MonoBehaviour mono)
     {
