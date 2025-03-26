@@ -1,14 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class MainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject loadCanvasPrefab;
+    [SerializeField] private GameObject optionsPanelPrefab;
+    [SerializeField] private GameObject menuPanel;
+    private GameObject optionsPanelInstance = null;
+    public void OptionsMenu()
+    {
+        if (optionsPanelInstance == null)
+        {
+            optionsPanelInstance = Instantiate(optionsPanelPrefab, transform);
+            menuPanel.SetActive(false);
 
-    public void PlayButton(string sceneName) { SceneManagementUtils.AsyncLoadSceneByName(sceneName, loadCanvasPrefab, loadCanvasPrefab.GetComponentInChildren<Slider>(), loadCanvasPrefab.GetComponentInChildren<TextMeshProUGUI>(), this); }
-
-    public void ExitButton() { Application.Quit(); }
+            OptionsMenu optionsMenu = optionsPanelInstance.GetComponent<OptionsMenu>();
+            if (optionsMenu != null)
+            {
+                optionsMenu.OnClose += () => menuPanel.SetActive(true);
+            }
+        }
+        else
+        {
+            Destroy(optionsPanelInstance);
+            optionsPanelInstance = null;
+            menuPanel.SetActive(true);
+        }
+    }
 }
