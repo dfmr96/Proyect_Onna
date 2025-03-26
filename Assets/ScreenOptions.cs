@@ -8,6 +8,9 @@ public class ScreenOptions : MonoBehaviour
 {
     [SerializeField] TMP_Dropdown resolutionDropdown;
     [SerializeField] Toggle fullscreenToggle;
+    [SerializeField] Toggle vsyncToggle;
+    [SerializeField] Slider fpsSlider;
+    [SerializeField] TextMeshProUGUI fpsText;
 
     private Resolution[] resolutions;
 
@@ -21,6 +24,8 @@ public class ScreenOptions : MonoBehaviour
         List<string> options = new List<string>();
         int savedResolutionIndex = PlayerPrefs.GetInt("ResolutionIndex", 0);
         bool isFullscreen = PlayerPrefs.GetInt("Fullscreen", 1) == 1;
+        bool isVsyncEnabled = PlayerPrefs.GetInt("VSync", 1) == 1;
+        int savedFps = PlayerPrefs.GetInt("Fps", 60);
 
         for (int i = 0; i < resolutions.Length; i++)
         {
@@ -32,12 +37,25 @@ public class ScreenOptions : MonoBehaviour
         resolutionDropdown.value = savedResolutionIndex;
         resolutionDropdown.RefreshShownValue();
         fullscreenToggle.isOn = isFullscreen;
+        vsyncToggle.isOn = isVsyncEnabled;
+
+        fpsSlider.minValue = 30;
+        fpsSlider.maxValue = 240;
+        fpsSlider.wholeNumbers = true;
+        fpsSlider.value = savedFps;
+        fpsText.text = savedFps + " FPS";
 
         SetResolution(savedResolutionIndex);
         SetFullscreen(isFullscreen);
+        SetVSync(isVsyncEnabled);
+        SetFps(savedFps);
 
         resolutionDropdown.onValueChanged.AddListener(SetResolution);
         fullscreenToggle.onValueChanged.AddListener(SetFullscreen);
+        vsyncToggle.onValueChanged.AddListener(SetVSync);
+        fpsSlider.onValueChanged.AddListener(SetFps);
+
+        fpsSlider.interactable = !isVsyncEnabled;
     }
 
     private void SetResolution(int index)
@@ -51,5 +69,22 @@ public class ScreenOptions : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
         PlayerPrefs.SetInt("Fullscreen", isFullscreen ? 1 : 0);
+    }
+
+    private void SetVSync(bool isVsyncEnabled)
+    {
+        QualitySettings.vSyncCount = isVsyncEnabled ? 1 : 0;
+        PlayerPrefs.SetInt("VSync", isVsyncEnabled ? 1 : 0);
+
+        fpsSlider.interactable = !isVsyncEnabled;
+    }
+
+    private void SetFps(float fpsValue)
+    {
+        int fps = Mathf.RoundToInt(fpsValue);
+
+        Application.targetFrameRate = fps;
+        PlayerPrefs.SetInt("Fps", fps);
+        fpsText.text = fps + " FPS";
     }
 }
