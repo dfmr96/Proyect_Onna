@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
 
 public static class SceneManagementUtils
 {
@@ -12,20 +10,32 @@ public static class SceneManagementUtils
     public static void LoadActiveScene() { SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); }
     public static Scene GetActiveScene() { return SceneManager.GetActiveScene(); }
 
-    public static void AsyncLoadSceneByName(string sceneName, GameObject loadingScreenPrefab, Slider slider, TextMeshProUGUI text, MonoBehaviour mono)
+    public static void AsyncLoadSceneByName(string sceneName, GameObject loadingScreenPrefab,  MonoBehaviour mono)
     {
         GameObject loadingScreen = Object.Instantiate(loadingScreenPrefab);
-        mono.StartCoroutine(LazyLoad(sceneName, slider, text));
+        mono.StartCoroutine(LazyLoad(sceneName, loadingScreen));
     }
 
-    private static IEnumerator LazyLoad(string _sceneName, Slider _slider, TextMeshProUGUI _text)
+    private static IEnumerator LazyLoad(string _sceneName, GameObject loadingScreen)
     {
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_sceneName);
-        while (asyncLoad.isDone == false) 
+        Animator animator = loadingScreen.GetComponent<Animator>();
+
+        if (animator != null)
         {
-            float progress = Mathf.Clamp01(asyncLoad.progress/.09f);
-            _slider.value = progress;
-            _text.text = progress * 100 + "%";
+            AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            while (stateInfo.length == 0)
+            {
+                yield return null;
+                stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+            }
+
+            yield return new WaitForSeconds(stateInfo.length);
+        }
+
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(_sceneName);
+        while (!asyncLoad.isDone)
+        {
             yield return null;
         }
     }
