@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, Player_Input.IPlayerActions
 {
     [SerializeField] private float speed = 0;
     [SerializeField] private Transform glassesTransform;
+    [SerializeField] WeaponController _weaponController = null;
     private Vector3 _direction = Vector3.zero;
     private Vector3 _aimDirection = Vector3.zero;
     private CharacterController _characterController = null;
@@ -50,6 +51,11 @@ public class PlayerController : MonoBehaviour, Player_Input.IPlayerActions
     {
         bool readButton = context.ReadValueAsButton();
         isFiring = readButton;
+
+        if (isFiring)
+        {
+            _weaponController.Attack();
+        }
     }
 
     public void OnAim(InputAction.CallbackContext context)
