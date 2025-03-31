@@ -4,7 +4,15 @@ using UnityEngine.EventSystems;
 
 public class Bullet : MonoBehaviour
 {
-    private float bulletSpeed; 
+    private float bulletSpeed;
+    private float maxDistance;
+
+    private void Start()
+    {
+        float destroyTime = maxDistance / bulletSpeed;
+        Destroy(gameObject, destroyTime);
+    }
+
     private void Update()
     {
         Move();
@@ -18,5 +26,10 @@ public class Bullet : MonoBehaviour
     public void SetSpeed(float speed)
     {
         bulletSpeed = speed;
+    }
+
+    public void SetMaxDistance(float distance)
+    {
+        maxDistance = distance;
     }
 }

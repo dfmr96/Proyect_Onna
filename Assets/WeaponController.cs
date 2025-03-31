@@ -14,6 +14,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private int currentAmmo;
     [SerializeField] private float overheatCooldown = 1.25f;
     [SerializeField] private float coolingCooldown = 2f;
+    [SerializeField] private float bulletMaxDistance = 10f;
     
     private bool canFire;
     private Coroutine coolingCooldownCoroutine;
@@ -44,8 +45,10 @@ public class WeaponController : MonoBehaviour
 
     private void FireBullet()
     {
+        if (currentAmmo < 1) return;
         Bullet newBullet = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         newBullet.SetSpeed(bulletSpeed);
+        newBullet.SetMaxDistance(bulletMaxDistance);
         currentAmmo--;
     }
     private void StartCoolingCooldown()
