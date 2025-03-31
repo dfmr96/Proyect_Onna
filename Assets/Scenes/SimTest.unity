@@ -370,7 +370,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadScreenPrefab: {fileID: 1822515629045912885, guid: c214e4a145d9467458f42cd11ed1b19d, type: 3}
   enemyPrefab: {fileID: 8522794355798656316, guid: ca4d29899307bd141aeef5c853c52ae9, type: 3}
-  rewardPrefab: {fileID: 6504764142935484967, guid: 2cf65f131ce0a8841a18789eeb8136c6, type: 3}
+  rewardsPrefab:
+  - {fileID: 6504764142935484967, guid: 2cf65f131ce0a8841a18789eeb8136c6, type: 3}
   spawnList:
   - {fileID: 1472368043}
   - {fileID: 1222397174}

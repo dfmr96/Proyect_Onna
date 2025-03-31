@@ -1,13 +1,13 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject loadScreenPrefab;
     [SerializeField] private GameObject enemyPrefab;
-    [SerializeField] private GameObject rewardPrefab;
+    [SerializeField] private List<GameObject> rewardsPrefab;
     [SerializeField] private List<Transform> spawnList;
     [SerializeField] private int waveQuantity = 3, enemyPerWave = 3;
     private int waveCount, enemyCount;
@@ -27,7 +27,6 @@ public class LevelManager : MonoBehaviour
 
     public void OnEnemyDefeated(GameObject enemy)
     {
-        EnemyExample enemyScript = enemy.GetComponent<EnemyExample>();
         if (enemy != null)
         {
             lastEnemyPosition = enemy.transform.position;
@@ -67,7 +66,7 @@ public class LevelManager : MonoBehaviour
 
     private void SpawnReward()
     {
-        if (rewardPrefab != null) Instantiate(rewardPrefab, lastEnemyPosition, Quaternion.identity);
+        if (rewardsPrefab.Count > 0) { Instantiate(rewardsPrefab[Random.Range(0, rewardsPrefab.Count-1)], lastEnemyPosition, Quaternion.identity); }
     }
 
     IEnumerator DestroyAfterAnimation(GameObject obj, Animator animator)
