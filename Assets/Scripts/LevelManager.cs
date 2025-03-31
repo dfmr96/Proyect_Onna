@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 
 public class LevelManager : MonoBehaviour
 {
@@ -26,11 +25,16 @@ public class LevelManager : MonoBehaviour
         StartWave();
     }
 
-    public void OnEnemyDefeated(Vector3 enemyPosition)
+    public void OnEnemyDefeated(GameObject enemy)
     {
-        lastEnemyPosition = enemyPosition;
-        enemyCount -= 1;
-        WaveCheck();
+        EnemyExample enemyScript = enemy.GetComponent<EnemyExample>();
+        if (enemy != null)
+        {
+            lastEnemyPosition = enemy.transform.position;
+            enemy.GetComponent<EnemyExample>().OnDie -= OnEnemyDefeated;
+            enemyCount -= 1;
+            WaveCheck();
+        }
     }
 
     private void StartWave()
