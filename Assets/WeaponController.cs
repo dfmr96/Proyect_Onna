@@ -15,6 +15,7 @@ public class WeaponController : MonoBehaviour
     [SerializeField] private float overheatCooldown = 1.25f;
     [SerializeField] private float coolingCooldown = 2f;
     [SerializeField] private float bulletMaxDistance = 10f;
+    [SerializeField] private float damage = 10f;
     
     private bool canFire;
     private Coroutine coolingCooldownCoroutine;

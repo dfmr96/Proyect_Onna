@@ -1,60 +1,44 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerController : MonoBehaviour, Player_Input.IPlayerActions
 {
-    [SerializeField] private float speed = 0;
-    [SerializeField] private Transform glassesTransform;
-    [SerializeField] WeaponController _weaponController = null;
+    [SerializeField] private WeaponController weaponController = null;
+    [SerializeField] private PlayerInput playerInput;
+
+    private PlayerView _playerView;
+    private PlayerModel _playerModel;
     private Vector3 _direction = Vector3.zero;
     private Vector3 _aimDirection = Vector3.zero;
-    private CharacterController _characterController = null;
-    private bool isFiring = false;
-    private Vector3 mouseWorldPos;
+    private Vector3 _mouseWorldPos;
+    private Camera _mainCamera;
 
-    [SerializeField] private PlayerInput _playerInput;
-    void Start()
+    void Awake()
     {
-        _characterController = GetComponent<CharacterController>();
+        _playerModel = new PlayerModel(5f, 100);
+        _mainCamera = Camera.main;
+        _playerView.GetComponent<PlayerView>();
+        _playerView.Initialize();
     }
+
     void Update()
     {
-        if (_direction != Vector3.zero)
-        {
-            _characterController.Move(_direction * (speed * Time.deltaTime));
-        }
-        
-        if (_aimDirection != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(_aimDirection);
-            transform.rotation = targetRotation;
-            targetRotation = Quaternion.Euler(90, -90 , targetRotation.y);
-            glassesTransform.localRotation = targetRotation;
-        }
-        
-        Debug.DrawLine(transform.position, transform.position + transform.forward * 10, Color.green);
+        _playerView.Move(_direction, _playerModel.Speed);
+        _playerView.Rotate(_aimDirection);
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
         Vector2 readVector = context.ReadValue<Vector2>();
-        Vector3 toConvert = new Vector3(readVector.x, 0, readVector.y);
-        _direction = Utils.IsoVectorConvert(toConvert);
+        _direction = Utils.IsoVectorConvert(new Vector3(readVector.x, 0, readVector.y));
     }
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        bool readButton = context.ReadValueAsButton();
-        isFiring = readButton;
-
-        if (isFiring)
+        if (context.ReadValueAsButton())
         {
-            _weaponController.Attack();
+            weaponController?.Attack();
         }
     }
 
@@ -62,34 +46,31 @@ public class PlayerController : MonoBehaviour, Player_Input.IPlayerActions
     {
         Vector3 readValue = context.ReadValue<Vector2>();
 
-        if (Camera.main != null)
+        if (playerInput.currentControlScheme == "Keyboard&Mouse")
         {
-            if (_playerInput.currentControlScheme == "Keyboard&Mouse")
+            if (_mainCamera != null)
             {
-                Ray ray = Camera.main.ScreenPointToRay(readValue);
-                RaycastHit hit;
+                Ray ray = _mainCamera.ScreenPointToRay(readValue);
 
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                if (Physics.Raycast(ray, out RaycastHit hit))
                 {
-                    mouseWorldPos = hit.point;
-                    mouseWorldPos.y = 0;
-                    _aimDirection = mouseWorldPos - new Vector3(transform.position.x, 0, transform.position.z);
-                    _aimDirection.Normalize();
+                    _mouseWorldPos = hit.point;
+                    _mouseWorldPos.y = 0;
+                    _aimDirection = (_mouseWorldPos - new Vector3(transform.position.x, 0, transform.position.z))
+                        .normalized;
                 }
             }
-
-            if (_playerInput.currentControlScheme == "Gamepad")
-            {
-                Debug.Log(readValue);
-                Vector3 toConvert = new Vector3(readValue.x, 0, readValue.y);
-                _aimDirection = Utils.IsoVectorConvert(toConvert);
-            }
         }
-
+        else if (playerInput.currentControlScheme == "Gamepad")
+        {
+            Debug.Log(readValue);
+            Vector3 toConvert = new Vector3(readValue.x, 0, readValue.y);
+            _aimDirection = Utils.IsoVectorConvert(toConvert);
+        }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawSphere(mouseWorldPos, 0.5f);
+        Gizmos.DrawSphere(_mouseWorldPos, 0.5f);
     }
 }
