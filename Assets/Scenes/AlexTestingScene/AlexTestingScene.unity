@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 133826609}
   - component: {fileID: 133826608}
   - component: {fileID: 133826607}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 245677825}
   - component: {fileID: 245677824}
   - component: {fileID: 245677823}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -326,8 +326,8 @@ Transform:
   m_GameObject: {fileID: 245677822}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.3398647, y: -15.863729, z: -2.9284277}
-  m_LocalScale: {x: 1, y: 2.7764, z: 0.593}
+  m_LocalPosition: {x: 4.3738, y: -15.863729, z: -2.9284277}
+  m_LocalScale: {x: 3.0679, y: 2.7764, z: 0.593}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 589079670}
@@ -348,8 +348,8 @@ GameObject:
   - component: {fileID: 477078865}
   - component: {fileID: 477078869}
   - component: {fileID: 477078867}
-  - component: {fileID: 477078871}
   - component: {fileID: 477078870}
+  - component: {fileID: 477078871}
   m_Layer: 7
   m_Name: GhostEnemy
   m_TagString: Enemy
@@ -445,7 +445,6 @@ Transform:
   m_Children:
   - {fileID: 1641860792}
   - {fileID: 1209033046}
-  - {fileID: 1195261950}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &477078865
@@ -484,6 +483,8 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 400
   RandomMovementRange: 30
+  isRangedAttack: 0
+  initialState: 0
 --- !u!54 &477078868
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -558,6 +559,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
+  AttackDamage: 20
+  AttackRange: 10
 --- !u!1 &487209471
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,7 +573,7 @@ GameObject:
   - component: {fileID: 487209474}
   - component: {fileID: 487209473}
   - component: {fileID: 487209472}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,8 +660,8 @@ Transform:
   m_GameObject: {fileID: 487209471}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.009865, y: -15.863729, z: -3.8484278}
-  m_LocalScale: {x: 1, y: 2.7764, z: 0.593}
+  m_LocalPosition: {x: 14.2281, y: -15.863729, z: -3.8484278}
+  m_LocalScale: {x: 3.4364, y: 2.7764, z: 0.593}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 589079670}
@@ -917,7 +920,7 @@ MonoBehaviour:
   m_Center: {x: 0, y: 2, z: 0}
   m_LayerMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 311
   m_UseGeometry: 0
   m_DefaultArea: 0
   m_GenerateLinks: 0
@@ -928,74 +931,8 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: c88590b48db24d84f93af088093fd6a4, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 1991a78bc041ffb4b8fb2e933c5e026c, type: 2}
   m_BuildHeightMesh: 0
---- !u!1 &1195261949
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1195261950}
-  - component: {fileID: 1195261952}
-  - component: {fileID: 1195261951}
-  m_Layer: 7
-  m_Name: CombatRadius
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1195261950
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195261949}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 477078864}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1195261951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195261949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226535a584dc5164fb07a9ae4d18cf11, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!135 &1195261952
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1195261949}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1209033045
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,10 +942,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1209033046}
-  - component: {fileID: 1209033048}
   - component: {fileID: 1209033047}
+  - component: {fileID: 1209033048}
   m_Layer: 7
-  m_Name: AggroRadius
+  m_Name: TriggerChecks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1041,27 +978,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df01e738b43c4f14f9e8fa45d3e8ce23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &1209033048
-SphereCollider:
+  detectionRange: 10
+  visionAngle: 150
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &1209033048
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209033045}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 6
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 226535a584dc5164fb07a9ae4d18cf11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combatRange: 3
+  combatAngle: 180
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 384
 --- !u!1 &1372261634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,7 +1012,7 @@ GameObject:
   - component: {fileID: 1372261637}
   - component: {fileID: 1372261636}
   - component: {fileID: 1372261635}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1160,13 +1098,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372261634}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.3398647, y: -15.863729, z: 0.2815721}
-  m_LocalScale: {x: 1, y: 2.7764, z: 0.593}
+  m_LocalRotation: {x: -0, y: 0.6932992, z: -0, w: 0.72064996}
+  m_LocalPosition: {x: 2.7, y: -15.863729, z: -4.13}
+  m_LocalScale: {x: 2.9615, y: 2.7764, z: 0.593}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 589079670}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 87.784, z: 0}
 --- !u!1 &1608181330
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,9 +1316,9 @@ GameObject:
   - component: {fileID: 1755148472}
   - component: {fileID: 1755148471}
   - component: {fileID: 1755148470}
+  - component: {fileID: 1755148477}
   - component: {fileID: 1755148474}
   - component: {fileID: 1755148476}
-  - component: {fileID: 1755148477}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1511,6 +1449,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   gravity: 9.81
+  attackRange: 3
+  attackDamage: 5
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  visionAngle: 150
+  <MaxHealth>k__BackingField: 100
 --- !u!143 &1755148477
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1549,7 +1494,7 @@ GameObject:
   - component: {fileID: 1978759679}
   - component: {fileID: 1978759678}
   - component: {fileID: 1978759677}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1654,7 +1599,7 @@ GameObject:
   - component: {fileID: 2044318460}
   - component: {fileID: 2044318459}
   - component: {fileID: 2044318458}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

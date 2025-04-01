@@ -10,14 +10,17 @@ public class EnemyAttackState : EnemyState
     private NavMeshAgent _navMeshAgent;
     float distanceToPlayer;
 
-
-
     private float _timer;
-    private float _timeBetweenAttacks = 2f;
+    private float _timeBetweenAttacks = 1.5f;
+    private float _initialAttackDelay = 0.3f;
 
     private float _exitTimer;
     private float _timeTillExit;
     private float _distanceToCountExit = 3f;
+
+    private bool _hasAttackedOnce = false;
+
+    private EnemyModel _enemyModel;
 
     public EnemyAttackState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
@@ -30,29 +33,31 @@ public class EnemyAttackState : EnemyState
     {
         base.EnterState();
 
+        _enemyModel = enemy.GetComponent<EnemyModel>();
+
+        _enemyModel.OnHealthChanged += HandleHealthChanged;
+
+
         _navMeshAgent.SetDestination(_playerTransform.position);
-        Attack();
-            
+        _timer = 0f; 
+        _hasAttackedOnce = false;
+
+
+
     }
 
     public override void ExitState()
     {
         base.ExitState();
+        _enemyModel.OnHealthChanged -= HandleHealthChanged;
+
     }
 
     public override void FrameUpdate()
     {
         base.FrameUpdate();
 
-        if (_timer > _timeBetweenAttacks)
-        {
-            _timer = 0f;
-
-            Attack();
-
-        }
-
-        //if (_navMeshAgent.remainingDistance > _distanceToCountExit)
+        if (_playerTransform == null) return; 
 
         distanceToPlayer = Vector3.Distance(_playerTransform.position, enemy.transform.position);
 
@@ -74,11 +79,36 @@ public class EnemyAttackState : EnemyState
 
 
         _timer += Time.deltaTime;
+
+
+        if (!_hasAttackedOnce)
+        {
+            if (_timer >= _initialAttackDelay)
+            {
+                Attack();
+                _hasAttackedOnce = true;
+                _timer = 0f; 
+            }
+        }
+        else if (_timer >= _timeBetweenAttacks)
+        {
+            Attack();
+            _timer = 0f;
+        }
     }
 
    private void Attack()
     {
-        Debug.Log("Ghost has Bite You");
+        //aplicar interfaz de ataque
+        IDamageable damageablePlayer = _playerTransform.GetComponent<IDamageable>();
+        enemy.ExecuteAttack(damageablePlayer);
+    }
 
+    private void HandleHealthChanged(float currentHealth)
+    {
+        if (_timer >= _initialAttackDelay)
+        {
+            fsm.ChangeState(enemy.StunnedState);
+        }
     }
 }

@@ -14,6 +14,27 @@ public class EnemyView : MonoBehaviour
     public void PlayAttackAnimation()
     {
         //animator.SetTrigger("Attack");
+        Debug.Log("Enemy has attacked");
+    }
+
+    public void PlayIdleAnimation()
+    {
+        //animator.SetTrigger("Idle");
+    }
+
+    public void PlayMovingAnimation()
+    {
+        //animator.SetTrigger("Moving");
+    }
+
+    public void PlayStunnedAnimation()
+    {
+        //animator.SetTrigger("Stunned");
+    }
+
+    public void PlayDamageAnimation()
+    {
+        //animator.SetTrigger("Damage");
     }
 
     public void PlayDeathAnimation()

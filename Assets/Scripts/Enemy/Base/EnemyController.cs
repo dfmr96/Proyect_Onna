@@ -8,6 +8,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     public float rotationSpeed = 400f;
     public float RandomMovementRange = 30f;
 
+    private IAttack attackStrategy;
+    public bool isRangedAttack;
 
     private EnemyModel model;
     private EnemyView view;
@@ -23,6 +25,20 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     public EnemyChaseState ChaseState { get; set; }
     public EnemyAttackState AttackState { get; set; }
     public EnemySearchState SearchState { get; set; }
+    public EnemyIdleState IdleState { get; set; }
+    public EnemyStunnedState StunnedState { get; set; }
+
+    public enum InitialState
+    {
+        Patrol,
+        Chase,
+        Attack,
+        Search,
+        Idle,
+        Stunned
+    }
+
+    public InitialState initialState = InitialState.Patrol;
 
 
     #endregion
@@ -40,6 +56,9 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         ChaseState = new EnemyChaseState(this, fsm);
         AttackState = new EnemyAttackState(this, fsm);
         SearchState = new EnemySearchState(this, fsm);
+        StunnedState = new EnemyStunnedState(this, fsm);
+        IdleState = new EnemyIdleState(this, fsm);
+
     }
 
 
@@ -48,7 +67,16 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         model.OnHealthChanged += HandleHealthChanged;
         model.OnDeath += HandleDeath;
 
-        fsm.Initialize(PatrolState);
+        InitializeState();
+
+        if (isRangedAttack)
+        {
+            attackStrategy = new RangedAttack(model.AttackDamage, model.AttackRange);  
+        }
+        else
+        {
+            attackStrategy = new MeleeAttack(model.AttackDamage); 
+        }
     }
 
     private void Update()
@@ -58,9 +86,36 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         Debug.Log(fsm.CurrentEnemyState);
     }
 
+    private void InitializeState()
+    {
+        switch (initialState)
+        {
+            case InitialState.Patrol:
+                fsm.Initialize(PatrolState);
+                break;
+            case InitialState.Chase:
+                fsm.Initialize(ChaseState);
+                break;
+            case InitialState.Attack:
+                fsm.Initialize(AttackState);
+                break;
+            case InitialState.Search:
+                fsm.Initialize(SearchState);
+                break;
+            case InitialState.Idle:
+                fsm.Initialize(IdleState);
+                break;
+            case InitialState.Stunned:
+                fsm.Initialize(StunnedState);
+                break;
+        }
+    }
 
-
-
+    public void ExecuteAttack(IDamageable target)
+    {
+        attackStrategy.ExecuteAttack(target);  
+        view.PlayAttackAnimation();  
+    }
 
     private void HandleHealthChanged(float currentHealth)
     {
@@ -91,22 +146,5 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     }
 
 
-    //#region Movement Functions
-    //public virtual void MoveEnemy(Vector3 direction)
-    //{
-    //    Vector3 movement = direction.normalized * moveSpeed;
-    //    rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
-    //}
-
-    //public virtual void LookEnemy(Vector3 direction)
-    //{
-    //    if (direction != Vector3.zero)
-    //    {
-    //        Quaternion targetRotation = Quaternion.LookRotation(direction);
-    //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-    //    }
-    //}
-
-    //#endregion
 
 }
