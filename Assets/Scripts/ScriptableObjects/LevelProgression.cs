@@ -10,27 +10,28 @@ public class LevelProgression : ScriptableObject
     public List<SceneAsset> region_2 = new List<SceneAsset>();
     public List<SceneAsset> region_3 = new List<SceneAsset>();
 
-    public int currentRegion = 0;
+    public int minRoomsPerLevel = 2;
+    public int maxRoomsPerLevel = 3;
+
+    private int currentRegion = 0;
     private int currentRoom = 0;
     private int roomsToPlay = 3;
-
-    private int minRoomsPerLevel = 2;
-    private int maxRoomsPerLevel = 3;
 
     public string GetNextRoom()
     {
         if (currentRoom >= roomsToPlay)
         {
+            Debug.Log("Entre a GetNextRoom()");
             currentRoom = 0;
             currentRegion += 1;
+            roomsToPlay = Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
 
             if (currentRegion > 3)
             {
                 //Aca deberia ir lo que pase cuando termina el juego, por ejemplo cargar un nivel unico donde haya un boss o algo asi
             }
-
-            roomsToPlay = Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
         }
+        currentRoom += 1;
         return GetRandomSceneForCurrentRegion();
     }
 
@@ -56,5 +57,12 @@ public class LevelProgression : ScriptableObject
             case 3: return region_3;
             default: return null;
         }
+    }
+
+    public void ResetProgress()
+    {
+        currentRegion = 0;
+        currentRoom = 0;
+        roomsToPlay = Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
     }
 }

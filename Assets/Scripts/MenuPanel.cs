@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class MenuPanel : MonoBehaviour
 {
+    [SerializeField] private LevelProgression levelProgression;
     [SerializeField] GameObject loadCanvasPrefab;
 
-    public void PlayButton(string sceneName) { SceneManagementUtils.AsyncLoadSceneByName(sceneName, loadCanvasPrefab, this); }
-
-    public void OptionsButton() 
+    public void PlayButton() 
     {
-        
+        //SceneManagementUtils.AsyncLoadSceneByName(levelProgression.GetNextRoom(), loadCanvasPrefab, this);
+        Debug.Log(levelProgression.GetNextRoom());
     }
+
     public void ExitButton() { Application.Quit(); }
 }

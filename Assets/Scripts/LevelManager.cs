@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] private LevelProgression levelProgression;
     [SerializeField] private GameObject loadScreenPrefab;
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private List<GameObject> rewardsPrefab;

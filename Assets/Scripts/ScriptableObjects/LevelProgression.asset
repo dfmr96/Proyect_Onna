@@ -12,5 +12,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fbb43ceee9afcd41a5e953cd13be81f, type: 3}
   m_Name: LevelProgression
   m_EditorClassIdentifier: 
+  region_0:
+  - {fileID: 102900000, guid: 1a386dea76c246f479e1d13ac85a2c52, type: 3}
+  - {fileID: 102900000, guid: 79d82681987ca604daccbe9f22131b75, type: 3}
+  - {fileID: 102900000, guid: f5042931242436945a04ceca9a7e2ca0, type: 3}
+  - {fileID: 102900000, guid: aab97e14ba529f247ba702a5db8bb170, type: 3}
+  region_1:
+  - {fileID: 102900000, guid: d5813ae450a974e47ba6b0b76977f5cd, type: 3}
+  - {fileID: 102900000, guid: 13c430f425a4d1b47a07c026c4186c4b, type: 3}
+  - {fileID: 102900000, guid: 021bbd114f364a842b1f8e1834884bd1, type: 3}
+  - {fileID: 102900000, guid: 2915a716acdd2f2418ea2bd99951ba58, type: 3}
+  region_2:
+  - {fileID: 102900000, guid: 946613cba4eaed642857b164515c385a, type: 3}
+  - {fileID: 102900000, guid: 61380379440a0b44b98f7df6846a1f38, type: 3}
+  - {fileID: 102900000, guid: 2c0ddfe25e79aa444825140a193bf6ef, type: 3}
+  - {fileID: 102900000, guid: a5deb978870823640bc674c98684c9ea, type: 3}
+  region_3:
+  - {fileID: 102900000, guid: 4c664b53e7bc2b642baaca5704cd9109, type: 3}
+  - {fileID: 102900000, guid: 29fc24f3ab9f23643a3f1b228791d4f9, type: 3}
+  - {fileID: 102900000, guid: 5acfad3450138a44bb7af4f7a596aa69, type: 3}
+  - {fileID: 102900000, guid: 843546b63b2e1ba4790006bf5df49305, type: 3}
   currentRegion: 0
-  currentLevel: 1
+  minRoomsPerLevel: 2
+  maxRoomsPerLevel: 3

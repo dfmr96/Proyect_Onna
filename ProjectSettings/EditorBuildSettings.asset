@@ -12,6 +12,51 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 1
-    path: Assets/Scenes/SimTest.unity
+    path: Assets/Scenes/SimTesting/Level1/Lvl1_1.unity
     guid: 1a386dea76c246f479e1d13ac85a2c52
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level1/Lvl1_2.unity
+    guid: 79d82681987ca604daccbe9f22131b75
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level1/Lvl1_3.unity
+    guid: f5042931242436945a04ceca9a7e2ca0
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level1/Lvl1_4.unity
+    guid: aab97e14ba529f247ba702a5db8bb170
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level2/Lvl2_1.unity
+    guid: d5813ae450a974e47ba6b0b76977f5cd
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level2/Lvl2_2.unity
+    guid: 13c430f425a4d1b47a07c026c4186c4b
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level2/Lvl2_3.unity
+    guid: 021bbd114f364a842b1f8e1834884bd1
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level2/Lvl2_4.unity
+    guid: 2915a716acdd2f2418ea2bd99951ba58
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level3/Lvl3_1.unity
+    guid: 946613cba4eaed642857b164515c385a
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level3/Lvl3_2.unity
+    guid: 61380379440a0b44b98f7df6846a1f38
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level3/Lvl3_3.unity
+    guid: 2c0ddfe25e79aa444825140a193bf6ef
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level3/Lvl3_4.unity
+    guid: a5deb978870823640bc674c98684c9ea
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level4/Lvl4_1.unity
+    guid: 4c664b53e7bc2b642baaca5704cd9109
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level4/Lvl4_2.unity
+    guid: 29fc24f3ab9f23643a3f1b228791d4f9
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level4/Lvl4_3.unity
+    guid: 5acfad3450138a44bb7af4f7a596aa69
+  - enabled: 1
+    path: Assets/Scenes/SimTesting/Level4/Lvl4_4.unity
+    guid: 843546b63b2e1ba4790006bf5df49305
   m_configObjects: {}
