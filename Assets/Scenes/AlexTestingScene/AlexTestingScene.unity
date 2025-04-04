@@ -347,9 +347,10 @@ GameObject:
   - component: {fileID: 477078868}
   - component: {fileID: 477078865}
   - component: {fileID: 477078869}
-  - component: {fileID: 477078867}
   - component: {fileID: 477078870}
   - component: {fileID: 477078871}
+  - component: {fileID: 477078873}
+  - component: {fileID: 477078872}
   m_Layer: 7
   m_Name: GhostEnemy
   m_TagString: Enemy
@@ -468,23 +469,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &477078867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477078860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c086048a12c43ad4bbaf05b7057f1a79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rotationSpeed: 400
-  RandomMovementRange: 30
-  isRangedAttack: 0
-  initialState: 0
 --- !u!54 &477078868
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -543,10 +527,56 @@ MonoBehaviour:
   m_GameObject: {fileID: 477078860}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8495c445422430b4ea4d479c71835447, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 100
+  AttackDamage: 5
+  isRangedAttack: 0
+  AttackRange: 10
+  moveSpeed: 5
+  rotationSpeed: 400
+  RandomMovementRange: 30
+--- !u!114 &477078871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477078860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987da65557474c748822221c981d168d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <MaxHealth>k__BackingField: 100
+  AttackDamage: 5
+  isRangedAttack: 0
+  AttackRange: 10
+  moveSpeed: 5
+  rotationSpeed: 400
+  RandomMovementRange: 30
+  initialState: 0
+--- !u!114 &477078872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 477078860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 15090d3ae99f0744785b069fb322afa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &477078871
+  <MaxHealth>k__BackingField: 100
+  AttackDamage: 5
+  isRangedAttack: 0
+  AttackRange: 10
+  moveSpeed: 5
+  rotationSpeed: 400
+  RandomMovementRange: 30
+--- !u!114 &477078873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -559,8 +589,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 100
-  AttackDamage: 20
+  AttackDamage: 5
+  isRangedAttack: 0
   AttackRange: 10
+  moveSpeed: 5
+  rotationSpeed: 400
+  RandomMovementRange: 30
 --- !u!1 &487209471
 GameObject:
   m_ObjectHideFlags: 0

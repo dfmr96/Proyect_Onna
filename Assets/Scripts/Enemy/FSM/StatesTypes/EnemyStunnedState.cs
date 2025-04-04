@@ -20,7 +20,6 @@ public class EnemyStunnedState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-
         _navMeshAgent.isStopped = true;
 
     }

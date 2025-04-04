@@ -77,6 +77,12 @@ public class EnemyAttackState : EnemyState
             _exitTimer = 0f;
         }
 
+        //Siempre mira al Player al atacar
+        enemy.transform.LookAt(new Vector3(_playerTransform.position.x, enemy.transform.position.y, _playerTransform.position.z));
+
+        //Movimiento mas suave (probar)
+        //Quaternion targetRotation = Quaternion.LookRotation(_playerTransform.position - enemy.transform.position);
+        //enemy.transform.rotation = Quaternion.Lerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
 
         _timer += Time.deltaTime;
 

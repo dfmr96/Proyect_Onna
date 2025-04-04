@@ -1,18 +1,24 @@
 using UnityEngine;
 
-public abstract class EnemyBase : MonoBehaviour, IDamageable
+public class EnemyBase : MonoBehaviour
 {
-    public float MaxHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-    public float CurrentHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    #region Vitality
+    [field: SerializeField] public float MaxHealth { get; set; } = 100f;
+    public float CurrentHealth { get; set; }
+    #endregion
 
-    public void Damage(float damageAmount)
-    {
-        throw new System.NotImplementedException();
-    }
+    #region Combat Stats
+    public float AttackDamage = 5f;
+    //Redundante resolver tomarlo del inspector o al reves
+    public bool isRangedAttack;
+    public float AttackRange = 10f;
+    #endregion
 
-    public void Die()
-    {
-        throw new System.NotImplementedException();
-    }
+    #region Movement
+    public float moveSpeed = 5f;
+    public float rotationSpeed = 400f;
+    public float RandomMovementRange = 30f;
+    #endregion
+    
 }
 

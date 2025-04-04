@@ -18,5 +18,4 @@ public class EnemyState
     public virtual void FrameUpdate() { }
 
 
-
 }

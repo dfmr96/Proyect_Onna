@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour, ITriggerCheck
+public class EnemyController : EnemyBase, ITriggerCheck
 {
-    public float moveSpeed = 5f;
-    public float rotationSpeed = 400f;
-    public float RandomMovementRange = 30f;
 
     private IAttack attackStrategy;
-    public bool isRangedAttack;
 
     private EnemyModel model;
     private EnemyView view;
