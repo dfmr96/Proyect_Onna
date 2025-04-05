@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using System;
 
 [CreateAssetMenu(fileName = "LevelProgression", menuName = "Game/LevelProgression")]
 public class LevelProgression : ScriptableObject
