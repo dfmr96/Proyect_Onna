@@ -32,6 +32,6 @@ MonoBehaviour:
   - {fileID: 102900000, guid: 29fc24f3ab9f23643a3f1b228791d4f9, type: 3}
   - {fileID: 102900000, guid: 5acfad3450138a44bb7af4f7a596aa69, type: 3}
   - {fileID: 102900000, guid: 843546b63b2e1ba4790006bf5df49305, type: 3}
-  currentRegion: 0
+  region_final: {fileID: 102900000, guid: 46edc5b8f5597714f9546e749da15331, type: 3}
   minRoomsPerLevel: 2
   maxRoomsPerLevel: 3

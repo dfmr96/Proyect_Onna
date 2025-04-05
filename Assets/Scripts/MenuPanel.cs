@@ -9,8 +9,8 @@ public class MenuPanel : MonoBehaviour
 
     public void PlayButton() 
     {
-        //SceneManagementUtils.AsyncLoadSceneByName(levelProgression.GetNextRoom(), loadCanvasPrefab, this);
-        Debug.Log(levelProgression.GetNextRoom());
+        levelProgression.ResetProgress();
+        SceneManagementUtils.AsyncLoadSceneByName(levelProgression.GetNextRoom(), loadCanvasPrefab, this);
     }
 
     public void ExitButton() { Application.Quit(); }

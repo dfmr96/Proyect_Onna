@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using System;
 
 [CreateAssetMenu(fileName = "LevelProgression", menuName = "Game/LevelProgression")]
 public class LevelProgression : ScriptableObject
@@ -9,6 +10,7 @@ public class LevelProgression : ScriptableObject
     public List<SceneAsset> region_1 = new List<SceneAsset>();
     public List<SceneAsset> region_2 = new List<SceneAsset>();
     public List<SceneAsset> region_3 = new List<SceneAsset>();
+    public SceneAsset region_final;
 
     public int minRoomsPerLevel = 2;
     public int maxRoomsPerLevel = 3;
@@ -21,15 +23,11 @@ public class LevelProgression : ScriptableObject
     {
         if (currentRoom >= roomsToPlay)
         {
-            Debug.Log("Entre a GetNextRoom()");
             currentRoom = 0;
             currentRegion += 1;
-            roomsToPlay = Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
+            roomsToPlay = UnityEngine.Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
 
-            if (currentRegion > 3)
-            {
-                //Aca deberia ir lo que pase cuando termina el juego, por ejemplo cargar un nivel unico donde haya un boss o algo asi
-            }
+            if (currentRegion > 3) return GetFinalRegion();
         }
         currentRoom += 1;
         return GetRandomSceneForCurrentRegion();
@@ -41,11 +39,13 @@ public class LevelProgression : ScriptableObject
 
         if (scenes != null && scenes.Count > 0)
         {
-            SceneAsset selectedScene = scenes[Random.Range(0, scenes.Count)];
+            SceneAsset selectedScene = scenes[UnityEngine.Random.Range(0, scenes.Count)];
             return selectedScene.name;
         }
         return null;
     }
+
+    private string GetFinalRegion() { return region_final.name; }
 
     private List<SceneAsset> GetScenesForCurrentRegion()
     {
@@ -63,6 +63,6 @@ public class LevelProgression : ScriptableObject
     {
         currentRegion = 0;
         currentRoom = 0;
-        roomsToPlay = Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
+        roomsToPlay = UnityEngine.Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
     }
 }
