@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
+
     #region Vitality
     [field: SerializeField] public float MaxHealth { get; set; } = 100f;
     public float CurrentHealth { get; set; }
@@ -19,6 +20,18 @@ public class EnemyBase : MonoBehaviour
     public float rotationSpeed = 400f;
     public float RandomMovementRange = 30f;
     #endregion
-    
+
+    #region RastroOrb
+    public RastroOrb orbPrefab;
+    public ObjectPool<RastroOrb> orbPool;
+    public int orbPoolSize = 5;
+    public bool RastroOrbOnHit = true;
+    public bool RastroOrbOnDeath = true;
+    #endregion
+
+    private void Awake()
+    {
+        orbPool = new ObjectPool<RastroOrb>(orbPrefab, orbPoolSize);
+    }
 }
 

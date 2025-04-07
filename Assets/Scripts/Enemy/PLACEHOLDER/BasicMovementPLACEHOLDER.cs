@@ -18,7 +18,7 @@ public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
     private bool isGrounded;
 
     [field: SerializeField] public float MaxHealth { get; set; } = 100f;
-    public float CurrentHealth { get; set; }
+    [field: SerializeField] public float CurrentHealth { get; set; }
 
     void Start()
     {
