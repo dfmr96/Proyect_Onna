@@ -1,11 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RastroOrb : MonoBehaviour
 {
-
-    private System.Action _onCollected;
+    public static event Action<float> OnOrbCollected;
+    private Action _onCollected;
 
     public float floatSpeed = 0.5f;
     public float floatAmplitude = 0.5f;
@@ -24,14 +25,9 @@ public class RastroOrb : MonoBehaviour
     {
         timer = lifetime;
         attractionTarget = null;
-
     }
 
-    void Start()
-    {
-        startPos = transform.position;
-
-    }
+    void Start() { startPos = transform.position; }
 
     void Update()
     {
@@ -47,10 +43,7 @@ public class RastroOrb : MonoBehaviour
             DeactivateOrb();
          }
 
-        if (attractionTarget == null)
-        {
-            CheckForAttraction();
-        }
+        if (attractionTarget == null) CheckForAttraction();
         else
         {
             float distance = Vector3.Distance(transform.position, attractionTarget.position);
@@ -82,10 +75,7 @@ public class RastroOrb : MonoBehaviour
         }
     }
 
-    public void Init(System.Action onCollected)
-    {
-        _onCollected = onCollected;
-    }
+    public void Init(System.Action onCollected) { _onCollected = onCollected; }
 
     private void DeactivateOrb()
     {
@@ -94,19 +84,19 @@ public class RastroOrb : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {
-            
-            IDamageable damageable = other.GetComponent<IDamageable>();
+    { 
+        IDamageable damageable = other.GetComponent<IDamageable>();
 
-            if (damageable != null)
-            {
-                damageable.CurrentHealth += healingAmount;
-                if (damageable.CurrentHealth > damageable.MaxHealth)
-                    damageable.CurrentHealth = damageable.MaxHealth;
+        if (damageable != null)
+        {
+            damageable.CurrentHealth += healingAmount;
+            if (damageable.CurrentHealth > damageable.MaxHealth)
+                damageable.CurrentHealth = damageable.MaxHealth;
 
-                _onCollected?.Invoke();
-            }
-       
+            OnOrbCollected?.Invoke(healingAmount);
+            _onCollected?.Invoke();
+        }
+
     }
 
 }

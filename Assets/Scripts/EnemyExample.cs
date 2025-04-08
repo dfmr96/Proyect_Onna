@@ -8,12 +8,14 @@ public class EnemyExample : MonoBehaviour, IDamageable
     public Action<GameObject> OnDie;
     public float MaxHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
     public float CurrentHealth { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    [SerializeField] private GameObject orbPrefab;
     private float _currentHealth = 1;
 
 
     public void Damage(float damageAmount) 
     {
         _currentHealth -= damageAmount;
+        Instantiate(orbPrefab, transform.position, Quaternion.identity);
         if (_currentHealth <= 0) Die();
     }
 
