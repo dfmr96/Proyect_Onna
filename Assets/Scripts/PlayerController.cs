@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour, Player_Input.IPlayerActions
     {
         _playerModel = new PlayerModel(5f, 100);
         _mainCamera = Camera.main;
-        _playerView.GetComponent<PlayerView>();
+        _playerView = GetComponent<PlayerView>();
         _playerView.Initialize();
     }
 
