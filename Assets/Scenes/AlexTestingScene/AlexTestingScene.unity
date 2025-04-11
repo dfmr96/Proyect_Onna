@@ -347,7 +347,6 @@ GameObject:
   - component: {fileID: 477078868}
   - component: {fileID: 477078865}
   - component: {fileID: 477078869}
-  - component: {fileID: 477078870}
   - component: {fileID: 477078871}
   - component: {fileID: 477078873}
   - component: {fileID: 477078872}
@@ -518,25 +517,6 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &477078870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 477078860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8495c445422430b4ea4d479c71835447, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  AttackDamage: 5
-  isRangedAttack: 0
-  AttackRange: 10
-  moveSpeed: 5
-  rotationSpeed: 400
-  RandomMovementRange: 30
 --- !u!114 &477078871
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -556,6 +536,10 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 400
   RandomMovementRange: 30
+  orbPrefab: {fileID: -2432096017035944209, guid: 078027728cd972a409dd8b7b65617d9e, type: 3}
+  orbPoolSize: 5
+  RastroOrbOnHit: 1
+  RastroOrbOnDeath: 1
   initialState: 0
 --- !u!114 &477078872
 MonoBehaviour:
@@ -576,6 +560,10 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 400
   RandomMovementRange: 30
+  orbPrefab: {fileID: -2432096017035944209, guid: 078027728cd972a409dd8b7b65617d9e, type: 3}
+  orbPoolSize: 5
+  RastroOrbOnHit: 1
+  RastroOrbOnDeath: 1
 --- !u!114 &477078873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -595,6 +583,10 @@ MonoBehaviour:
   moveSpeed: 5
   rotationSpeed: 400
   RandomMovementRange: 30
+  orbPrefab: {fileID: -2432096017035944209, guid: 078027728cd972a409dd8b7b65617d9e, type: 3}
+  orbPoolSize: 5
+  RastroOrbOnHit: 1
+  RastroOrbOnDeath: 1
 --- !u!1 &487209471
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,6 +1482,7 @@ MonoBehaviour:
     m_Bits: 128
   visionAngle: 150
   <MaxHealth>k__BackingField: 100
+  <CurrentHealth>k__BackingField: 0
 --- !u!143 &1755148477
 CharacterController:
   m_ObjectHideFlags: 0
