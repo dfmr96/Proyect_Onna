@@ -14,7 +14,7 @@ public class MeleeAttack : IAttack
     public void ExecuteAttack(IDamageable target)
     {
         target.Damage(damage);
-        Debug.Log("Melee attack executed!");
+        //Debug.Log("Melee attack executed!");
     }
 }
 

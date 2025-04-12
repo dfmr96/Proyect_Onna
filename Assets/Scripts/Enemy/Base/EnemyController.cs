@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyController : EnemyBase, ITriggerCheck
 {
@@ -10,6 +11,8 @@ public class EnemyController : EnemyBase, ITriggerCheck
     private EnemyModel model;
     private EnemyView view;
     private Rigidbody rb;
+
+    private NavMeshAgent _navMeshAgent;
 
     public bool isAggroed { get; set; }
     public bool isWhitinCombatRadius { get; set; }
@@ -60,6 +63,9 @@ public class EnemyController : EnemyBase, ITriggerCheck
 
     private void Start()
     {
+        _navMeshAgent = GetComponent<NavMeshAgent>();
+
+
         model.OnHealthChanged += HandleHealthChanged;
         model.OnDeath += HandleDeath;
 
@@ -80,6 +86,9 @@ public class EnemyController : EnemyBase, ITriggerCheck
         fsm.CurrentEnemyState.FrameUpdate();
 
         Debug.Log(fsm.CurrentEnemyState);
+
+        //Animacion de Movimiento
+        view.PlayMovingAnimation(_navMeshAgent.speed);
     }
 
     private void InitializeState()
@@ -110,13 +119,15 @@ public class EnemyController : EnemyBase, ITriggerCheck
     public void ExecuteAttack(IDamageable target)
     {
         attackStrategy.ExecuteAttack(target);  
-        view.PlayAttackAnimation();  
+        //view.PlayAttackAnimation();  
     }
 
     private void HandleHealthChanged(float currentHealth)
     {
         float healthPercentage = currentHealth / model.MaxHealth;
-        view.UpdateHealthBar(healthPercentage);
+
+        //fsm.ChangeState(IdleState);
+        //view.UpdateHealthBar(healthPercentage);
     }
 
     private void HandleDeath()
@@ -124,10 +135,10 @@ public class EnemyController : EnemyBase, ITriggerCheck
         view.PlayDeathAnimation();
         Destroy(gameObject, 1f); 
     }
-    public virtual void Attack()
-    {
-        view.PlayAttackAnimation();
-    }
+    //public virtual void Attack()
+    //{
+    //    view.PlayAttackAnimation();
+    //}
 
 
 

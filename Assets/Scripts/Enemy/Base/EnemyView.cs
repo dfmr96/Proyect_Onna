@@ -11,10 +11,10 @@ public class EnemyView : EnemyBase
         animator = GetComponent<Animator>();
     }
 
-    public void PlayAttackAnimation()
+    public void PlayAttackAnimation(bool isAttacking)
     {
-        //animator.SetTrigger("Attack");
-        Debug.Log("Enemy has attacked");
+        animator.SetBool("IsAttacking", isAttacking);
+    
     }
 
     public void PlayIdleAnimation()
@@ -22,9 +22,9 @@ public class EnemyView : EnemyBase
         //animator.SetTrigger("Idle");
     }
 
-    public void PlayMovingAnimation()
+    public void PlayMovingAnimation(float moveSpeed)
     {
-        //animator.SetTrigger("Moving");
+        animator.SetFloat("MoveSpeed", moveSpeed);
     }
 
     public void PlayStunnedAnimation()
@@ -34,7 +34,7 @@ public class EnemyView : EnemyBase
 
     public void PlayDamageAnimation()
     {
-        //animator.SetTrigger("Damage");
+        animator.SetTrigger("IsDamaged");
     }
 
     public void PlayDeathAnimation()

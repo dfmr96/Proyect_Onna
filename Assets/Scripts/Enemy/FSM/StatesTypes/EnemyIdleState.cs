@@ -7,6 +7,7 @@ public class EnemyIdleState : EnemyState
 {
 
     private NavMeshAgent _navMeshAgent;
+    private float initialSpeed;
 
     public EnemyIdleState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
@@ -17,8 +18,8 @@ public class EnemyIdleState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-
-     
+        initialSpeed = _navMeshAgent.speed;
+        _navMeshAgent.speed = 0;
         _navMeshAgent.isStopped = true;
 
     }
@@ -26,7 +27,7 @@ public class EnemyIdleState : EnemyState
     public override void ExitState()
     {
         base.ExitState();
-
+        _navMeshAgent.speed = initialSpeed;
         _navMeshAgent.isStopped = false;
 
     }
