@@ -763,17 +763,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15090d3ae99f0744785b069fb322afa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  AttackDamage: 5
-  isRangedAttack: 0
-  AttackRange: 10
-  moveSpeed: 5
-  rotationSpeed: 400
-  RandomMovementRange: 30
-  orbPrefab: {fileID: -2432096017035944209, guid: 078027728cd972a409dd8b7b65617d9e, type: 3}
-  orbPoolSize: 5
-  RastroOrbOnHit: 1
-  RastroOrbOnDeath: 1
 --- !u!114 &477078873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8858,17 +8847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15090d3ae99f0744785b069fb322afa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  AttackDamage: 5
-  isRangedAttack: 0
-  AttackRange: 20
-  moveSpeed: 5
-  rotationSpeed: 400
-  RandomMovementRange: 30
-  orbPrefab: {fileID: -2432096017035944209, guid: 078027728cd972a409dd8b7b65617d9e, type: 3}
-  orbPoolSize: 5
-  RastroOrbOnHit: 1
-  RastroOrbOnDeath: 1
 --- !u!1 &3490026886188513657
 GameObject:
   m_ObjectHideFlags: 0

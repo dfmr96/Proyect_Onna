@@ -8,6 +8,7 @@ public class EnemyIdleState : EnemyState
 
     private NavMeshAgent _navMeshAgent;
     private float initialSpeed;
+ 
 
     public EnemyIdleState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
@@ -36,7 +37,10 @@ public class EnemyIdleState : EnemyState
     {
         base.FrameUpdate();
 
-   
+        base.FrameUpdate();
+
+    
+
     }
 
    

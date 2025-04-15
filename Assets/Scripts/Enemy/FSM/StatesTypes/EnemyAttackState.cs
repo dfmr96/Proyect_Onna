@@ -17,7 +17,6 @@ public class EnemyAttackState : EnemyState
 
     //Delay para que no ataque de una y darle un poco mas de efecto
     private float _initialAttackDelay = 0.3f;
-    private float _animationAttackDelay = 0.4f;
 
     private float _exitTimer;
     private float _timeTillExit;
@@ -45,7 +44,7 @@ public class EnemyAttackState : EnemyState
 
         _enemyModel = enemy.GetComponent<EnemyModel>();
         _enemyView = enemy.GetComponent<EnemyView>();   
-        _enemyModel.OnHealthChanged += HandleHealthChanged;
+        //_enemyModel.OnHealthChanged += HandleHealthChanged;
 
 
         _navMeshAgent.SetDestination(_playerTransform.position);
@@ -58,7 +57,7 @@ public class EnemyAttackState : EnemyState
     public override void ExitState()
     {
         base.ExitState();
-        _enemyModel.OnHealthChanged -= HandleHealthChanged;
+        //_enemyModel.OnHealthChanged -= HandleHealthChanged;
         _enemyView.PlayAttackAnimation(false);
         _hasAttackedOnce = false;
 
@@ -112,7 +111,6 @@ public class EnemyAttackState : EnemyState
         {
             if (_timer >= _initialAttackDelay)
             {
-                Debug.Log("entroooo");
                 Attack();
                 _hasAttackedOnce = true;
                 _timer = 0f; 
@@ -127,35 +125,31 @@ public class EnemyAttackState : EnemyState
 
    private void Attack()
     {
-        //ejecuta primero la animacion
-        _enemyView.PlayAttackAnimation(true);
+    
 
-        //corrutina para aplicar el dano despues de la animacion
-        enemy.StartCoroutine(DelayedDamage(_animationAttackDelay));  
-    }
-
-    private IEnumerator DelayedDamage(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (_playerTransform == null) yield break;
-
-        float distanceToPlayer = Vector3.Distance(_playerTransform.position, enemy.transform.position);
-
-        //Si se alejo no aplicar daño
-        if (distanceToPlayer > _distanceToCountExit) yield break; 
-
-
-        IDamageable damageablePlayer = _playerTransform.GetComponent<IDamageable>();
-        enemy.ExecuteAttack(damageablePlayer);
-        _enemyView.PlayAttackAnimation(false);
-    }
-
-    private void HandleHealthChanged(float currentHealth)
-    {
-        if (_timer >= _initialAttackDelay)
+        if (_playerTransform != null)
         {
-            fsm.ChangeState(enemy.StunnedState);
+            float distanceToPlayer = Vector3.Distance(_playerTransform.position, enemy.transform.position);
+
+            //Si se alejo no aplicar dano
+            if (distanceToPlayer <= _distanceToCountExit)
+            {
+                _enemyView.PlayAttackAnimation(true);
+            }
         }
+
+       
+
+       
     }
+
+
+
+    //private void HandleHealthChanged(float currentHealth)
+    //{
+    //    if (_timer >= _initialAttackDelay)
+    //    {
+    //        fsm.ChangeState(enemy.StunnedState);
+    //    }
+    //}
 }

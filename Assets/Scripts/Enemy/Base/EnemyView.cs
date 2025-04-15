@@ -2,15 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyView : EnemyBase
+public class EnemyView : MonoBehaviour
 {
     private Animator animator;
+    private Transform _playerTransform;
+    private EnemyController _enemyController;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
+    private void Start()
+    {
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        _enemyController = GetComponent<EnemyController>();
 
+
+    }
+
+    //ActionEvent de Ataque
+    public void AnimationAttackFunc()
+    {
+        IDamageable damageablePlayer = _playerTransform.GetComponent<IDamageable>();
+        _enemyController.ExecuteAttack(damageablePlayer);
+    }
+
+
+
+    //Animaciones
     public void PlayAttackAnimation(bool isAttacking)
     {
         animator.SetBool("IsAttacking", isAttacking);

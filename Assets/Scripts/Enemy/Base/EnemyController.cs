@@ -118,16 +118,17 @@ public class EnemyController : EnemyBase, ITriggerCheck
 
     public void ExecuteAttack(IDamageable target)
     {
-        attackStrategy.ExecuteAttack(target);  
-        //view.PlayAttackAnimation();  
+       attackStrategy.ExecuteAttack(target);  
+       view.PlayAttackAnimation(false);
+
     }
 
     private void HandleHealthChanged(float currentHealth)
     {
         float healthPercentage = currentHealth / model.MaxHealth;
 
-        //fsm.ChangeState(IdleState);
-        //view.UpdateHealthBar(healthPercentage);
+        //Cuando lo hieren pasa a stunneado
+        fsm.ChangeState(StunnedState);
     }
 
     private void HandleDeath()

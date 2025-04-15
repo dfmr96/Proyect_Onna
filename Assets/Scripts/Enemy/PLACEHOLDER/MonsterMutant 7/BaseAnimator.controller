@@ -103,7 +103,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MonsterMutant7 Animator Controller
+  m_Name: BaseAnimator
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: MoveSpeed
@@ -1626,7 +1626,7 @@ AnimatorStateMachine:
     m_Position: {x: 80, y: 640, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102874406689421618}
-    m_Position: {x: -220, y: -170, z: 0}
+    m_Position: {x: -410, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102069357711656352}
     m_Position: {x: 90, y: 780, z: 0}
@@ -1687,7 +1687,7 @@ AnimatorStateMachine:
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 70, y: -270, z: 0}
+  m_AnyStatePosition: {x: -180, y: -300, z: 0}
   m_EntryPosition: {x: -1000, y: -540, z: 0}
   m_ExitPosition: {x: 670, y: -220, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
