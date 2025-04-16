@@ -26,6 +26,8 @@ public class EnemyController : EnemyBase, ITriggerCheck
     public EnemySearchState SearchState { get; set; }
     public EnemyIdleState IdleState { get; set; }
     public EnemyStunnedState StunnedState { get; set; }
+    public EnemyDeadState DeadState { get; set; }
+
 
     public enum InitialState
     {
@@ -34,7 +36,8 @@ public class EnemyController : EnemyBase, ITriggerCheck
         Attack,
         Search,
         Idle,
-        Stunned
+        Stunned,
+        Dead
     }
 
     public InitialState initialState = InitialState.Patrol;
@@ -57,6 +60,7 @@ public class EnemyController : EnemyBase, ITriggerCheck
         SearchState = new EnemySearchState(this, fsm);
         StunnedState = new EnemyStunnedState(this, fsm);
         IdleState = new EnemyIdleState(this, fsm);
+        DeadState = new EnemyDeadState(this, fsm);
 
     }
 
@@ -110,9 +114,8 @@ public class EnemyController : EnemyBase, ITriggerCheck
             case InitialState.Idle:
                 fsm.Initialize(IdleState);
                 break;
-            case InitialState.Stunned:
-                fsm.Initialize(StunnedState);
-                break;
+         
+           
         }
     }
 
@@ -133,8 +136,9 @@ public class EnemyController : EnemyBase, ITriggerCheck
 
     private void HandleDeath()
     {
-        view.PlayDeathAnimation();
-        Destroy(gameObject, 1f); 
+        fsm.ChangeState(DeadState);
+        //view.PlayDeathAnimation();
+        //Destroy(gameObject, 1f); 
     }
     //public virtual void Attack()
     //{

@@ -51,7 +51,7 @@ public class EnemyModel : EnemyBase, IDamageable
         }
 
         OnDeath?.Invoke();
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     public void SpawnHealingOrb()

@@ -1956,7 +1956,7 @@ MonoBehaviour:
   speed: 10
   gravity: 9.81
   attackRange: 3
-  attackDamage: 5
+  attackDamage: 20
   enemyLayer:
     serializedVersion: 2
     m_Bits: 128
