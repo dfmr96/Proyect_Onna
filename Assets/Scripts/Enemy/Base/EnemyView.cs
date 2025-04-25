@@ -2,19 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyView : EnemyBase
+public class EnemyView : MonoBehaviour
 {
     private Animator animator;
+    private Transform _playerTransform;
+    private EnemyController _enemyController;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
     }
-
-    public void PlayAttackAnimation()
+    private void Start()
     {
-        //animator.SetTrigger("Attack");
-        Debug.Log("Enemy has attacked");
+        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        _enemyController = GetComponent<EnemyController>();
+
+
+    }
+
+    //ActionEvent de Ataque
+    public void AnimationAttackFunc()
+    {
+        IDamageable damageablePlayer = _playerTransform.GetComponent<IDamageable>();
+        _enemyController.ExecuteAttack(damageablePlayer);
+    }
+
+
+
+    //Animaciones
+    public void PlayAttackAnimation(bool isAttacking)
+    {
+        animator.SetBool("IsAttacking", isAttacking);
+    
     }
 
     public void PlayIdleAnimation()
@@ -22,9 +41,9 @@ public class EnemyView : EnemyBase
         //animator.SetTrigger("Idle");
     }
 
-    public void PlayMovingAnimation()
+    public void PlayMovingAnimation(float moveSpeed)
     {
-        //animator.SetTrigger("Moving");
+        animator.SetFloat("MoveSpeed", moveSpeed);
     }
 
     public void PlayStunnedAnimation()
@@ -34,12 +53,15 @@ public class EnemyView : EnemyBase
 
     public void PlayDamageAnimation()
     {
-        //animator.SetTrigger("Damage");
+        animator.SetTrigger("IsDamaged");
     }
 
     public void PlayDeathAnimation()
     {
-        //animator.SetTrigger("Die");
+        animator.SetTrigger("IsDead");
+        //Cambiar a Manager de Destroys
+        Destroy(gameObject, 4f);
+
     }
 
     public void UpdateHealthBar(float healthPercentage)

@@ -8,7 +8,7 @@ public class EnemyStunnedState : EnemyState
 
     private NavMeshAgent _navMeshAgent;
     private float _timer;
-    private float _timeStun = 2f;
+    private float _timeStun = 1f;
 
 
     public EnemyStunnedState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)

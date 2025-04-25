@@ -10,8 +10,12 @@ public class EnemyAttackState : EnemyState
     private NavMeshAgent _navMeshAgent;
     float distanceToPlayer;
 
+    private float initialSpeed;
+
     private float _timer;
     private float _timeBetweenAttacks = 1.5f;
+
+    //Delay para que no ataque de una y darle un poco mas de efecto
     private float _initialAttackDelay = 0.3f;
 
     private float _exitTimer;
@@ -21,6 +25,7 @@ public class EnemyAttackState : EnemyState
     private bool _hasAttackedOnce = false;
 
     private EnemyModel _enemyModel;
+    private EnemyView _enemyView;
 
     public EnemyAttackState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
@@ -33,15 +38,18 @@ public class EnemyAttackState : EnemyState
     {
         base.EnterState();
 
-        _enemyModel = enemy.GetComponent<EnemyModel>();
+        initialSpeed = _navMeshAgent.speed;
 
-        _enemyModel.OnHealthChanged += HandleHealthChanged;
+        _navMeshAgent.speed = 0.5f;
+
+        _enemyModel = enemy.GetComponent<EnemyModel>();
+        _enemyView = enemy.GetComponent<EnemyView>();   
+        //_enemyModel.OnHealthChanged += HandleHealthChanged;
 
 
         _navMeshAgent.SetDestination(_playerTransform.position);
-        _timer = 0f; 
+        _timer = 0f;
         _hasAttackedOnce = false;
-
 
 
     }
@@ -49,15 +57,26 @@ public class EnemyAttackState : EnemyState
     public override void ExitState()
     {
         base.ExitState();
-        _enemyModel.OnHealthChanged -= HandleHealthChanged;
+        //_enemyModel.OnHealthChanged -= HandleHealthChanged;
+        _enemyView.PlayAttackAnimation(false);
+        _hasAttackedOnce = false;
 
+        _navMeshAgent.speed = initialSpeed;
     }
 
     public override void FrameUpdate()
     {
         base.FrameUpdate();
 
-        if (_playerTransform == null) return; 
+        _timer += Time.deltaTime;
+
+        //Si el Player muere durante el atque el enemigo se pone en idle
+        if (_playerTransform == null)
+        {
+
+            fsm.ChangeState(enemy.IdleState);
+            return;
+        }
 
         distanceToPlayer = Vector3.Distance(_playerTransform.position, enemy.transform.position);
 
@@ -67,6 +86,7 @@ public class EnemyAttackState : EnemyState
 
             if(_exitTimer > _timeTillExit)
             {
+                _enemyView.PlayAttackAnimation(false);
                 fsm.ChangeState(enemy.SearchState);
 
             }
@@ -84,7 +104,7 @@ public class EnemyAttackState : EnemyState
         //Quaternion targetRotation = Quaternion.LookRotation(_playerTransform.position - enemy.transform.position);
         //enemy.transform.rotation = Quaternion.Lerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
 
-        _timer += Time.deltaTime;
+       
 
 
         if (!_hasAttackedOnce)
@@ -105,16 +125,31 @@ public class EnemyAttackState : EnemyState
 
    private void Attack()
     {
-        //aplicar interfaz de ataque
-        IDamageable damageablePlayer = _playerTransform.GetComponent<IDamageable>();
-        enemy.ExecuteAttack(damageablePlayer);
+    
+
+        if (_playerTransform != null)
+        {
+            float distanceToPlayer = Vector3.Distance(_playerTransform.position, enemy.transform.position);
+
+            //Si se alejo no aplicar dano
+            if (distanceToPlayer <= _distanceToCountExit)
+            {
+                _enemyView.PlayAttackAnimation(true);
+            }
+        }
+
+       
+
+       
     }
 
-    private void HandleHealthChanged(float currentHealth)
-    {
-        if (_timer >= _initialAttackDelay)
-        {
-            fsm.ChangeState(enemy.StunnedState);
-        }
-    }
+
+
+    //private void HandleHealthChanged(float currentHealth)
+    //{
+    //    if (_timer >= _initialAttackDelay)
+    //    {
+    //        fsm.ChangeState(enemy.StunnedState);
+    //    }
+    //}
 }

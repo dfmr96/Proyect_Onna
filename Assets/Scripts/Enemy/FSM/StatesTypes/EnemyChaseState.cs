@@ -25,7 +25,7 @@ public class EnemyChaseState : EnemyState
     public override void ExitState()
     {
         base.ExitState();
-
+        //_navMeshAgent.speed = _navMeshAgent.speed - 2;
     }
 
     public override void FrameUpdate()
