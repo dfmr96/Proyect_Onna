@@ -1,13 +1,14 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+[Serializable]
 public class ObjectPool<T> where T : MonoBehaviour
 {
     private T prefab;
     private Transform parent;
-    private List<T> pool;
+    [SerializeField] List<T> pool;
 
     public ObjectPool(T prefab, int initialSize, Transform parent = null)
     {
