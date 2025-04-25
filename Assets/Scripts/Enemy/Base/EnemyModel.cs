@@ -10,12 +10,15 @@ public class EnemyModel : EnemyBase, IDamageable
     public event Action<float> OnHealthChanged;
     public event Action OnDeath;
 
- 
+    private EnemyView view;
+
 
     private void Start()
     {
         CurrentHealth = MaxHealth;
-              
+        view = GetComponent<EnemyView>();
+
+
     }
 
     public void Damage(float damageAmount)
@@ -30,6 +33,7 @@ public class EnemyModel : EnemyBase, IDamageable
 
         CurrentHealth -= damageAmount;
         OnHealthChanged?.Invoke(CurrentHealth);
+        view.PlayDamageAnimation();
 
         if (CurrentHealth <= 0)
         {
@@ -47,7 +51,7 @@ public class EnemyModel : EnemyBase, IDamageable
         }
 
         OnDeath?.Invoke();
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     public void SpawnHealingOrb()

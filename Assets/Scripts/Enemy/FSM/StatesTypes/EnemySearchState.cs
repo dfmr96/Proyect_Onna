@@ -56,6 +56,9 @@ public class EnemySearchState : EnemyState
         {
             _patrolTimer += Time.deltaTime;
 
+            //Busca caminado lento
+            _navMeshAgent.speed = 0.9f;
+
             if (_patrolTimer > _patrolTime)
             {
                 fsm.ChangeState(enemy.PatrolState); 

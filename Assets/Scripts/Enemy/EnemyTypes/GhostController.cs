@@ -21,11 +21,11 @@ public class GhostEnemyController : EnemyController
 
     //}
 
-    public override void Attack()
-    {
-        base.Attack(); 
+    //public override void Attack()
+    //{
+    //    base.Attack(); 
      
-    }
+    //}
 
  
 }

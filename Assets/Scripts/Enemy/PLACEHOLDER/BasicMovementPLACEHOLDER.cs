@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
 {
+    private Renderer rend;
+    private Color originalColor;
+
     public float speed = 5f;
     public float gravity = 9.81f;
 
@@ -23,7 +26,10 @@ public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
     void Start()
     {
         controller = GetComponent<CharacterController>();
-        CurrentHealth = MaxHealth;  
+        CurrentHealth = MaxHealth;
+
+        rend = GetComponent<Renderer>(); 
+        originalColor = rend.material.color;
     }
 
     void Update()
@@ -53,23 +59,16 @@ public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
 
     private void Attack()
     {
-        RaycastHit hit;
+        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, enemyLayer);
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, attackRange, enemyLayer))
+        foreach (var hit in hits)
         {
-            Vector3 toEnemy = hit.collider.transform.position - transform.position;
-
-            float angle = Vector3.Angle(transform.forward, toEnemy);
-
-            if (angle <= visionAngle / 2f)
+            IDamageable enemy = hit.GetComponent<IDamageable>();
+            if (enemy != null)
             {
-                IDamageable enemy = hit.collider.GetComponent<IDamageable>();
+                enemy.Damage(attackDamage);
+                StartCoroutine(FlashAttack());
 
-                if (enemy != null)
-                {
-                    enemy.Damage(attackDamage);
-                    Debug.Log("ENEMY ATTACKED");
-                }
             }
         }
     }
@@ -78,6 +77,8 @@ public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
     {
         CurrentHealth -= damage;
 
+        //Efecto de daño
+        StartCoroutine(FlashDamage());
 
         if (CurrentHealth <= 0)
         {
@@ -85,6 +86,21 @@ public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
         }
 
     }
+
+    private IEnumerator FlashDamage()
+    {
+        rend.material.color = Color.red;
+        yield return new WaitForSeconds(0.15f);
+        rend.material.color = originalColor;
+    }
+
+    private IEnumerator FlashAttack()
+    {
+        rend.material.color = Color.blue;
+        yield return new WaitForSeconds(0.15f);
+        rend.material.color = originalColor;
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

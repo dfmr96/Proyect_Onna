@@ -18,7 +18,8 @@ public class EnemyPatrolState : EnemyState
     {
         base.EnterState();
 
-        _navMeshAgent.speed = enemy.moveSpeed;  
+        //Se obliga a que el enemigo camine
+        _navMeshAgent.speed = enemy.moveSpeed - 2;  
         _navMeshAgent.angularSpeed = enemy.rotationSpeed;
 
         _targetPos = GetRandomPointInSphere();
@@ -31,7 +32,7 @@ public class EnemyPatrolState : EnemyState
     public override void ExitState()
     {
         base.ExitState();
-
+        _navMeshAgent.speed += 2;
         //_navMeshAgent.isStopped = true;
 
     }
