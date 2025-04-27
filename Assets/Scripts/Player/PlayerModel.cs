@@ -9,7 +9,7 @@ public class PlayerModel: MonoBehaviour, IDamagable, IHealable
     [SerializeField] private CharacterBaseStats data;
 
     private float maxTime;
-    private float currentTime;
+    [SerializeField] float currentTime;
     public float TimeDrainRate { get; private set; }
     public float Speed { get; private set; }
 
