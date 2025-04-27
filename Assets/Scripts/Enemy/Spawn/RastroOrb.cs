@@ -85,13 +85,15 @@ public class RastroOrb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     { 
-        IDamageable damageable = other.GetComponent<IDamageable>();
+        //IDamageable damageable = other.GetComponent<IDamageable>();
+        IHealable healable = other.GetComponent<IHealable>();
 
-        if (damageable != null)
+        if (healable != null)
         {
-            damageable.CurrentHealth += healingAmount;
-            if (damageable.CurrentHealth > damageable.MaxHealth)
-                damageable.CurrentHealth = damageable.MaxHealth;
+            //damageable.CurrentHealth += healingAmount;
+            //if (damageable.CurrentHealth > damageable.MaxHealth)
+            //    damageable.CurrentHealth = damageable.MaxHealth;
+            healable.RecoverTime(healingAmount);
 
             OnOrbCollected?.Invoke(healingAmount);
             _onCollected?.Invoke();
