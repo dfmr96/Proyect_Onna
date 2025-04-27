@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     private void UpdateTimeUI(float timePercent) 
     {
         timeCircle.fillAmount = timePercent;
-        if (timePercent < 0.97f)
+        if (timePercent < 0.25f)
         {
             float pulse = 1 + Mathf.Sin(Time.time * 10f) * 0.05f;
             timeCircle.transform.localScale = new Vector3(pulse, pulse, 1);

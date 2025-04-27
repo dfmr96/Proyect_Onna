@@ -2232,7 +2232,6 @@ GameObject:
   - component: {fileID: 1312992447}
   - component: {fileID: 1312992449}
   - component: {fileID: 1312992448}
-  - component: {fileID: 1312992450}
   m_Layer: 5
   m_Name: TimeCircle
   m_TagString: Untagged
@@ -2297,27 +2296,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312992446}
   m_CullTransparentMesh: 1
---- !u!95 &1312992450
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1312992446}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 934d1006e36daa54a8ac2a59d0698980, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1343789988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2452,7 +2430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7167f0bd7393b854eb6133f5a1571f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeCounter: {fileID: 1312992446}
+  timeCircle: {fileID: 1312992448}
 --- !u!4 &1514527542
 Transform:
   m_ObjectHideFlags: 0
