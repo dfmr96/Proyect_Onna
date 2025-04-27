@@ -1,3 +1,4 @@
+using Enemy.Spawn;
 using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
