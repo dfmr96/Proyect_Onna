@@ -20,6 +20,8 @@ public class RastroOrb : MonoBehaviour
 
     private float timer;
     private Vector3 startPos;
+    
+    [SerializeField] private List<Collider> colliders = new List<Collider>();
 
     private void OnEnable()
     {
@@ -63,8 +65,9 @@ public class RastroOrb : MonoBehaviour
 
     private void CheckForAttraction()
     {
+        Debug.Log("[ORB] Checking for attraction");
         Collider[] hits = Physics.OverlapSphere(transform.position, attractionRadius, attractionLayer);
-
+        colliders = new List<Collider>(hits);
         foreach (Collider hit in hits)
         {
             if (hit.CompareTag("Player"))
@@ -85,18 +88,26 @@ public class RastroOrb : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     { 
-        IDamageable damageable = other.GetComponent<IDamageable>();
-
-        if (damageable != null)
+        //IDamageable damageable = other.GetComponent<IDamageable>();
+        IHealable healable = other.GetComponent<IHealable>();
+        Debug.Log($"[ORB] Collided with {other.name} - healable: {healable}");
+        if (healable != null)
         {
-            damageable.CurrentHealth += healingAmount;
-            if (damageable.CurrentHealth > damageable.MaxHealth)
-                damageable.CurrentHealth = damageable.MaxHealth;
-
+            //damageable.CurrentHealth += healingAmount;
+            //if (damageable.CurrentHealth > damageable.MaxHealth)
+            //    damageable.CurrentHealth = damageable.MaxHealth;
+            healable.RecoverTime(healingAmount);
+            
             OnOrbCollected?.Invoke(healingAmount);
             _onCollected?.Invoke();
+            DeactivateOrb();
         }
 
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, attractionRadius);
+    }
 }
