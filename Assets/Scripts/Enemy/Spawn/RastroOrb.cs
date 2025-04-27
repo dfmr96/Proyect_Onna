@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
 namespace Enemy.Spawn
@@ -19,18 +20,14 @@ namespace Enemy.Spawn
         [SerializeField] private float lifetime = 5f;
 
         [Header("Attraction Settings")]
-        [SerializeField] private LayerMask attractionLayer; 
         [SerializeField] private float attractionRadius = 5f;
         [SerializeField] private float attractionSpeed = 5f;
-
-    
-        [Header("Debug")]
-        [SerializeField] private List<Collider> colliders = new List<Collider>();
-
+        
         private Transform attractionTarget;
         private Action _onCollected;
         private float timer;
         private Vector3 startPos;
+        private GameObject playerGO;
     
         //----------------------------------------------------------------------
         // Unity Methods
@@ -39,9 +36,18 @@ namespace Enemy.Spawn
         {
             timer = lifetime;
             attractionTarget = null;
+            playerGO = PlayerHelper.GetPlayer();
+            
+            if (playerGO == null)
+            {
+                Debug.LogWarning("[ORB] No player found at OnEnable. Attraction will not work.");
+            }
         }
 
-        void Start() { startPos = transform.position; }
+        void Start()
+        {
+            startPos = transform.position;
+        }
 
         void Update()
         {
@@ -54,11 +60,10 @@ namespace Enemy.Spawn
         private void OnTriggerEnter(Collider other)
         { 
             if (!IsPlayer(other)) return;
-            HealPlayer(other);
+            HealPlayer();
             OnOrbCollected?.Invoke(healingAmount);
             _onCollected?.Invoke();
             DeactivateOrb();
-
         }
     
         private void OnDrawGizmos()
@@ -70,7 +75,10 @@ namespace Enemy.Spawn
         //----------------------------------------------------------------------
         // Public methods
         //----------------------------------------------------------------------
-        public void Init(Action onCollected) { _onCollected = onCollected; }
+        public void Init(Action onCollected)
+        {
+            _onCollected = onCollected;
+        }
     
         //----------------------------------------------------------------------
         // Private methods
@@ -78,8 +86,9 @@ namespace Enemy.Spawn
     
         private void HandleFloating()
         {
-            float newY = startPos.y + Mathf.Sin(Time.time * floatSpeed) * floatAmplitude;
-            transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+            Vector3 position = transform.position;
+            position.y = startPos.y + Mathf.Sin(Time.time * floatSpeed) * floatAmplitude;
+            transform.position = position;
         }
         private void HandleLifetime()
         {
@@ -94,7 +103,7 @@ namespace Enemy.Spawn
         {
             if (attractionTarget == null)
             {
-                SearchForAttractionTarget();
+                TryStartAttraction();
             }
             else
             {
@@ -102,15 +111,15 @@ namespace Enemy.Spawn
             }
         }
     
-        private void SearchForAttractionTarget()
+        private void TryStartAttraction()
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, attractionRadius, attractionLayer);
-            colliders = new List<Collider>(hits);
+            if (playerGO == null)
+                return;
 
-            foreach (Collider hit in hits)
+            float distance = Vector3.Distance(transform.position, playerGO.transform.position);
+            if (distance <= attractionRadius)
             {
-                attractionTarget = hit.transform; // No es necesario CheckTag porque ya usamos LayerMask
-                break;
+                attractionTarget = playerGO.transform;
             }
         }
     
@@ -128,12 +137,14 @@ namespace Enemy.Spawn
         }
         private bool IsPlayer(Collider other)
         {
-            return other.CompareTag("Player") && other.GetComponent<IHealable>() != null;
+            return other.gameObject == playerGO;
         }
-        private void HealPlayer(Collider playerCollider)
+        private void HealPlayer()
         {
-            IHealable healable = playerCollider.GetComponent<IHealable>();
-            healable?.RecoverTime(healingAmount);
+            if (playerGO.TryGetComponent(out IHealable healable))
+            {
+                healable.RecoverTime(healingAmount);
+            }
         }
 
         private void DeactivateOrb()
