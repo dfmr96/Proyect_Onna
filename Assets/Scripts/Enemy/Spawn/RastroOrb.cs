@@ -36,19 +36,14 @@ namespace Enemy.Spawn
         {
             timer = lifetime;
             attractionTarget = null;
-            playerGO = PlayerHelper.GetPlayer();
-            
-            if (playerGO == null)
-            {
-                Debug.LogWarning("[ORB] No player found at OnEnable. Attraction will not work.");
-            }
         }
 
         void Start()
         {
             startPos = transform.position;
+            GetPlayer();
         }
-
+        
         void Update()
         {
             timer -= Time.deltaTime;
@@ -84,6 +79,16 @@ namespace Enemy.Spawn
         // Private methods
         //----------------------------------------------------------------------
     
+        private void GetPlayer()
+        {
+            playerGO = PlayerHelper.GetPlayer();
+
+            if (playerGO == null)
+            {
+                Debug.LogWarning("[ORB] No player found. Attraction will not work.");
+            }
+        }
+        
         private void HandleFloating()
         {
             Vector3 position = transform.position;
