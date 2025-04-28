@@ -12,24 +12,24 @@ public class EnemyModel : EnemyBase, IDamageable
     public event Action OnDeath;
 
     private EnemyView view;
+    private OrbSpawner orbSpawner;
 
 
     private void Start()
     {
         CurrentHealth = MaxHealth;
         view = GetComponent<EnemyView>();
-
+        orbSpawner = FindObjectOfType<OrbSpawner>();
 
     }
 
     public void Damage(float damageAmount)
     {
 
-        if (RastroOrbOnHit)
-        {
-            
-            SpawnHealingOrb();
 
+        if (RastroOrbOnHit && orbSpawner != null)
+        {
+            orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
         }
 
         CurrentHealth -= damageAmount;
@@ -44,26 +44,18 @@ public class EnemyModel : EnemyBase, IDamageable
 
     public void Die()
     {
-        if (RastroOrbOnDeath)
+      
+
+        if (RastroOrbOnDeath && orbSpawner != null)
         {
             //Al morir se instancian 2 orbes
-            SpawnHealingOrb();
-            SpawnHealingOrb();
+            orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
+            orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
         }
 
         OnDeath?.Invoke();
-        //Destroy(gameObject);
     }
 
-    public void SpawnHealingOrb()
-    {
-        RastroOrb orb = orbPool.Get();
-
-        //Se instancian detras del enemigo
-        Vector3 spawnPos = transform.position - transform.forward * 1.5f + Vector3.up * 0.5f;
-        orb.transform.position = spawnPos;
-
-        orb.Init(() => orbPool.Release(orb));
-    }
+ 
 }
 

@@ -1,3 +1,4 @@
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,9 @@ public class EnemySearchState : EnemyState
 
     public EnemySearchState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        _playerTransform = PlayerHelper.GetPlayer().transform;
+
         _navMeshAgent = enemy.GetComponent<NavMeshAgent>();
     }
 

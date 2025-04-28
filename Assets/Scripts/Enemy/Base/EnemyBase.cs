@@ -23,16 +23,9 @@ public class EnemyBase : MonoBehaviour
     #endregion
 
     #region RastroOrb
-    public RastroOrb orbPrefab;
-    public ObjectPool<RastroOrb> orbPool;
-    public int orbPoolSize = 5;
     public bool RastroOrbOnHit = true;
     public bool RastroOrbOnDeath = true;
     #endregion
 
-    private void Awake()
-    {
-        orbPool = new ObjectPool<RastroOrb>(orbPrefab, orbPoolSize);
-    }
 }
 
