@@ -183,9 +183,11 @@ GameObject:
   - component: {fileID: 238709651737544778}
   - component: {fileID: 8144839512589497895}
   - component: {fileID: 3435388732386355774}
-  m_Layer: 0
+  - component: {fileID: 597474821443021411}
+  - component: {fileID: 2024501622075525127}
+  m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -436,10 +438,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8205432ab414db84a846ef392649b59f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  weaponController: {fileID: 1108355771667216337}
+  playerInput: {fileID: 8144839512589497895}
+--- !u!114 &597474821443021411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3863611926642077226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed99d6b90924ecfbf1e77ed4ab7ab48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   glassesTransform: {fileID: 2854774242018159003}
-  _weaponController: {fileID: 1108355771667216337}
-  _playerInput: {fileID: 8144839512589497895}
+--- !u!114 &2024501622075525127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3863611926642077226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07fc80a863b2473099f2be0da4db6173, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: a5da7aaa589d60c48ab3aad0dddc2cda, type: 2}
+  currentTime: 0
 --- !u!1 &7120414884439126169
 GameObject:
   m_ObjectHideFlags: 0
@@ -702,3 +729,9 @@ MonoBehaviour:
   bulletSpawnPoint: {fileID: 2511859693823612000}
   bulletSpeed: 30
   fireRate: 0.25
+  maxAmmo: 12
+  currentAmmo: 0
+  overheatCooldown: 1.25
+  coolingCooldown: 2
+  bulletMaxDistance: 6
+  damage: 10
