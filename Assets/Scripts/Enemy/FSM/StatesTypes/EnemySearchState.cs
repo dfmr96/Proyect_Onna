@@ -22,7 +22,7 @@ public class EnemySearchState : EnemyState
     public EnemySearchState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
         //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        _playerTransform = PlayerHelper.GetPlayer().transform;
+        //_playerTransform = PlayerHelper.GetPlayer().transform;
 
         _navMeshAgent = enemy.GetComponent<NavMeshAgent>();
     }
@@ -30,6 +30,7 @@ public class EnemySearchState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        _playerTransform = PlayerHelper.GetPlayer().transform;
 
         _lastKnownPosition = _playerTransform.position; 
         _navMeshAgent.SetDestination(_lastKnownPosition);

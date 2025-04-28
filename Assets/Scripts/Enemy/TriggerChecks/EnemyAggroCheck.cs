@@ -17,9 +17,14 @@ public class EnemyAggroCheck : MonoBehaviour
     {
         _enemyController = GetComponentInParent<EnemyController>();
         //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        _playerTransform = PlayerHelper.GetPlayer().transform;
+        //_playerTransform = PlayerHelper.GetPlayer().transform;
     }
 
+    private void Start()
+    {
+        _playerTransform = PlayerHelper.GetPlayer().transform;
+
+    }
     private void Update()
     {
         CheckForPlayer();

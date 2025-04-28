@@ -31,7 +31,6 @@ public class EnemyAttackState : EnemyState
     public EnemyAttackState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
         //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        _playerTransform = PlayerHelper.GetPlayer().transform;
 
         _navMeshAgent = enemy.GetComponent<NavMeshAgent>();
 
@@ -40,6 +39,7 @@ public class EnemyAttackState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        _playerTransform = PlayerHelper.GetPlayer().transform;
 
         initialSpeed = _navMeshAgent.speed;
 

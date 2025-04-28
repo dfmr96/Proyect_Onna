@@ -23,7 +23,7 @@ public class EnemyModel : EnemyBase, IDamageable
 
     }
 
-    public void Damage(float damageAmount)
+    public void TakeDamage(float damageAmount)
     {
 
 
