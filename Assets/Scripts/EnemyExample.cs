@@ -12,7 +12,7 @@ public class EnemyExample : MonoBehaviour, IDamageable
     private float _currentHealth = 1;
 
 
-    public void Damage(float damageAmount) 
+    public void TakeDamage(float damageAmount) 
     {
         _currentHealth -= damageAmount;
         Instantiate(orbPrefab, transform.position, Quaternion.identity);

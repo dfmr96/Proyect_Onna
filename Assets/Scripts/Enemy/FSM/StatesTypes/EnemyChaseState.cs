@@ -1,3 +1,4 @@
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -11,13 +12,16 @@ public class EnemyChaseState : EnemyState
 
     public EnemyChaseState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+
         _navMeshAgent = enemy.GetComponent<NavMeshAgent>();
     }
 
     public override void EnterState()
     {
         base.EnterState();
+        _playerTransform = PlayerHelper.GetPlayer().transform;
+
         _navMeshAgent.speed = enemy.moveSpeed;
         _navMeshAgent.angularSpeed = enemy.rotationSpeed;
     }

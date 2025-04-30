@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,8 +17,9 @@ public class PlayerController : MonoBehaviour, Player_Input.IPlayerActions
 
     void Awake()
     {
-        _playerModel = new PlayerModel(5f, 100);
+        PlayerHelper.SetPlayer(gameObject);
         _mainCamera = Camera.main;
+        _playerModel = GetComponent<PlayerModel>();
         _playerView = GetComponent<PlayerView>();
         _playerView.Initialize();
     }

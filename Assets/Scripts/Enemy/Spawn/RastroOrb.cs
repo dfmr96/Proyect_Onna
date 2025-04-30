@@ -1,102 +1,161 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Player;
 using UnityEngine;
 
-public class RastroOrb : MonoBehaviour
+namespace Enemy.Spawn
 {
-    public static event Action<float> OnOrbCollected;
-    private Action _onCollected;
-
-    public float floatSpeed = 0.5f;
-    public float floatAmplitude = 0.5f;
-    public float healingAmount = 10f;
-    public float lifetime = 5f;
-
-    private Transform attractionTarget;
-    public LayerMask attractionLayer; 
-    public float attractionRadius = 5f;
-    public float attractionSpeed = 5f;
-
-    private float timer;
-    private Vector3 startPos;
-
-    private void OnEnable()
+    public class RastroOrb : MonoBehaviour
     {
-        timer = lifetime;
-        attractionTarget = null;
-    }
+        public static event Action<float> OnOrbCollected;
 
-    void Start() { startPos = transform.position; }
+        [Header("Floating Settings")]
+        [SerializeField] private float floatSpeed = 0.5f;
+        [SerializeField] private float floatAmplitude = 0.5f;
+    
+        [Header("Healing Settings")]
+        [SerializeField] private float healingAmount = 10f;
+    
+        [Header("Lifetime Settings")]
+        [SerializeField] private float lifetime = 5f;
 
-    void Update()
-    {
-        //Flotado en Idle
-        float newY = startPos.y + Mathf.Sin(Time.time * floatSpeed) * floatAmplitude;
-        transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+        [Header("Attraction Settings")]
+        [SerializeField] private float attractionRadius = 5f;
+        [SerializeField] private float attractionSpeed = 5f;
+        
+        private Transform attractionTarget;
+        private Action _onCollected;
+        private float timer;
+        private Vector3 startPos;
+        private GameObject playerGO;
+    
+        //----------------------------------------------------------------------
+        // Unity Methods
+        //----------------------------------------------------------------------
+        private void OnEnable()
+        {
+            timer = lifetime;
+            attractionTarget = null;
+        }
 
-        timer -= Time.deltaTime;
-
-         if (timer <= 0f)
-         {
-            //Si en el tiempo no lo toma el player se desactiva del Pool
+        void Start()
+        {
+            startPos = transform.position;
+            GetPlayer();
+        }
+        
+        void Update()
+        {
+            timer -= Time.deltaTime;
+            HandleFloating();
+            HandleLifetime();
+            HandleAttraction();
+        }
+    
+        private void OnTriggerEnter(Collider other)
+        { 
+            if (!IsPlayer(other)) return;
+            HealPlayer();
+            OnOrbCollected?.Invoke(healingAmount);
+            _onCollected?.Invoke();
             DeactivateOrb();
-         }
+        }
+    
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(transform.position, attractionRadius);
+        }
+    
+        //----------------------------------------------------------------------
+        // Public methods
+        //----------------------------------------------------------------------
+        public void Init(Action onCollected)
+        {
+            _onCollected = onCollected;
+        }
+    
+        //----------------------------------------------------------------------
+        // Private methods
+        //----------------------------------------------------------------------
+    
+        private void GetPlayer()
+        {
+            playerGO = PlayerHelper.GetPlayer();
 
-        if (attractionTarget == null) CheckForAttraction();
-        else
+            if (playerGO == null)
+            {
+                Debug.LogWarning("[ORB] No player found. Attraction will not work.");
+            }
+        }
+        
+        private void HandleFloating()
+        {
+            Vector3 position = transform.position;
+            position.y = startPos.y + Mathf.Sin(Time.time * floatSpeed) * floatAmplitude;
+            transform.position = position;
+        }
+        private void HandleLifetime()
+        {
+            if (timer <= 0f)
+            {
+                //Si en el tiempo no lo toma el player se desactiva
+                DeactivateOrb();
+            }
+        }
+    
+        private void HandleAttraction()
+        {
+            if (attractionTarget == null)
+            {
+                TryStartAttraction();
+            }
+            else
+            {
+                MoveTowardsAttractionTarget();
+            }
+        }
+    
+        private void TryStartAttraction()
+        {
+            if (playerGO == null)
+                return;
+
+            float distance = Vector3.Distance(transform.position, playerGO.transform.position);
+            if (distance <= attractionRadius)
+            {
+                attractionTarget = playerGO.transform;
+            }
+        }
+    
+        private void MoveTowardsAttractionTarget()
         {
             float distance = Vector3.Distance(transform.position, attractionTarget.position);
-
-            //Si el jugador se alejo deja de seguirlo
             if (distance > attractionRadius)
             {
                 attractionTarget = null;
                 return;
             }
 
-            //Sigue al jugador
-            Vector3 dir = (attractionTarget.position - transform.position).normalized;
-            transform.position += dir * attractionSpeed * Time.deltaTime;
+            Vector3 direction = (attractionTarget.position - transform.position).normalized;
+            transform.Translate(direction * (attractionSpeed * Time.deltaTime), Space.Self);
         }
-    }
-
-    private void CheckForAttraction()
-    {
-        Collider[] hits = Physics.OverlapSphere(transform.position, attractionRadius, attractionLayer);
-
-        foreach (Collider hit in hits)
+        private bool IsPlayer(Collider other)
         {
-            if (hit.CompareTag("Player"))
+            return other.gameObject == playerGO;
+        }
+        private void HealPlayer()
+        {
+            if (playerGO.TryGetComponent(out IHealable healable))
             {
-                attractionTarget = hit.transform;
-                break;
+                healable.RecoverTime(healingAmount);
             }
         }
-    }
 
-    public void Init(System.Action onCollected) { _onCollected = onCollected; }
-
-    private void DeactivateOrb()
-    {
-        attractionTarget = null;
-        gameObject.SetActive(false);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    { 
-        IDamageable damageable = other.GetComponent<IDamageable>();
-
-        if (damageable != null)
+        private void DeactivateOrb()
         {
-            damageable.CurrentHealth += healingAmount;
-            if (damageable.CurrentHealth > damageable.MaxHealth)
-                damageable.CurrentHealth = damageable.MaxHealth;
-
-            OnOrbCollected?.Invoke(healingAmount);
-            _onCollected?.Invoke();
+            attractionTarget = null;
+            gameObject.SetActive(false);
         }
-
     }
-
 }

@@ -13,7 +13,7 @@ public class MeleeAttack : IAttack
 
     public void ExecuteAttack(IDamageable target)
     {
-        target.Damage(damage);
+        target.TakeDamage(damage);
         //Debug.Log("Melee attack executed!");
     }
 }

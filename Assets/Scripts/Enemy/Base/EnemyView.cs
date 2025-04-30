@@ -1,3 +1,4 @@
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,9 @@ public class EnemyView : MonoBehaviour
     }
     private void Start()
     {
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        _playerTransform = PlayerHelper.GetPlayer().transform;
+
         _enemyController = GetComponent<EnemyController>();
 
 

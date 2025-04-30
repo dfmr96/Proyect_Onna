@@ -1,3 +1,4 @@
+using Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,9 +16,15 @@ public class EnemyCombatRadiusCheck : MonoBehaviour
     private void Awake()
     {
         _enemyController = GetComponentInParent<EnemyController>();
-        _playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+            
     }
 
+    private void Start()
+    {
+        _playerTransform = PlayerHelper.GetPlayer().transform;
+
+    }
     private void Update()
     {
         CheckForCombat();

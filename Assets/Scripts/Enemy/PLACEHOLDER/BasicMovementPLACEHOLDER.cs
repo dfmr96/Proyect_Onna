@@ -66,14 +66,14 @@ public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
             IDamageable enemy = hit.GetComponent<IDamageable>();
             if (enemy != null)
             {
-                enemy.Damage(attackDamage);
+                enemy.TakeDamage(attackDamage);
                 StartCoroutine(FlashAttack());
 
             }
         }
     }
 
-    public void Damage(float damage)
+    public void TakeDamage(float damage)
     {
         CurrentHealth -= damage;
 
