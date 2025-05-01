@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08a160d8a14434e458a11804beaaf5af, type: 3}
-  m_Name: MainCharacter
+  m_Script: {fileID: 11500000, guid: 7db703e70a5969c4dac8b822ec97871c, type: 3}
+  m_Name: HUD
   m_EditorClassIdentifier: 
-  startEnergyTime: 60
-  drainRatePerSecond: 1
-  maxEnergyTime: 60
-  baseMoveSpeed: 6
+  TimeToHurry: 0.25
+  NormalColor: {r: 0, g: 1, b: 0, a: 1}
+  HurryColor: {r: 1, g: 0, b: 0, a: 1}

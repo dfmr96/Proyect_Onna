@@ -15,14 +15,15 @@ namespace Player.Stats
         public float MaxEnergyTime => maxEnergyTime;
         public float MoveSpeed => moveSpeed;
         
-        public RuntimeStats(CharacterBaseStats baseStats, MetaProgressionStats meta)
+        public RuntimeStats(CharacterBaseStats baseStats)
         {
-            maxEnergyTime = baseStats.MaxEnergyTime + meta.BonusMaxTime;
+            maxEnergyTime = baseStats.MaxEnergyTime;
             // Ensure that the max energy time is not less than the start energy time
-            currentEnergyTime = Mathf.Min(baseStats.StartEnergyTime + meta.BonusStartTime, maxEnergyTime);
-            drainRatePerSecond = baseStats.DrainRatePerSecond + meta.BonusDrainReduction;
-            moveSpeed = baseStats.BaseMoveSpeed + meta.BonusMoveSpeed;
+            currentEnergyTime = Mathf.Min(baseStats.StartEnergyTime, maxEnergyTime);
+            drainRatePerSecond = baseStats.DrainRatePerSecond;
+            moveSpeed = baseStats.BaseMoveSpeed;
         }
         //TODO Modifier methods to add and remove bonuses
+        public void SetCurrentEnergyTime(float value) { currentEnergyTime = Mathf.Clamp(value, 0f, maxEnergyTime); }
     }                
 }

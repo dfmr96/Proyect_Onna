@@ -7,41 +7,45 @@ public class PlayerModel: MonoBehaviour, IDamageable, IHealable
     public static Action OnPlayerDie;
     public static Action<float> OnUpdateTime;
     [SerializeField] private CharacterBaseStats data;
+    private RuntimeStats stats;
 
     private float maxTime;
-    [SerializeField] float currentTime;
+    public float CurrentTime {  get; private set; }
     public float TimeDrainRate { get; private set; }
     public float Speed { get; private set; }
 
 
-    private void Start()
+    private void Awake()
     {
-        maxTime = data.StartEnergyTime;
-        currentTime = maxTime;
-        TimeDrainRate = data.DrainRatePerSecond;
-        Speed = data.BaseMoveSpeed;
+        RunData.Initialize(data);
+        stats = RunData.CurrentStats;
+
+        CurrentTime = stats.CurrentEnergyTime;
+        maxTime = stats.MaxEnergyTime;
+        TimeDrainRate = stats.DrainRatePerSecond;
+        Speed = stats.MoveSpeed;
     }
 
     public void TakeDamage(float timeTaken) 
     { 
-        currentTime -= timeTaken;
-        OnUpdateTime?.Invoke(currentTime / maxTime);
-        if (currentTime <= 0) OnPlayerDie?.Invoke();
+        CurrentTime -= timeTaken;
+        stats.SetCurrentEnergyTime(CurrentTime);
+        OnUpdateTime?.Invoke(CurrentTime / maxTime);
+        if (CurrentTime <= 0) Die();
     }
 
     public void RecoverTime(float timeRecovered) 
     {
-        currentTime += timeRecovered;
-        if (currentTime > maxTime) currentTime = maxTime;
-        OnUpdateTime?.Invoke(currentTime/maxTime);
+        CurrentTime += timeRecovered;
+        if (CurrentTime > maxTime) CurrentTime = maxTime;
+        stats.SetCurrentEnergyTime(CurrentTime);
+        OnUpdateTime?.Invoke(CurrentTime /maxTime);
     }
-
-
+    
+    public void SetTime(float quantity) { CurrentTime = quantity; }
+    public void SetSpeed(float quantity) { Speed = quantity; }
 
     public float MaxHealth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     public float CurrentHealth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public void Die()
-    {
-        throw new NotImplementedException();
-    }
+    public void Die() { OnPlayerDie?.Invoke(); }
 }
