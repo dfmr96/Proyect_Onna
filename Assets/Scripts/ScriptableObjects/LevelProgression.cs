@@ -24,9 +24,13 @@ public class LevelProgression : ScriptableObject
         {
             currentRoom = 0;
             currentRegion += 1;
-            roomsToPlay = UnityEngine.Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
+            roomsToPlay = Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
 
-            if (currentRegion > 3) return GetFinalRegion();
+            if (currentRegion > 3)
+            {
+                ResetProgress();
+                return GetFinalRegion();
+            }
         }
         currentRoom += 1;
         return GetRandomSceneForCurrentRegion();
@@ -38,7 +42,7 @@ public class LevelProgression : ScriptableObject
 
         if (scenes != null && scenes.Count > 0)
         {
-            SceneAsset selectedScene = scenes[UnityEngine.Random.Range(0, scenes.Count)];
+            SceneAsset selectedScene = scenes[Random.Range(0, scenes.Count)];
             return selectedScene.name;
         }
         return null;
@@ -62,6 +66,6 @@ public class LevelProgression : ScriptableObject
     {
         currentRegion = 0;
         currentRoom = 0;
-        roomsToPlay = UnityEngine.Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
+        roomsToPlay = Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
     }
 }
