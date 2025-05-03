@@ -7,6 +7,8 @@ public class EnemyPatrolState : EnemyState
 {
     private Vector3 _targetPos;
     private NavMeshAgent _navMeshAgent;
+    private EnemyModel _enemyModel;
+
 
     public EnemyPatrolState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
@@ -17,10 +19,11 @@ public class EnemyPatrolState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
+        _enemyModel = enemy.GetComponent<EnemyModel>();
 
         //Se obliga a que el enemigo camine
-        _navMeshAgent.speed = enemy.moveSpeed - 2;  
-        _navMeshAgent.angularSpeed = enemy.rotationSpeed;
+        _navMeshAgent.speed = _enemyModel.statsSO.moveSpeed - 2;  
+        _navMeshAgent.angularSpeed = _enemyModel.statsSO.rotationSpeed;
 
         _targetPos = GetRandomPointInSphere();
 
@@ -58,7 +61,7 @@ public class EnemyPatrolState : EnemyState
 
     private Vector3 GetRandomPointInSphere()
     {
-        Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * enemy.RandomMovementRange;
+        Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * _enemyModel.statsSO.RandomMovementRange;
         randomPoint.y = enemy.transform.position.y;
         return enemy.transform.position + randomPoint;
     }

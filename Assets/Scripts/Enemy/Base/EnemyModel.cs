@@ -5,19 +5,28 @@ using Enemy.Spawn;
 using UnityEngine;
 
 
-public class EnemyModel : EnemyBase, IDamageable
+public class EnemyModel : MonoBehaviour, IDamageable
 {
+    [Header("Stats Config")]
+    public EnemyStatsSO statsSO;
 
     public event Action<float> OnHealthChanged;
+    public float MaxHealth { get; private set; }
+    public float CurrentHealth { get; private set; }
+
     public event Action OnDeath;
 
     private EnemyView view;
     private OrbSpawner orbSpawner;
 
 
+
     private void Start()
     {
+
+        MaxHealth = statsSO.MaxHealth;
         CurrentHealth = MaxHealth;
+
         view = GetComponent<EnemyView>();
         orbSpawner = FindObjectOfType<OrbSpawner>();
 
@@ -27,7 +36,7 @@ public class EnemyModel : EnemyBase, IDamageable
     {
 
 
-        if (RastroOrbOnHit && orbSpawner != null)
+        if (statsSO.RastroOrbOnHit && orbSpawner != null)
         {
             orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
         }
@@ -46,7 +55,7 @@ public class EnemyModel : EnemyBase, IDamageable
     {
       
 
-        if (RastroOrbOnDeath && orbSpawner != null)
+        if (statsSO.RastroOrbOnDeath && orbSpawner != null)
         {
             //Al morir se instancian 2 orbes
             orbSpawner.SpawnHealingOrb(transform.position, transform.forward);

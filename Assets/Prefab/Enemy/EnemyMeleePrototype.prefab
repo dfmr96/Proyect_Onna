@@ -2981,15 +2981,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987da65557474c748822221c981d168d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  AttackDamage: 20
-  isRangedAttack: 0
-  AttackRange: 10
-  moveSpeed: 6
-  rotationSpeed: 400
-  RandomMovementRange: 30
-  RastroOrbOnHit: 1
-  RastroOrbOnDeath: 1
   initialState: 0
 --- !u!114 &60543134510741745
 MonoBehaviour:
@@ -3003,15 +2994,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08679b916d4358144804db27516b1013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MaxHealth>k__BackingField: 100
-  AttackDamage: 5
-  isRangedAttack: 0
-  AttackRange: 20
-  moveSpeed: 5
-  rotationSpeed: 400
-  RandomMovementRange: 30
-  RastroOrbOnHit: 1
-  RastroOrbOnDeath: 1
+  statsSO: {fileID: 11400000, guid: 16aa580308e7cf74e9992191b5e4c67e, type: 2}
 --- !u!114 &6525184718952330742
 MonoBehaviour:
   m_ObjectHideFlags: 0

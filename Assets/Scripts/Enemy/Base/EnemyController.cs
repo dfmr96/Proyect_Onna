@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : EnemyBase, ITriggerCheck
+public class EnemyController : MonoBehaviour, ITriggerCheck
 {
 
     private IAttack attackStrategy;
@@ -75,13 +75,13 @@ public class EnemyController : EnemyBase, ITriggerCheck
 
         InitializeState();
 
-        if (isRangedAttack)
+        if (model.statsSO.isRangedAttack)
         {
-            attackStrategy = new RangedAttack(model.AttackDamage, model.AttackRange);  
+            attackStrategy = new RangedAttack(model.statsSO.AttackDamage, model.statsSO.AttackRange);  
         }
         else
         {
-            attackStrategy = new MeleeAttack(model.AttackDamage); 
+            attackStrategy = new MeleeAttack(model.statsSO.AttackDamage); 
         }
     }
 
@@ -128,7 +128,7 @@ public class EnemyController : EnemyBase, ITriggerCheck
 
     private void HandleHealthChanged(float currentHealth)
     {
-        float healthPercentage = currentHealth / model.MaxHealth;
+        float healthPercentage = currentHealth / model.statsSO.MaxHealth;
 
         //Cuando lo hieren pasa a stunneado
         fsm.ChangeState(StunnedState);

@@ -9,6 +9,7 @@ public class EnemyChaseState : EnemyState
 {
     private Transform _playerTransform;
     private NavMeshAgent _navMeshAgent;
+    private EnemyModel _enemyModel;
 
     public EnemyChaseState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
@@ -21,9 +22,10 @@ public class EnemyChaseState : EnemyState
     {
         base.EnterState();
         _playerTransform = PlayerHelper.GetPlayer().transform;
+        _enemyModel = enemy.GetComponent<EnemyModel>();
 
-        _navMeshAgent.speed = enemy.moveSpeed;
-        _navMeshAgent.angularSpeed = enemy.rotationSpeed;
+        _navMeshAgent.speed = _enemyModel.statsSO.moveSpeed;
+        _navMeshAgent.angularSpeed = _enemyModel.statsSO.rotationSpeed;
     }
 
     public override void ExitState()
