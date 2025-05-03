@@ -9,6 +9,9 @@ public class EnemyDeadState : EnemyState
     private NavMeshAgent _navMeshAgent;
     private CapsuleCollider _collider;
 
+    private float _timer;
+    private float animationTime = 4f;
+
 
     public EnemyDeadState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
@@ -25,20 +28,31 @@ public class EnemyDeadState : EnemyState
         _navMeshAgent.isStopped = true;
         _collider.enabled = false;
         _enemyView.PlayDeathAnimation();
+        _timer = 0f;
 
-        
-        //Spawnear orbes
+        //Spawnear orbes?
     }
 
     public override void ExitState()
     {
         base.ExitState();
-        //Destroy GameObject
+        
+        DeathManager.Instance.DestroyObject(enemy.gameObject);
+
     }
 
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+
+
+        _timer += Time.deltaTime;
+
+        if (_timer > animationTime)
+        {
+            _timer = 0f;
+            ExitState();
+        }
     }
 
 

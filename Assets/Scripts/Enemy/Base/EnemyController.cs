@@ -137,13 +137,9 @@ public class EnemyController : EnemyBase, ITriggerCheck
     private void HandleDeath()
     {
         fsm.ChangeState(DeadState);
-        //view.PlayDeathAnimation();
-        //Destroy(gameObject, 1f); 
+        
     }
-    //public virtual void Attack()
-    //{
-    //    view.PlayAttackAnimation();
-    //}
+  
 
 
 

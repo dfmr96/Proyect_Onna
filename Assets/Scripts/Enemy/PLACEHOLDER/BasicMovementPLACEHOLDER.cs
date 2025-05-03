@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
+public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable, IHealable
 {
     private Renderer rend;
     private Color originalColor;
@@ -118,5 +118,10 @@ public class BasicMovementPLACEHOLDER : MonoBehaviour, IDamageable
     {
         Debug.Log("Player is Dead");
         Destroy(gameObject);
+    }
+
+    public void RecoverTime(float timeRecovered)
+    {
+        Debug.Log("Player se Curo: "+timeRecovered);
     }
 }

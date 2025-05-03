@@ -62,8 +62,8 @@ public class EnemyView : MonoBehaviour
     public void PlayDeathAnimation()
     {
         animator.SetTrigger("IsDead");
-        //Cambiar a Manager de Destroys
-        Destroy(gameObject, 4f);
+     
+
 
     }
 

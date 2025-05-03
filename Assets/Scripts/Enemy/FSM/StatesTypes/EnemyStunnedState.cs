@@ -42,7 +42,9 @@ public class EnemyStunnedState : EnemyState
 
         if (_timer >= _timeStun)
         {
-            fsm.ChangeState(enemy.AttackState);
+            //fsm.ChangeState(enemy.AttackState);
+
+            fsm.ChangeState(enemy.ChaseState);
 
         }
 
