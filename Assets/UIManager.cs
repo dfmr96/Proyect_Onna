@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
+    [SerializeField] private UIData data;
     [SerializeField] private Image timeCircle;
     private void Awake()
     {
@@ -17,13 +18,17 @@ public class UIManager : MonoBehaviour
     private void UpdateTimeUI(float timePercent) 
     {
         timeCircle.fillAmount = timePercent;
-        if (timePercent < 0.25f)
+        if (timePercent < data.TimeToHurry)
         {
             float pulse = 1 + Mathf.Sin(Time.time * 10f) * 0.05f;
             timeCircle.transform.localScale = new Vector3(pulse, pulse, 1);
-            timeCircle.color = Color.red;
+            timeCircle.color = data.HurryColor;
         }
-        else timeCircle.transform.localScale = Vector3.one;
+        else 
+        {
+            timeCircle.transform.localScale = Vector3.one;
+            timeCircle.color = data.NormalColor;
+        }
     }
 
 }

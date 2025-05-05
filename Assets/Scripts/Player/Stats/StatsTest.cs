@@ -28,7 +28,7 @@ namespace Player.Stats
         }
         private void Start()
         {
-            runtimeStats = new RuntimeStats(baseStats, testProgress.stats);
+            runtimeStats = new RuntimeStats(baseStats);
 
             Debug.Log($"Initial time: {runtimeStats.CurrentEnergyTime}");
             Debug.Log($"Drain/s: {runtimeStats.DrainRatePerSecond}");
