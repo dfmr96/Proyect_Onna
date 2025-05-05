@@ -9,54 +9,57 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 029867b2dba186a40a28a125e60d10eb
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level1/Lvl1_1.unity
-    guid: 1a386dea76c246f479e1d13ac85a2c52
+    path: Assets/Scenes/Test Scenes/Blockouts/HUB.unity
+    guid: 619ab1e9b43fe4e49b0d6f7d134a4c0e
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level1/Lvl1_2.unity
-    guid: 79d82681987ca604daccbe9f22131b75
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_1\xB0.unity"
+    guid: 4c677f77edddc3b47b5f7362b93248da
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level1/Lvl1_3.unity
-    guid: f5042931242436945a04ceca9a7e2ca0
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_1\xB0 1.unity"
+    guid: bc3cc94477fa80d4798aa8977e82604d
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level1/Lvl1_4.unity
-    guid: aab97e14ba529f247ba702a5db8bb170
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_1\xB0 2.unity"
+    guid: 0b154839b6aa96b44bd432efeb5a290f
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level2/Lvl2_1.unity
-    guid: d5813ae450a974e47ba6b0b76977f5cd
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_1\xB0 3.unity"
+    guid: 8f0f2bf2b2e6d8943bda2186baa5e853
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level2/Lvl2_2.unity
-    guid: 13c430f425a4d1b47a07c026c4186c4b
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_2\xB0.unity"
+    guid: 7eef226845a05534ba632a957b63cd44
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level2/Lvl2_3.unity
-    guid: 021bbd114f364a842b1f8e1834884bd1
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_2\xB0 1.unity"
+    guid: d170377fd55656d47af316d6eaed0992
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level2/Lvl2_4.unity
-    guid: 2915a716acdd2f2418ea2bd99951ba58
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_2\xB0 2.unity"
+    guid: e14deca82b10c43478e46b615a36f05f
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level3/Lvl3_1.unity
-    guid: 946613cba4eaed642857b164515c385a
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_2\xB0 3.unity"
+    guid: 31eaac29c10f10f4bbd504fe2ca6b7b1
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level3/Lvl3_2.unity
-    guid: 61380379440a0b44b98f7df6846a1f38
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_3\xB0.unity"
+    guid: 3aaf1cf1c1447294b9a26bdebe1dba86
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level3/Lvl3_3.unity
-    guid: 2c0ddfe25e79aa444825140a193bf6ef
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_3\xB0 1.unity"
+    guid: 2799adcb425d16d4cb7f75cee0a7f4f8
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level3/Lvl3_4.unity
-    guid: a5deb978870823640bc674c98684c9ea
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_3\xB0 2.unity"
+    guid: 52d889cd6ad22de4da46198ac96a394d
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level4/Lvl4_1.unity
-    guid: 4c664b53e7bc2b642baaca5704cd9109
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_3\xB0 3.unity"
+    guid: dc433d3a5de627a4c8dd091a58de1dc5
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level4/Lvl4_2.unity
-    guid: 29fc24f3ab9f23643a3f1b228791d4f9
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_4\xB0.unity"
+    guid: b3d0c73e611acef42bc6d567876c0012
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level4/Lvl4_3.unity
-    guid: 5acfad3450138a44bb7af4f7a596aa69
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_4\xB0 1.unity"
+    guid: 5033624314892ed479f4055bdb73afd9
   - enabled: 1
-    path: Assets/Scenes/SimTesting/Level4/Lvl4_4.unity
-    guid: 843546b63b2e1ba4790006bf5df49305
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_4\xB0 2.unity"
+    guid: 684478ced9e147642829d11e832aabf9
   - enabled: 1
-    path: Assets/Scenes/SimTesting/FinalLevel.unity
-    guid: 46edc5b8f5597714f9546e749da15331
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_4\xB0 3.unity"
+    guid: cd6bd80223581734b90a804ceadff6b6
+  - enabled: 1
+    path: "Assets/Scenes/Test Scenes/Blockouts/Room_5\xB0.unity"
+    guid: d8c372d49e2c8294b9b1a5baa71cf88a
   m_configObjects: {}
