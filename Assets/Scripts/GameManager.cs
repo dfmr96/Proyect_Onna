@@ -18,11 +18,17 @@ public class GameManager : MonoBehaviour
         player = playerSpawner.GetComponent<PlayerSpawner>().SpawnPlayer();
         PlayerHelper.SetPlayer(player);
         playerModel = player.GetComponent<PlayerModel>();
+        PlayerModel.OnPlayerDie += EndGame;
     }
     private void Update()
     {
         float damagePerFrame = playerModel.TimeDrainRate * Time.deltaTime;
         TimeRemaining -= damagePerFrame;
         playerModel.TakeDamage(damagePerFrame);
+    }
+    private void EndGame()
+    {
+        PlayerModel.OnPlayerDie -= EndGame;
+        SceneManagementUtils.LoadSceneByName("HUB");
     }
 }
