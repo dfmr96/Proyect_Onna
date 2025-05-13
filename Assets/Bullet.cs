@@ -5,7 +5,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] float bulletSpeed;
     private float maxDistance;
-    private float damage;
+    [SerializeField] private float damage;
 
     private void Start()
     {

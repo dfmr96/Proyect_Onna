@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: EnemyMeleePrototypeStats
   m_EditorClassIdentifier: 
   MaxHealth: 100
-  AttackDamage: 20
+  AttackDamage: 5
   isRangedAttack: 0
-  AttackRange: 10
+  AttackRange: 7
   moveSpeed: 6
   rotationSpeed: 400
   RandomMovementRange: 30
