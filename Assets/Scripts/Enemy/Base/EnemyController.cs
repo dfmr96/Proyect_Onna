@@ -134,10 +134,9 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         fsm.ChangeState(StunnedState);
     }
 
-    private void HandleDeath()
+    private void HandleDeath(EnemyModel enemy)
     {
         fsm.ChangeState(DeadState);
-        
     }
   
 

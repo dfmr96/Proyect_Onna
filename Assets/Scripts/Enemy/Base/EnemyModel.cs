@@ -14,7 +14,7 @@ public class EnemyModel : MonoBehaviour, IDamageable
     public float MaxHealth { get; private set; }
     public float CurrentHealth { get; private set; }
 
-    public event Action OnDeath;
+    public event Action<EnemyModel> OnDeath;
 
     private EnemyView view;
     private OrbSpawner orbSpawner;
@@ -57,7 +57,7 @@ public class EnemyModel : MonoBehaviour, IDamageable
             orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
         }
 
-        OnDeath?.Invoke();
+        OnDeath?.Invoke(this);
     }
 }
 

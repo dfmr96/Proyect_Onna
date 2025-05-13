@@ -7,9 +7,14 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     public float TimeRemaining { get; private set; }
+    [Header ("Prefabs")]
     [SerializeField] private GameObject playerSpawner;
+    [SerializeField] private GameObject enemySpawner;
+    [Header("Doors")]
+    [SerializeField] private GameObject[] doors;
     private GameObject player;
-    private PlayerModel playerModel;
+    private PlayerModel _playerModel;
+    private EnemySpawner _enemySpawner;
 
     private void Awake()
     {
@@ -17,18 +22,30 @@ public class GameManager : MonoBehaviour
         Instance = this;
         player = playerSpawner.GetComponent<PlayerSpawner>().SpawnPlayer();
         PlayerHelper.SetPlayer(player);
-        playerModel = player.GetComponent<PlayerModel>();
-        PlayerModel.OnPlayerDie += EndGame;
+        _playerModel = player.GetComponent<PlayerModel>();
+        _enemySpawner = enemySpawner.GetComponent<EnemySpawner>();
+        PlayerModel.OnPlayerDie += DefeatGame;
+        _enemySpawner.OnAllWavesCompleted += WinGame;
     }
     private void Update()
     {
-        float damagePerFrame = playerModel.TimeDrainRate * Time.deltaTime;
+        float damagePerFrame = _playerModel.TimeDrainRate * Time.deltaTime;
         TimeRemaining -= damagePerFrame;
-        playerModel.TakeDamage(damagePerFrame);
+        _playerModel.TakeDamage(damagePerFrame);
     }
-    private void EndGame()
+    private void WinGame() 
     {
-        PlayerModel.OnPlayerDie -= EndGame;
+        _enemySpawner.OnAllWavesCompleted -= WinGame;
+        OpenDoorDebug();
+
+    } 
+    private void DefeatGame()
+    {
+        PlayerModel.OnPlayerDie -= DefeatGame;
         SceneManagementUtils.LoadSceneByName("HUB");
+    }
+    private void OpenDoorDebug() 
+    {
+        foreach (GameObject door in doors) { Destroy(door); }
     }
 }
