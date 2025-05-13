@@ -1,16 +1,16 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class Bullet : MonoBehaviour
 {
-    private float bulletSpeed;
+    [SerializeField] float bulletSpeed;
     private float maxDistance;
+    private float damage;
 
     private void Start()
     {
-        float destroyTime = maxDistance / bulletSpeed;
-        Destroy(gameObject, destroyTime);
+        //float destroyTime = maxDistance / bulletSpeed;
+        //Destroy(gameObject, destroyTime);
     }
 
     private void Update()
@@ -31,5 +31,16 @@ public class Bullet : MonoBehaviour
     public void SetMaxDistance(float distance)
     {
         maxDistance = distance;
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        //Debug.Log($"{other.gameObject.name}");
+        if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        {
+            damageable.TakeDamage(damage);
+            Debug.Log("Enemy damaged");
+            Destroy(gameObject);
+        }
     }
 }

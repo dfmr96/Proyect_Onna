@@ -30,10 +30,10 @@ public class WeaponController : MonoBehaviour
     {
         if (!canFire || currentAmmo < 1) return;
 
-        ResetCoolingCooldown();
+        //ResetCoolingCooldown();
         FireBullet();
         
-        if (currentAmmo < 1)
+        /*if (currentAmmo < 1)
         {
             StartOverheatCooldown();
         }
@@ -41,16 +41,16 @@ public class WeaponController : MonoBehaviour
         {
             StartCoroutine(FireRateCooldown());
             StartCoolingCooldown();
-        }
+        }*/
     }
 
     private void FireBullet()
     {
-        if (currentAmmo < 1) return;
+        //if (currentAmmo < 1) return;
         Bullet newBullet = Instantiate(bullet, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         newBullet.SetSpeed(bulletSpeed);
         newBullet.SetMaxDistance(bulletMaxDistance);
-        currentAmmo--;
+        //currentAmmo--;
     }
     private void StartCoolingCooldown()
     {
@@ -71,29 +71,23 @@ public class WeaponController : MonoBehaviour
 
     private IEnumerator FireRateCooldown()
     {
-        Debug.Log("FireRate cooldown Started");
         canFire = false;
         yield return new WaitForSeconds(fireRate);
         canFire = true;
-        Debug.Log("FireRate cooldown Finished");
     }
 
     private IEnumerator OverheatCooldown()
     {
-        Debug.Log("OverheatCooldown Started");
         canFire = false;
         yield return new WaitForSeconds(overheatCooldown);
         currentAmmo = maxAmmo;
         canFire = true;
-        Debug.Log("OverheatCooldown Finished");
     }
 
     private IEnumerator CoolingCooldown()
     {
-        Debug.Log("CoolingCooldown Started");
         yield return new WaitForSeconds(coolingCooldown);
         currentAmmo = maxAmmo;
-        Debug.Log("CoolingCooldown Finished");
         coolingCooldownCoroutine = null;
     }
 }

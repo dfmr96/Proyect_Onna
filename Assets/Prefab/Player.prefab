@@ -440,6 +440,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponController: {fileID: 1108355771667216337}
   playerInput: {fileID: 8144839512589497895}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &597474821443021411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -466,7 +469,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a5da7aaa589d60c48ab3aad0dddc2cda, type: 2}
-  currentTime: 0
+  stats:
+    currentEnergyTime: 0
+    drainRatePerSecond: 0
+    maxEnergyTime: 0
+    moveSpeed: 0
 --- !u!1 &7120414884439126169
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,7 +499,7 @@ Transform:
   m_GameObject: {fileID: 7120414884439126169}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.22, z: 0.55}
+  m_LocalPosition: {x: 0, y: 0.22, z: 1.58}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -728,7 +735,7 @@ MonoBehaviour:
   bullet: {fileID: 5548806120118100397, guid: 5d06cecf3b82f0f47a37db2ad21c554b, type: 3}
   bulletSpawnPoint: {fileID: 2511859693823612000}
   bulletSpeed: 30
-  fireRate: 0.25
+  fireRate: 0.5
   maxAmmo: 12
   currentAmmo: 0
   overheatCooldown: 1.25

@@ -3,10 +3,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour, Player_Input.IPlayerActions
+public class PlayerController : MonoBehaviour
 {
     [SerializeField] private WeaponController weaponController = null;
     [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private LayerMask groundLayer;
 
     private PlayerView _playerView;
     private PlayerModel _playerModel;
@@ -38,23 +39,25 @@ public class PlayerController : MonoBehaviour, Player_Input.IPlayerActions
 
     public void OnFire(InputAction.CallbackContext context)
     {
-        if (context.ReadValueAsButton())
+        if (context.performed)
         {
+            Debug.Log("Fire");
             weaponController?.Attack();
         }
     }
 
     public void OnAim(InputAction.CallbackContext context)
     {
+        
         Vector3 readValue = context.ReadValue<Vector2>();
-
+        
         if (playerInput.currentControlScheme == "Keyboard&Mouse")
         {
             if (_mainCamera != null)
             {
                 Ray ray = _mainCamera.ScreenPointToRay(readValue);
 
-                if (Physics.Raycast(ray, out RaycastHit hit))
+                if (Physics.Raycast(ray, out RaycastHit hit, 99, groundLayer)) //TODO Quitar numero magico
                 {
                     _mouseWorldPos = hit.point;
                     _mouseWorldPos.y = 0;

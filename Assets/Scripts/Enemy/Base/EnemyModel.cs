@@ -23,19 +23,16 @@ public class EnemyModel : MonoBehaviour, IDamageable
 
     private void Start()
     {
-
         MaxHealth = statsSO.MaxHealth;
         CurrentHealth = MaxHealth;
 
         view = GetComponent<EnemyView>();
         orbSpawner = FindObjectOfType<OrbSpawner>();
-
     }
 
     public void TakeDamage(float damageAmount)
     {
-
-
+        Debug.Log("Damagen received: " + damageAmount);
         if (statsSO.RastroOrbOnHit && orbSpawner != null)
         {
             orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
@@ -53,8 +50,6 @@ public class EnemyModel : MonoBehaviour, IDamageable
 
     public void Die()
     {
-      
-
         if (statsSO.RastroOrbOnDeath && orbSpawner != null)
         {
             //Al morir se instancian 2 orbes
@@ -64,7 +59,5 @@ public class EnemyModel : MonoBehaviour, IDamageable
 
         OnDeath?.Invoke();
     }
-
- 
 }
 

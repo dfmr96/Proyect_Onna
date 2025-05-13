@@ -7,7 +7,7 @@ public class PlayerModel: MonoBehaviour, IDamageable, IHealable
     public static Action OnPlayerDie;
     public static Action<float> OnUpdateTime;
     [SerializeField] private CharacterBaseStats data;
-    private RuntimeStats stats;
+    [SerializeField] RuntimeStats stats;
 
     private float maxTime;
     public float CurrentTime {  get; private set; }

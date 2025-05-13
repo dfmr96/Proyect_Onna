@@ -149,9 +149,6 @@ MonoBehaviour:
   floatSpeed: 1.5
   floatAmplitude: 0.5
   healingAmount: 10
-  lifetime: 5
-  attractionLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  lifetime: 60
   attractionRadius: 3
   attractionSpeed: 3
