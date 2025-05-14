@@ -14,24 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   region_0:
   - {fileID: 102900000, guid: 4c677f77edddc3b47b5f7362b93248da, type: 3}
-  - {fileID: 102900000, guid: bc3cc94477fa80d4798aa8977e82604d, type: 3}
-  - {fileID: 102900000, guid: 0b154839b6aa96b44bd432efeb5a290f, type: 3}
-  - {fileID: 102900000, guid: 8f0f2bf2b2e6d8943bda2186baa5e853, type: 3}
+  - {fileID: 102900000, guid: f026978490e608e4f92d7a8bd4138f9a, type: 3}
+  - {fileID: 102900000, guid: 01a23ac08013be643a1dfeba4e989990, type: 3}
+  - {fileID: 102900000, guid: 49f1d4b387b0cb742a4780993196b12f, type: 3}
   region_1:
   - {fileID: 102900000, guid: 7eef226845a05534ba632a957b63cd44, type: 3}
-  - {fileID: 102900000, guid: d170377fd55656d47af316d6eaed0992, type: 3}
-  - {fileID: 102900000, guid: e14deca82b10c43478e46b615a36f05f, type: 3}
-  - {fileID: 102900000, guid: 31eaac29c10f10f4bbd504fe2ca6b7b1, type: 3}
+  - {fileID: 102900000, guid: 4ce60759af6cb1d4f9da2cdbef88f9da, type: 3}
+  - {fileID: 102900000, guid: b850ef8ce9a80bc4aab7a012488072e9, type: 3}
+  - {fileID: 102900000, guid: c7883d601f889fe4db52e92b0f9f64ba, type: 3}
   region_2:
   - {fileID: 102900000, guid: 3aaf1cf1c1447294b9a26bdebe1dba86, type: 3}
-  - {fileID: 102900000, guid: 2799adcb425d16d4cb7f75cee0a7f4f8, type: 3}
-  - {fileID: 102900000, guid: 52d889cd6ad22de4da46198ac96a394d, type: 3}
-  - {fileID: 102900000, guid: dc433d3a5de627a4c8dd091a58de1dc5, type: 3}
+  - {fileID: 102900000, guid: 37b18e00d50710d4e8bfcf88eb0888c9, type: 3}
+  - {fileID: 102900000, guid: 910b7e7c7f618ff4ebd19ae9c4dd300e, type: 3}
+  - {fileID: 102900000, guid: b5381f8756ddc0d44a9fb2599af9a430, type: 3}
   region_3:
   - {fileID: 102900000, guid: b3d0c73e611acef42bc6d567876c0012, type: 3}
-  - {fileID: 102900000, guid: 5033624314892ed479f4055bdb73afd9, type: 3}
-  - {fileID: 102900000, guid: 684478ced9e147642829d11e832aabf9, type: 3}
-  - {fileID: 102900000, guid: cd6bd80223581734b90a804ceadff6b6, type: 3}
+  - {fileID: 102900000, guid: f32ffea920516674583573be3ac4bd2e, type: 3}
+  - {fileID: 102900000, guid: 928819efce14cea4c9995ea0c79c0a36, type: 3}
+  - {fileID: 102900000, guid: 8c371122e364d064bb8a1439355f2019, type: 3}
   region_final: {fileID: 102900000, guid: d8c372d49e2c8294b9b1a5baa71cf88a, type: 3}
-  minRoomsPerLevel: 2
-  maxRoomsPerLevel: 3
+  minRoomsPerLevel: 1
+  maxRoomsPerLevel: 1

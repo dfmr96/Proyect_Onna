@@ -37,7 +37,6 @@ public class GameManager : MonoBehaviour
     {
         _enemySpawner.OnAllWavesCompleted -= WinGame;
         OpenDoorDebug();
-
     } 
     private void DefeatGame()
     {

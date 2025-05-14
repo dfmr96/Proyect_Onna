@@ -5,10 +5,10 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "LevelProgression", menuName = "Game/LevelProgression")]
 public class LevelProgression : ScriptableObject
 {
-    public List<SceneAsset> region_0 = new List<SceneAsset>();
-    public List<SceneAsset> region_1 = new List<SceneAsset>();
-    public List<SceneAsset> region_2 = new List<SceneAsset>();
-    public List<SceneAsset> region_3 = new List<SceneAsset>();
+    public List<SceneAsset> region_0;
+    public List<SceneAsset> region_1;
+    public List<SceneAsset> region_2;
+    public List<SceneAsset> region_3;
     public SceneAsset region_final;
 
     public int minRoomsPerLevel = 2;
