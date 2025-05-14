@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 
 public class HubManager : MonoBehaviour
@@ -9,5 +10,6 @@ public class HubManager : MonoBehaviour
         levelProgression.ResetProgress();
         RunData.Clear();
         spawner.SpawnPlayer();
+        PlayerHelper.EnableInput();
     }
 }

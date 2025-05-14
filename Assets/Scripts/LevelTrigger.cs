@@ -7,7 +7,8 @@ public class LevelTrigger : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 6) OnTrigger(other);
+        if (other.gameObject.layer == 6)
+            OnTrigger(other);
     }
 
     protected virtual void OnTrigger(Collider other) { }

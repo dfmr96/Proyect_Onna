@@ -9,8 +9,8 @@ public class Bullet : MonoBehaviour
 
     private void Start()
     {
-        //float destroyTime = maxDistance / bulletSpeed;
-        //Destroy(gameObject, destroyTime);
+        float destroyTime = maxDistance / bulletSpeed;
+        Destroy(gameObject, destroyTime);
     }
 
     private void Update()
@@ -35,7 +35,6 @@ public class Bullet : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        //Debug.Log($"{other.gameObject.name}");
         if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
             damageable.TakeDamage(damage);

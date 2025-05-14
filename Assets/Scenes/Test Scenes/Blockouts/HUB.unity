@@ -25429,13 +25429,13 @@ GameObject:
   - component: {fileID: 1790748743}
   - component: {fileID: 1790748742}
   - component: {fileID: 1790748741}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1790748741
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -30071,7 +30071,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &2002739547
 MeshCollider:
   m_ObjectHideFlags: 0

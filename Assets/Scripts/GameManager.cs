@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         player = playerSpawner.GetComponent<PlayerSpawner>().SpawnPlayer();
         PlayerHelper.SetPlayer(player);
+        PlayerHelper.EnableInput();
         _playerModel = player.GetComponent<PlayerModel>();
         _enemySpawner = enemySpawner.GetComponent<EnemySpawner>();
         PlayerModel.OnPlayerDie += DefeatGame;
