@@ -131,7 +131,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         float healthPercentage = currentHealth / model.statsSO.MaxHealth;
 
         //Cuando lo hieren pasa a stunneado
-        fsm.ChangeState(StunnedState);
+        //fsm.ChangeState(StunnedState);
     }
 
     private void HandleDeath(EnemyModel enemy)

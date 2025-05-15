@@ -30,7 +30,6 @@ public class EnemyDeadState : EnemyState
         _enemyView.PlayDeathAnimation();
         _timer = 0f;
 
-        //Spawnear orbes?
     }
 
     public override void ExitState()

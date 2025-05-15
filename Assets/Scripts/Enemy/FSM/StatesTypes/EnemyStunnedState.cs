@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,10 +6,10 @@ using UnityEngine.AI;
 
 public class EnemyStunnedState : EnemyState
 {
-
+    private EnemyView _enemyView;
     private NavMeshAgent _navMeshAgent;
     private float _timer;
-    private float _timeStun = 1f;
+    private float _timeStun = 5f;
 
 
     public EnemyStunnedState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
@@ -20,17 +21,20 @@ public class EnemyStunnedState : EnemyState
     public override void EnterState()
     {
         base.EnterState();
-        _navMeshAgent.isStopped = true;
+        _enemyView = enemy.GetComponent<EnemyView>();
+
+
+        _enemyView.PlayStunnedAnimation();
 
     }
+
+
 
     public override void ExitState()
     {
         base.ExitState();
-
-        _navMeshAgent.isStopped = false;
         _timer = 0f;
-
+        fsm.ChangeStateDirect(enemy.SearchState);
 
     }
 
@@ -42,7 +46,6 @@ public class EnemyStunnedState : EnemyState
 
         if (_timer >= _timeStun)
         {
-            //fsm.ChangeState(enemy.AttackState);
 
             fsm.ChangeState(enemy.ChaseState);
 

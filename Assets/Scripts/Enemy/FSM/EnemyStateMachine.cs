@@ -19,4 +19,17 @@ public class EnemyStateMachine
         CurrentEnemyState.EnterState();
 
     }
+
+    public void ChangeStateDirect(EnemyState newState)
+    {
+        CurrentEnemyState = newState;
+        CurrentEnemyState.EnterState();
+
+    }
+
+    public void ExitState(EnemyState newState)
+    {
+        CurrentEnemyState.ExitState();
+
+    }
 }

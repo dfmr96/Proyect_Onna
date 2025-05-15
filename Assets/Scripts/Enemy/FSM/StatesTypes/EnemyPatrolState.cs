@@ -20,6 +20,7 @@ public class EnemyPatrolState : EnemyState
     {
         base.EnterState();
         _enemyModel = enemy.GetComponent<EnemyModel>();
+        _enemyModel.OnHealthChanged += HandleHealthChanged;
 
         //Se obliga a que el enemigo camine
         _navMeshAgent.speed = _enemyModel.statsSO.moveSpeed - 2;  
@@ -35,6 +36,7 @@ public class EnemyPatrolState : EnemyState
     public override void ExitState()
     {
         base.ExitState();
+        _enemyModel.OnHealthChanged -= HandleHealthChanged;
         _navMeshAgent.speed += 2;
         //_navMeshAgent.isStopped = true;
 
@@ -64,5 +66,15 @@ public class EnemyPatrolState : EnemyState
         Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * _enemyModel.statsSO.RandomMovementRange;
         randomPoint.y = enemy.transform.position.y;
         return enemy.transform.position + randomPoint;
+    }
+
+    private void HandleHealthChanged(float currentHealth)
+    {
+        //Si es lastimado durante la patrulla, pasa a perseguir al player
+       
+            fsm.ChangeState(enemy.ChaseState);
+
+
+
     }
 }

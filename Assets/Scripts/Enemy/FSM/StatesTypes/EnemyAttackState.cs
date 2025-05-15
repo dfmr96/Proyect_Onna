@@ -1,6 +1,8 @@
 using Player;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -28,9 +30,19 @@ public class EnemyAttackState : EnemyState
     private EnemyModel _enemyModel;
     private EnemyView _enemyView;
 
+    //InitialAttackDelay Visual
+    private Material _material;
+    private Color _originalColor;
+    private Color _targetColor = Color.red;
+
+    private float _colorChangeTimer = 0f;
+    private float _colorTransitionDuration; 
+
+    private enum ColorPhase { None, ToRed, ToOriginal }
+    private ColorPhase _colorPhase = ColorPhase.None;
+
     public EnemyAttackState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
-        //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 
         _navMeshAgent = enemy.GetComponent<NavMeshAgent>();
 
@@ -47,29 +59,42 @@ public class EnemyAttackState : EnemyState
 
         _enemyModel = enemy.GetComponent<EnemyModel>();
         _enemyView = enemy.GetComponent<EnemyView>();   
-        //_enemyModel.OnHealthChanged += HandleHealthChanged;
+        _enemyModel.OnHealthChanged += HandleHealthChanged;
 
 
         _navMeshAgent.SetDestination(_playerTransform.position);
         _timer = 0f;
         _hasAttackedOnce = false;
 
+        //InitialAttackDelay Visual
+        _colorTransitionDuration = _initialAttackDelay;
+        _material = enemy.GetComponentInChildren<Renderer>().material;
+        _originalColor = _material.color;
+        //TriggerAttackColorEffect();
 
     }
 
     public override void ExitState()
     {
         base.ExitState();
-        //_enemyModel.OnHealthChanged -= HandleHealthChanged;
+        _enemyModel.OnHealthChanged -= HandleHealthChanged;
         _enemyView.PlayAttackAnimation(false);
         _hasAttackedOnce = false;
-
         _navMeshAgent.speed = initialSpeed;
+
+        if (_material != null)
+            _material.color = _originalColor;
+
+        _colorPhase = ColorPhase.None;
+        _colorChangeTimer = 0f;
     }
 
     public override void FrameUpdate()
     {
         base.FrameUpdate();
+
+
+        ColorChanger();
 
         _timer += Time.deltaTime;
 
@@ -126,7 +151,9 @@ public class EnemyAttackState : EnemyState
         }
     }
 
-   private void Attack()
+
+
+    private void Attack()
     {
     
 
@@ -138,6 +165,7 @@ public class EnemyAttackState : EnemyState
             if (distanceToPlayer <= _distanceToCountExit)
             {
                 _enemyView.PlayAttackAnimation(true);
+                TriggerAttackColorEffect();
             }
         }
 
@@ -148,11 +176,53 @@ public class EnemyAttackState : EnemyState
 
 
 
-    //private void HandleHealthChanged(float currentHealth)
-    //{
-    //    if (_timer >= _initialAttackDelay)
-    //    {
-    //        fsm.ChangeState(enemy.StunnedState);
-    //    }
-    //}
+    private void HandleHealthChanged(float currentHealth)
+    {
+        //Si es lastimado dentro del umbral de tiempo, se stunea
+        if (_timer >= _initialAttackDelay)
+        {
+            fsm.ChangeState(enemy.StunnedState);
+
+        }
+
+
+    }
+
+
+    private void ColorChanger()
+    {
+        if (_colorPhase != ColorPhase.None)
+        {
+            _colorChangeTimer += Time.deltaTime;
+            float t = Mathf.Clamp01(_colorChangeTimer / _colorTransitionDuration);
+
+            if (_colorPhase == ColorPhase.ToRed)
+            {
+                _material.color = Color.Lerp(_originalColor, _targetColor, t);
+
+                if (t >= 1f)
+                {
+                    //Vuelve al color original
+                    _colorChangeTimer = 0f;
+                    _colorPhase = ColorPhase.ToOriginal;
+                }
+            }
+            else if (_colorPhase == ColorPhase.ToOriginal)
+            {
+                _material.color = Color.Lerp(_targetColor, _originalColor, t);
+
+                if (t >= 1f)
+                {   //Efecto terminado
+                    _colorPhase = ColorPhase.None; 
+                }
+            }
+        }
+    }
+
+    private void TriggerAttackColorEffect()
+    {
+        _colorChangeTimer = 0f;
+        _colorPhase = ColorPhase.ToRed;
+    }
+
 }
