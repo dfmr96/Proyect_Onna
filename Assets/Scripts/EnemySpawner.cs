@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.AI;
+using Player;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -11,14 +10,19 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Vector3 spawnAreaCenter;
     [SerializeField] private Vector3 spawnAreaSize;
+    [SerializeField] private float safeDistanceFromPlayer = 5f;
+    private Transform playerTransform;
     private int maxTries = 30;
     public Action OnAllWavesCompleted;
     //public Action OnWaveCompleted;    --  Se puede usar para que pase algo entre oleadas
     private int actualWave = 0;
     private int enemiesQuantity = 0;
 
-    private void Start() { StarWave(); }
-
+    private void Start() 
+    {
+        playerTransform = PlayerHelper.GetPlayer().transform;
+        StarWave();
+    }
     public void StarWave()
     {
         actualWave++;
@@ -33,28 +37,26 @@ public class EnemySpawner : MonoBehaviour
             enemiesQuantity++;
         }
     }
-
     private bool TryGetRandomNavMeshPosition(out Vector3 result)
     {
         for (int i = 0; i < maxTries; i++)
         {
-            Vector3 randomPoint = spawnAreaCenter + new Vector3(
-                UnityEngine.Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
-                0,
-                UnityEngine.Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2)
-            );
-
+            Vector3 randomPoint = spawnAreaCenter + new Vector3(UnityEngine.Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2), 0, UnityEngine.Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2));
             if (NavMesh.SamplePosition(randomPoint, out NavMeshHit hit, 2f, NavMesh.AllAreas))
             {
-                result = hit.position;
-                return true;
+                if (playerTransform != null)
+                {
+                    if (Vector3.Distance(hit.position, playerTransform.position) >= safeDistanceFromPlayer)
+                    {
+                        result = hit.position;
+                        return true;
+                    }
+                }
             }
         }
-
         result = Vector3.zero;
         return false;
     }
-
     private void OnEnemyDeath(EnemyModel enemy)
     {
         enemy.OnDeath -= OnEnemyDeath;
@@ -68,11 +70,5 @@ public class EnemySpawner : MonoBehaviour
             }
             else OnAllWavesCompleted?.Invoke();
         }
-    }
-
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = new Color(1f, 0f, 0f, 1f);
-        Gizmos.DrawCube(spawnAreaCenter, spawnAreaSize);
     }
 }
