@@ -9,6 +9,9 @@ public class EnemyView : MonoBehaviour
     private Transform _playerTransform;
     private EnemyController _enemyController;
 
+    private float _distanceToCountExit = 3f;
+
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -26,8 +29,19 @@ public class EnemyView : MonoBehaviour
     //ActionEvent de Ataque
     public void AnimationAttackFunc()
     {
-        IDamageable damageablePlayer = _playerTransform.GetComponent<IDamageable>();
-        _enemyController.ExecuteAttack(damageablePlayer);
+
+        if (_playerTransform != null)
+        {
+            float distanceToPlayer = Vector3.Distance(_playerTransform.position, transform.position);
+
+            //doble comprobacion por si se aleja
+            if (distanceToPlayer <= _distanceToCountExit)
+            {
+                IDamageable damageablePlayer = _playerTransform.GetComponent<IDamageable>();
+                _enemyController.ExecuteAttack(damageablePlayer);
+
+            }
+        }
     }
 
 
@@ -36,7 +50,11 @@ public class EnemyView : MonoBehaviour
     public void PlayAttackAnimation(bool isAttacking)
     {
         animator.SetBool("IsAttacking", isAttacking);
-    
+    }
+
+    public bool GetBoolAttackAnimation()
+    {
+        return animator.GetBool("IsAttacking");
     }
 
     public void PlayIdleAnimation()

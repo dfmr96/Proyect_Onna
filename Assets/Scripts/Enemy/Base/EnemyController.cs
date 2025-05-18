@@ -45,9 +45,24 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     #endregion
 
+    //Behaviour
+    [Header("FSM-Behaviour ScriptableObjects")]
+    [SerializeField] private EnemyIdleSOBase EnemyIdleSOBase;
+    [SerializeField] private EnemyAttackSOBase EnemyAttackSOBase;
+
+
+    public EnemyIdleSOBase EnemyIdleBaseInstance { get; set; }
+    public EnemyAttackSOBase EnemyAttackBaseInstance { get; set; }
+
+
 
     void Awake()
     {
+        //Behaviour
+        EnemyIdleBaseInstance = Instantiate(EnemyIdleSOBase);
+        EnemyAttackBaseInstance = Instantiate(EnemyAttackSOBase);
+
+
         model = GetComponent<EnemyModel>();
         view = GetComponent<EnemyView>();
         rb = GetComponent<Rigidbody>();
@@ -67,6 +82,11 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     private void Start()
     {
+        //Behaviour
+        EnemyIdleBaseInstance.Initialize(gameObject, this);
+        EnemyAttackBaseInstance.Initialize(gameObject, this);
+
+
         _navMeshAgent = GetComponent<NavMeshAgent>();
 
 
@@ -119,11 +139,23 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         }
     }
 
+    //Realiza el ataque desde el eventtrigger de la animacion
     public void ExecuteAttack(IDamageable target)
     {
-       attackStrategy.ExecuteAttack(target);  
-       view.PlayAttackAnimation(false);
+     
+        target.TakeDamage(model.statsSO.AttackDamage);
 
+
+    }
+
+    public float GetDamage()
+    {
+        return model.statsSO.AttackDamage;
+    }
+    public void DoAttack(IDamageable target)
+    {
+        target.TakeDamage(GetDamage());
+        Debug.Log("Daño hecho por el estado Melee");
     }
 
     private void HandleHealthChanged(float currentHealth)

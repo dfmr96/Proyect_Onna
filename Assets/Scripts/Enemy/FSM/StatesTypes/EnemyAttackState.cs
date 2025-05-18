@@ -9,220 +9,35 @@ using UnityEngine.AI;
 
 public class EnemyAttackState : EnemyState
 {
-    private Transform _playerTransform;
-    private NavMeshAgent _navMeshAgent;
-    float distanceToPlayer;
-
-    private float initialSpeed;
-
-    private float _timer;
-    private float _timeBetweenAttacks = 1.5f;
-
-    //Delay para que no ataque de una y darle un poco mas de efecto
-    private float _initialAttackDelay = 0.3f;
-
-    private float _exitTimer;
-    private float _timeTillExit;
-    private float _distanceToCountExit = 3f;
-
-    private bool _hasAttackedOnce = false;
-
-    private EnemyModel _enemyModel;
-    private EnemyView _enemyView;
-
-    //InitialAttackDelay Visual
-    private Material _material;
-    private Color _originalColor;
-    private Color _targetColor = Color.red;
-
-    private float _colorChangeTimer = 0f;
-    private float _colorTransitionDuration; 
-
-    private enum ColorPhase { None, ToRed, ToOriginal }
-    private ColorPhase _colorPhase = ColorPhase.None;
 
     public EnemyAttackState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
-
-        _navMeshAgent = enemy.GetComponent<NavMeshAgent>();
 
     }
 
     public override void EnterState()
     {
         base.EnterState();
-        _playerTransform = PlayerHelper.GetPlayer().transform;
 
-        initialSpeed = _navMeshAgent.speed;
-
-        _navMeshAgent.speed = 0.5f;
-
-        _enemyModel = enemy.GetComponent<EnemyModel>();
-        _enemyView = enemy.GetComponent<EnemyView>();   
-        _enemyModel.OnHealthChanged += HandleHealthChanged;
-
-
-        _navMeshAgent.SetDestination(_playerTransform.position);
-        _timer = 0f;
-        _hasAttackedOnce = false;
-
-        //InitialAttackDelay Visual
-        _colorTransitionDuration = _initialAttackDelay;
-        _material = enemy.GetComponentInChildren<Renderer>().material;
-        _originalColor = _material.color;
-        //TriggerAttackColorEffect();
+        enemy.EnemyAttackBaseInstance.DoEnterLogic();
 
     }
 
     public override void ExitState()
     {
         base.ExitState();
-        _enemyModel.OnHealthChanged -= HandleHealthChanged;
-        _enemyView.PlayAttackAnimation(false);
-        _hasAttackedOnce = false;
-        _navMeshAgent.speed = initialSpeed;
+        enemy.EnemyAttackBaseInstance.DoExitLogic();
 
-        if (_material != null)
-            _material.color = _originalColor;
-
-        _colorPhase = ColorPhase.None;
-        _colorChangeTimer = 0f;
     }
 
     public override void FrameUpdate()
     {
         base.FrameUpdate();
-
-
-        ColorChanger();
-
-        _timer += Time.deltaTime;
-
-        //Si el Player muere durante el atque el enemigo se pone en idle
-        if (_playerTransform == null)
-        {
-
-            fsm.ChangeState(enemy.IdleState);
-            return;
-        }
-
-        distanceToPlayer = Vector3.Distance(_playerTransform.position, enemy.transform.position);
-
-        if (distanceToPlayer > _distanceToCountExit)
-        {
-            _exitTimer += Time.deltaTime;
-
-            if(_exitTimer > _timeTillExit)
-            {
-                _enemyView.PlayAttackAnimation(false);
-                fsm.ChangeState(enemy.SearchState);
-
-            }
-        }
-
-        else
-        {
-            _exitTimer = 0f;
-        }
-
-        //Siempre mira al Player al atacar
-        enemy.transform.LookAt(new Vector3(_playerTransform.position.x, enemy.transform.position.y, _playerTransform.position.z));
-
-        //Movimiento mas suave (probar)
-        //Quaternion targetRotation = Quaternion.LookRotation(_playerTransform.position - enemy.transform.position);
-        //enemy.transform.rotation = Quaternion.Lerp(enemy.transform.rotation, targetRotation, Time.deltaTime * 5f);
-
-       
-
-
-        if (!_hasAttackedOnce)
-        {
-            if (_timer >= _initialAttackDelay)
-            {
-                Attack();
-                _hasAttackedOnce = true;
-                _timer = 0f; 
-            }
-        }
-        else if (_timer >= _timeBetweenAttacks)
-        {
-            Attack();
-            _timer = 0f;
-        }
-    }
-
-
-
-    private void Attack()
-    {
-    
-
-        if (_playerTransform != null)
-        {
-            float distanceToPlayer = Vector3.Distance(_playerTransform.position, enemy.transform.position);
-
-            //Si se alejo no aplicar dano
-            if (distanceToPlayer <= _distanceToCountExit)
-            {
-                _enemyView.PlayAttackAnimation(true);
-                TriggerAttackColorEffect();
-            }
-        }
-
-       
-
-       
-    }
-
-
-
-    private void HandleHealthChanged(float currentHealth)
-    {
-        //Si es lastimado dentro del umbral de tiempo, se stunea
-        if (_timer >= _initialAttackDelay)
-        {
-            fsm.ChangeState(enemy.StunnedState);
-
-        }
-
+        enemy.EnemyAttackBaseInstance.DoFrameUpdateLogic();
 
     }
 
 
-    private void ColorChanger()
-    {
-        if (_colorPhase != ColorPhase.None)
-        {
-            _colorChangeTimer += Time.deltaTime;
-            float t = Mathf.Clamp01(_colorChangeTimer / _colorTransitionDuration);
 
-            if (_colorPhase == ColorPhase.ToRed)
-            {
-                _material.color = Color.Lerp(_originalColor, _targetColor, t);
-
-                if (t >= 1f)
-                {
-                    //Vuelve al color original
-                    _colorChangeTimer = 0f;
-                    _colorPhase = ColorPhase.ToOriginal;
-                }
-            }
-            else if (_colorPhase == ColorPhase.ToOriginal)
-            {
-                _material.color = Color.Lerp(_targetColor, _originalColor, t);
-
-                if (t >= 1f)
-                {   //Efecto terminado
-                    _colorPhase = ColorPhase.None; 
-                }
-            }
-        }
-    }
-
-    private void TriggerAttackColorEffect()
-    {
-        _colorChangeTimer = 0f;
-        _colorPhase = ColorPhase.ToRed;
-    }
 
 }
