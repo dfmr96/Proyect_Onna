@@ -43,6 +43,8 @@ public class EnemyAttackMelee : EnemyAttackSOBase
         }
         else if (_timer >= _timeBetweenAttacks)
         {
+            TriggerAttackColorEffect();
+
             Attack();
             _timer = 0f;
         }

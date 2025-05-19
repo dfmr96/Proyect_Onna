@@ -17,7 +17,7 @@ public class EnemyAttackSOBase : ScriptableObject
     protected NavMeshAgent _navMeshAgent;
     protected float initialSpeed;
 
-    [Header("Attacking Stats")]
+    [Header("Attacking Settings")]
     [SerializeField] public float _distanceToCountExit = 3f;
     [SerializeField] protected float AttackingMovingSpeed;
     [SerializeField] protected bool isMovingSpeedChangesOnAttack;
