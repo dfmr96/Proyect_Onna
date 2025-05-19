@@ -6,8 +6,6 @@ using UnityEngine.AI;
 public class EnemyController : MonoBehaviour, ITriggerCheck
 {
 
-    private IAttack attackStrategy;
-
     private EnemyModel model;
     private EnemyView view;
     private Rigidbody rb;
@@ -95,14 +93,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
         InitializeState();
 
-        if (model.statsSO.isRangedAttack)
-        {
-            attackStrategy = new RangedAttack(model.statsSO.AttackDamage, model.statsSO.AttackRange);  
-        }
-        else
-        {
-            attackStrategy = new MeleeAttack(model.statsSO.AttackDamage); 
-        }
+       
     }
 
     private void Update()
