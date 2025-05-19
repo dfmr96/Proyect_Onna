@@ -43,22 +43,38 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     #endregion
 
+
+    #region Behaviours
     //Behaviour
     [Header("FSM-Behaviour ScriptableObjects")]
     [SerializeField] private EnemyIdleSOBase EnemyIdleSOBase;
     [SerializeField] private EnemyAttackSOBase EnemyAttackSOBase;
+    [SerializeField] private EnemyChaseSOBase EnemyChaseSOBase;
+    [SerializeField] private EnemyDeadSOBase EnemyDeadSOBase;
+    [SerializeField] private EnemyPatrolSOBase EnemyPatrolSOBase;
+    [SerializeField] private EnemyStunnedSOBase EnemyStunnedSOBase;
 
-
+    
     public EnemyIdleSOBase EnemyIdleBaseInstance { get; set; }
     public EnemyAttackSOBase EnemyAttackBaseInstance { get; set; }
+    public EnemyChaseSOBase EnemyChaseBaseInstance { get; set; }
+    public EnemyDeadSOBase EnemyDeadBaseInstance { get; set; }
+    public EnemyPatrolSOBase EnemyPatrolBaseInstance { get; set; }
+    public EnemyStunnedSOBase EnemyStunnedBaseInstance { get; set; }
 
 
+    #endregion
 
     void Awake()
     {
         //Behaviour
         EnemyIdleBaseInstance = Instantiate(EnemyIdleSOBase);
         EnemyAttackBaseInstance = Instantiate(EnemyAttackSOBase);
+        EnemyChaseBaseInstance = Instantiate(EnemyChaseSOBase);
+        EnemyDeadBaseInstance = Instantiate(EnemyDeadSOBase);
+        EnemyPatrolBaseInstance = Instantiate(EnemyPatrolSOBase);
+        EnemyStunnedBaseInstance = Instantiate(EnemyStunnedSOBase);   
+
 
 
         model = GetComponent<EnemyModel>();
@@ -80,9 +96,18 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     private void Start()
     {
+      
+
         //Behaviour
         EnemyIdleBaseInstance.Initialize(gameObject, this);
         EnemyAttackBaseInstance.Initialize(gameObject, this);
+        EnemyChaseBaseInstance.Initialize(gameObject, this);
+        EnemyDeadBaseInstance.Initialize(gameObject, this);
+        EnemyPatrolBaseInstance.Initialize(gameObject, this);
+        EnemyStunnedBaseInstance.Initialize(gameObject, this);
+
+        InitializeState();
+
 
 
         _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -91,7 +116,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         model.OnHealthChanged += HandleHealthChanged;
         model.OnDeath += HandleDeath;
 
-        InitializeState();
+       
 
        
     }
@@ -125,8 +150,14 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
             case InitialState.Idle:
                 fsm.Initialize(IdleState);
                 break;
-         
-           
+            case InitialState.Stunned:
+                fsm.Initialize(StunnedState);
+                break;
+            case InitialState.Dead:
+                fsm.Initialize(DeadState);
+                break;
+
+
         }
     }
 

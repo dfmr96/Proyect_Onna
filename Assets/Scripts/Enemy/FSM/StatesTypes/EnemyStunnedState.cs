@@ -6,25 +6,19 @@ using UnityEngine.AI;
 
 public class EnemyStunnedState : EnemyState
 {
-    private EnemyView _enemyView;
-    private NavMeshAgent _navMeshAgent;
-    private float _timer;
-    private float _timeStun = 5f;
+
 
 
     public EnemyStunnedState(EnemyController enemy, EnemyStateMachine fsm) : base(enemy, fsm)
     {
-        _navMeshAgent = enemy.GetComponent<NavMeshAgent>();
 
     }
 
     public override void EnterState()
     {
         base.EnterState();
-        _enemyView = enemy.GetComponent<EnemyView>();
 
-
-        _enemyView.PlayStunnedAnimation();
+        enemy.EnemyStunnedBaseInstance.DoEnterLogic();
 
     }
 
@@ -33,8 +27,8 @@ public class EnemyStunnedState : EnemyState
     public override void ExitState()
     {
         base.ExitState();
-        _timer = 0f;
-        fsm.ChangeStateDirect(enemy.SearchState);
+
+        enemy.EnemyStunnedBaseInstance.DoExitLogic();
 
     }
 
@@ -42,14 +36,8 @@ public class EnemyStunnedState : EnemyState
     {
         base.FrameUpdate();
 
-        _timer += Time.deltaTime;
+        enemy.EnemyStunnedBaseInstance.DoFrameUpdateLogic();
 
-        if (_timer >= _timeStun)
-        {
-
-            fsm.ChangeState(enemy.ChaseState);
-
-        }
 
     }
 
