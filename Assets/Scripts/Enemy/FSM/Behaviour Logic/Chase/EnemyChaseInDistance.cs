@@ -51,20 +51,20 @@ public class EnemyChaseInDistance : EnemyChaseSOBase
         }
 
         // Lógica de transición
-        if (!enemy.isAggroed)
-        {
-            enemy.fsm.ChangeState(enemy.SearchState);
-        }
+        //if (!enemy.isAggroed)
+        //{
+        //    enemy.fsm.ChangeState(enemy.SearchState);
+        //}
 
-        if (enemy.isWhitinCombatRadius)
-        {
-            enemy.fsm.ChangeState(enemy.AttackState);
-        }
-
-        //if (distanceToPlayer <= attackRange)
+        //if (enemy.isWhitinCombatRadius)
         //{
         //    enemy.fsm.ChangeState(enemy.AttackState);
         //}
+
+        if (distanceToPlayer <= _enemyModel.statsSO.AttackRange)
+        {
+            enemy.fsm.ChangeState(enemy.AttackState);
+        }
 
     }
 

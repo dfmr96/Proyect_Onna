@@ -7,21 +7,16 @@ using UnityEngine;
 public class EnemyAttackRanged : EnemyAttackSOBase
 {
 
-    [Header("Ranged-Attack Settings")]
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private float shootForce = 15f;
-    [SerializeField] private float attackCooldown = 2f;
+    private bool _hasAttackedOnce;
 
-    private float lastAttackTime;
 
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
 
-
+        _timer = 0f;
         _navMeshAgent.SetDestination(playerTransform.position);
-        //_hasAttackedOnce = false;
+        _hasAttackedOnce = false;
 
     }
 
@@ -36,41 +31,29 @@ public class EnemyAttackRanged : EnemyAttackSOBase
 
         base.DoFrameUpdateLogic();
 
-        //if (!_hasAttackedOnce)
-        //{
-        //    if (_timer >= _initialAttackDelay)
-        //    {
-        //        Attack();
-        //        _hasAttackedOnce = true;
-        //        _timer = 0f;
-        //    }
-        //}
-        //else if (_timer >= _timeBetweenAttacks)
-        //{
-        //    Attack();
-
-        //    _timer = 0f;
-        //}
-
         float distance = Vector3.Distance(transform.position, playerTransform.position);
 
-        if (distance > _enemyModel.statsSO.AttackRange)
+        if (!_hasAttackedOnce)
         {
-            enemy.fsm.ChangeState(enemy.ChaseState);
-            return;
+            if (_timer >= _initialAttackDelay)
+            {
+                ShootProjectile();
+                _hasAttackedOnce = true;
+                _timer = 0f;
+            }
         }
-
-        // Si ya pasó el cooldown
-        if (Time.time >= lastAttackTime + attackCooldown)
+        else if (_timer >= _timeBetweenAttacks)
         {
+            //TriggerAttackColorEffect();
+
             ShootProjectile();
-            lastAttackTime = Time.time;
+            _timer = 0f;
         }
 
-        // Mirar al jugador
-        Vector3 lookDir = (playerTransform.position - transform.position).normalized;
-        lookDir.y = 0f;
-        transform.rotation = Quaternion.LookRotation(lookDir);
+        if (enemy.isWhitinCombatRadius)
+        {
+            enemy.fsm.ChangeState(enemy.EscapeState);
+        }
     }
 
 
@@ -86,20 +69,18 @@ public class EnemyAttackRanged : EnemyAttackSOBase
         base.ResetValues();
 
         _enemyView.PlayAttackAnimation(false);
-        TriggerAttackColorEffect();
-
+        //TriggerAttackColorEffect();
+        _hasAttackedOnce = false;
+ 
     }
 
     private void ShootProjectile()
     {
-        GameObject proj = GameObject.Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
-        Rigidbody rb = proj.GetComponent<Rigidbody>();
-        Vector3 dir = (playerTransform.position - firePoint.position).normalized;
+        _enemyView.PlayAttackAnimation(true);
+        //TriggerAttackColorEffect();
 
-        rb.AddForce(dir * shootForce, ForceMode.Impulse);
+       
     }
 
-    //private void Attack()
-    //{
-    //}
+ 
 }

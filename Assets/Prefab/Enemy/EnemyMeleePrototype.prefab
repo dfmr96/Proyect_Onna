@@ -2981,6 +2981,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987da65557474c748822221c981d168d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  firePoint: {fileID: 2145016953319919011}
   initialState: 0
   EnemyIdleSOBase: {fileID: 11400000, guid: c4a8a2f2ad6efca48b5170c6ad0499f8, type: 2}
   EnemyAttackSOBase: {fileID: 11400000, guid: dcde0ee0a61b0c244a1bf7b0a556bbfb, type: 2}

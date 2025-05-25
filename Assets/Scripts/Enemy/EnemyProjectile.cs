@@ -2,32 +2,100 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Player;
+using System;
 
 public class EnemyProjectile : MonoBehaviour
 {
-    public float damage = 10f;
-    public float lifeTime = 5f;
+    private float damage;
+    [SerializeField] private float lifeTime = 5f;
+    [SerializeField] private ParticleSystem impactEffectParticlesPrefab;
     protected Transform playerTransform;
+    [SerializeField] float bulletSpeed;
+    [SerializeField] private LayerMask obstacleLayers;
+    private bool hasHit = false;
+    private Action onRelease;
+    private Rigidbody rb;
+    private float _timer = 0f;
+
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+
+    }
 
     private void Start()
     {
-        Destroy(gameObject, lifeTime);
         playerTransform = PlayerHelper.GetPlayer().transform;
 
     }
 
+    public void Launch(Vector3 direction, float force, float damage, Action onReleaseCallback)
+    {
+        this.damage = damage;
+        onRelease = onReleaseCallback;
+        rb.velocity = direction * force;
 
+        _timer = 0f;
+        hasHit = false;
+    }
+
+    private void Update()
+    {
+        _timer += Time.deltaTime;
+
+        if (_timer >= lifeTime)
+        {
+            onRelease?.Invoke();
+            _timer = 0f;
+            hasHit = false;
+
+        }
+    }
+
+    private void PlayImpactParticles()
+    {
+        if (impactEffectParticlesPrefab != null)
+        {
+            var impact = Instantiate(impactEffectParticlesPrefab, transform.position, Quaternion.identity);
+            impact.Play();
+            Destroy(impact.gameObject, impact.main.duration);
+        }
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
-   
 
-        if ( (collision.transform == playerTransform) && (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)) )
+        if (hasHit) return;
+
+        if (collision.gameObject.layer == obstacleLayers)
         {
+            PlayImpactParticles();
+
+            onRelease?.Invoke();
+
+        }
+
+
+        if ( (collision.transform.root == playerTransform) && (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)) )
+        {
+            hasHit = true;
+
             damageable.TakeDamage(damage);
             Debug.Log("Player damaged");
-            Destroy(gameObject);
+
+            PlayImpactParticles();
+
+
+            onRelease?.Invoke();
+
+
         }
+      
+
+
+
+
     }
 }
 

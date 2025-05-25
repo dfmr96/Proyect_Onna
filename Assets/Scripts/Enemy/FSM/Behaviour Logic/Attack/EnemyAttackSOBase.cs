@@ -86,21 +86,15 @@ public class EnemyAttackSOBase : ScriptableObject
 
         _timer += Time.deltaTime;
 
-        ////Si el Player muere durante el atque el enemigo se pone en idle
-        //if (playerTransform == null)
-        //{
-
-        //    enemy.fsm.ChangeState(enemy.IdleState);
-        //    return;
-        //}
-      
-        distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
-
-        if (distanceToPlayer > _distanceToCountExit)
+        //Si el Player muere durante el atque el enemigo se pone en idle
+        if (playerTransform == null)
         {
-            enemy.fsm.ChangeState(enemy.SearchState);
+
+            enemy.fsm.ChangeState(enemy.IdleState);
             return;
         }
+
+
 
     }
     public virtual void ResetValues()

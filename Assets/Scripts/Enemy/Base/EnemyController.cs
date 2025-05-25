@@ -12,6 +12,9 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     private NavMeshAgent _navMeshAgent;
 
+    public Transform firePoint;
+
+
     public bool isAggroed { get; set; }
     public bool isWhitinCombatRadius { get; set; }
 

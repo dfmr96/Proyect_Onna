@@ -32,6 +32,14 @@ public class EnemyAttackMelee : EnemyAttackSOBase
 
         base.DoFrameUpdateLogic();
 
+        distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
+
+        if (distanceToPlayer > _distanceToCountExit)
+        {
+            enemy.fsm.ChangeState(enemy.SearchState);
+            return;
+        }
+
         if (!_hasAttackedOnce)
         {
             if (_timer >= _initialAttackDelay)
@@ -75,7 +83,6 @@ public class EnemyAttackMelee : EnemyAttackSOBase
             enemy.fsm.ChangeState(enemy.StunnedState);
 
         }
-
 
     }
 

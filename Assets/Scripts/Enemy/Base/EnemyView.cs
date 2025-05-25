@@ -8,6 +8,8 @@ public class EnemyView : MonoBehaviour
     private Animator animator;
     private Transform _playerTransform;
     private EnemyController _enemyController;
+    private EnemyModel _enemyModel;
+    private ProjectileSpawner projectileSpawner;
 
     private float _distanceToCountExit = 3f;
 
@@ -20,9 +22,10 @@ public class EnemyView : MonoBehaviour
     {
         //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         _playerTransform = PlayerHelper.GetPlayer().transform;
+        projectileSpawner = FindObjectOfType<ProjectileSpawner>();
 
         _enemyController = GetComponent<EnemyController>();
-
+        _enemyModel = GetComponent<EnemyModel>();
 
     }
 
@@ -42,6 +45,22 @@ public class EnemyView : MonoBehaviour
 
             }
         }
+    }
+
+    public void AnimationShootProjectileFunc()
+    {
+        if (projectileSpawner == null) return;
+
+        Transform firePoint = _enemyController.firePoint;
+
+        Vector3 targetPos = _playerTransform.position;
+        targetPos.y = firePoint.position.y; 
+
+        Vector3 dir = (targetPos - firePoint.position).normalized;
+
+        projectileSpawner.SpawnProjectile(firePoint.position, dir, _enemyModel.statsSO.ShootForce, _enemyModel.statsSO.AttackDamage);
+        
+
     }
 
 

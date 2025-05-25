@@ -10,6 +10,9 @@ public class EnemyStatsSO : ScriptableObject
     public float AttackDamage = 20f;
     public float AttackRange = 10f;
 
+    [Header("Ranged Combat")]
+    public float ShootForce = 15f;
+
     [Header("Movement")]
     public float moveSpeed = 6f;
     public float rotationSpeed = 400f;
