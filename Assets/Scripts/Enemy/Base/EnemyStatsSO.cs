@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyStats", menuName = "Enemies/Stats")]
+[CreateAssetMenu(fileName = "Enemy Logic", menuName = "Enemy Stats/Enemy Stats Base")]
 public class EnemyStatsSO : ScriptableObject
 {
     [Header("Vitality")]
@@ -8,8 +8,10 @@ public class EnemyStatsSO : ScriptableObject
 
     [Header("Combat")]
     public float AttackDamage = 20f;
-    public bool isRangedAttack = false;
     public float AttackRange = 10f;
+
+    [Header("Ranged Combat")]
+    public float ShootForce = 15f;
 
     [Header("Movement")]
     public float moveSpeed = 6f;

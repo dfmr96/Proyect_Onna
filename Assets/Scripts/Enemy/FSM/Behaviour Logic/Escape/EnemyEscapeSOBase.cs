@@ -4,16 +4,20 @@ using UnityEngine;
 using Player;
 using UnityEngine.AI;
 
-public class EnemyChaseSOBase : ScriptableObject
+public class EnemyEscapeSOBase : ScriptableObject
 {
     protected EnemyController enemy;
     protected Transform transform;
     protected GameObject gameObject;
-    protected EnemyModel _enemyModel;
 
     protected Transform playerTransform;
+    protected EnemyView _enemyView;
 
     protected NavMeshAgent _navMeshAgent;
+
+    [Header("Escape Settings")]
+    [SerializeField] protected float escapeDistance = 3f;
+    [SerializeField] protected float desiredDistance = 6f;
 
     public virtual void Initialize(GameObject gameObject, EnemyController enemy)
     {
@@ -28,7 +32,7 @@ public class EnemyChaseSOBase : ScriptableObject
 
     public virtual void DoEnterLogic()
     {
-        _enemyModel = enemy.GetComponent<EnemyModel>();
+        _enemyView = enemy.GetComponent<EnemyView>();
 
     }
     public virtual void DoExitLogic() { ResetValues(); }
@@ -41,3 +45,4 @@ public class EnemyChaseSOBase : ScriptableObject
 
     }
 }
+
