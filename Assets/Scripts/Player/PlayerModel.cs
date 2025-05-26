@@ -25,7 +25,19 @@ public class PlayerModel : MonoBehaviour, IDamageable, IHealable
         }
 
         stats = new RuntimeStats(baseStats, statRegistry);
+        RunData.SetStats(stats);
         CurrentTime = stats.CurrentEnergyTime;
+    }
+
+    private void Update()
+    {
+        ApplyPassiveDrain();
+    }
+
+    private void ApplyPassiveDrain()
+    {
+        float damagePerFrame = DrainRate * Time.deltaTime;
+        TakeDamage(damagePerFrame);
     }
 
     public void TakeDamage(float timeTaken)
