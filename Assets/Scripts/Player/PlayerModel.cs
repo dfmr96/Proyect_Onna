@@ -2,50 +2,59 @@
 using Player.Stats;
 using UnityEngine;
 
-public class PlayerModel: MonoBehaviour, IDamageable, IHealable
+public class PlayerModel : MonoBehaviour, IDamageable, IHealable
 {
     public static Action OnPlayerDie;
     public static Action<float> OnUpdateTime;
-    [SerializeField] private CharacterBaseStats data;
-    [SerializeField] RuntimeStats stats;
 
-    private float maxTime;
-    public float CurrentTime {  get; private set; }
-    public float TimeDrainRate { get; private set; }
-    public float Speed { get; private set; }
+    [Header("Stats Config")]
+    [SerializeField] private CharacterBaseStats baseStats;
+    [SerializeField] private StatRegistry statRegistry;
+    [SerializeField] private StatReferences statRefs;
 
+    private RuntimeStats stats;
+
+    public float CurrentTime { get; private set; }
 
     private void Awake()
     {
-        RunData.Initialize(data);
-        stats = RunData.CurrentStats;
+        if (!statRefs.startVitalTime || !statRefs.maxVitalTime)
+        {
+            Debug.LogError("❌ StatReferences no está correctamente configurado (falta StartEnergyTime o MaxVitalTime).");
+            return;
+        }
 
+        stats = new RuntimeStats(baseStats, statRegistry);
         CurrentTime = stats.CurrentEnergyTime;
-        maxTime = stats.MaxVitalTime;
-        TimeDrainRate = stats.DrainRatePerSecond;
-        Speed = stats.MovementSpeed;
     }
 
-    public void TakeDamage(float timeTaken) 
-    { 
-        CurrentTime -= timeTaken;
-        stats.SetCurrentEnergyTime(CurrentTime);
-        OnUpdateTime?.Invoke(CurrentTime / maxTime);
-        if (CurrentTime <= 0) Die();
-    }
-
-    public void RecoverTime(float timeRecovered) 
+    public void TakeDamage(float timeTaken)
     {
-        CurrentTime += timeRecovered;
-        if (CurrentTime > maxTime) CurrentTime = maxTime;
-        stats.SetCurrentEnergyTime(CurrentTime);
-        OnUpdateTime?.Invoke(CurrentTime /maxTime);
-    }
-    
-    public void SetTime(float quantity) { CurrentTime = quantity; }
-    public void SetSpeed(float quantity) { Speed = quantity; }
+        CurrentTime -= timeTaken;
+        ClampEnergy();
+        OnUpdateTime?.Invoke(CurrentTime / stats.Get(statRefs.maxVitalTime));
 
-    public float MaxHealth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public float CurrentHealth { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public void Die() { OnPlayerDie?.Invoke(); }
+        if (CurrentTime <= 0)
+            Die();
+    }
+
+    public void RecoverTime(float timeRecovered)
+    {
+        CurrentTime = Mathf.Min(CurrentTime + timeRecovered, stats.Get(statRefs.maxVitalTime));
+        ClampEnergy();
+        OnUpdateTime?.Invoke(CurrentTime / stats.Get(statRefs.maxVitalTime));
+    }
+
+    private void ClampEnergy()
+    {
+        stats.SetCurrentEnergyTime(CurrentTime, stats.Get(statRefs.maxVitalTime));
+    }
+
+    public float Speed => stats.Get(statRefs.movementSpeed);
+    public float DrainRate => stats.Get(statRefs.passiveDrainRate);
+
+    public float MaxHealth => stats.Get(statRefs.maxVitalTime);
+    public float CurrentHealth => CurrentTime;
+
+    public void Die() => OnPlayerDie?.Invoke();
 }
