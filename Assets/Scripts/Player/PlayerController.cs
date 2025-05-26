@@ -29,6 +29,7 @@ namespace Player
             _mainCamera = Camera.main;
             _playerModel = GetComponent<PlayerModel>();
             _playerView = GetComponent<PlayerView>();
+            _playerInput = GetComponent<PlayerInput>();
             _playerInputHandler = GetComponent<PlayerInputHandler>();
             _characterController = GetComponent<CharacterController>();
         
