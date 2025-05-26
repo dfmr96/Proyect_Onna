@@ -8,17 +8,24 @@ namespace Player.Stats
         [Header("Health Stats")]
         [SerializeField] private float startEnergyTime = 60f;
         [SerializeField] private float drainRatePerSecond = 1f;
-        [SerializeField] private float maxEnergyTime = 90f;
+        [SerializeField] private float maxVitalTime = 90f;
+        [SerializeField] private float damageResistance = 0f;
 
         [Header("Movement Stats ")]
-        [SerializeField] private float baseMoveSpeed = 5f;
+        [SerializeField] private float movementSpeed = 5f;
+        
+        [Header("Weapon Stats")]
+        [SerializeField] private float weaponDamage = 10f;
+        [SerializeField] private float weaponRange = 15f;
+        [SerializeField] private float weaponFireRate = 0.5f;
+        [SerializeField] private float overheatCooldown = 2f;
 
         public float StartEnergyTime => startEnergyTime;
 
         public float DrainRatePerSecond => drainRatePerSecond;
 
-        public float MaxEnergyTime => maxEnergyTime;
+        public float MaxVitalTime => maxVitalTime;
 
-        public float BaseMoveSpeed => baseMoveSpeed;
+        public float MovementSpeed => movementSpeed;
     }
 }

@@ -9,7 +9,7 @@ public class PlayerSpawner : MonoBehaviour
         GameObject player = Instantiate(playerPrefab, transform.position, Quaternion.identity);
         PlayerModel playerModel = player.GetComponent<PlayerModel>();
         playerModel.SetTime(RunData.CurrentStats.CurrentEnergyTime);
-        playerModel.SetSpeed(RunData.CurrentStats.MoveSpeed);
+        playerModel.SetSpeed(RunData.CurrentStats.MovementSpeed);
 
         return player;
     }

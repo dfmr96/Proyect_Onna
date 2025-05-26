@@ -29,6 +29,11 @@ namespace Mutations
         }
 
         public Sprite Icon => icon;
-        public UpgradeEffect Effect => effect;
+
+        public UpgradeEffect Effect
+        {
+            get => effect;
+            set => effect = value;
+        }
     }
 }

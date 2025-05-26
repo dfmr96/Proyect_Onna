@@ -22,8 +22,8 @@ namespace Player.Stats
             {
                 previewStartTime = baseStats.StartEnergyTime;
                 previewDrainRate = baseStats.DrainRatePerSecond;
-                previewMaxTime = baseStats.MaxEnergyTime;
-                previewMoveSpeed = baseStats.BaseMoveSpeed;
+                previewMaxTime = baseStats.MaxVitalTime;
+                previewMoveSpeed = baseStats.MovementSpeed;
             }
         }
         private void Start()
@@ -32,8 +32,8 @@ namespace Player.Stats
 
             Debug.Log($"Initial time: {runtimeStats.CurrentEnergyTime}");
             Debug.Log($"Drain/s: {runtimeStats.DrainRatePerSecond}");
-            Debug.Log($"Max.Time: {runtimeStats.MaxEnergyTime}");
-            Debug.Log($"Movement Speed: {runtimeStats.MoveSpeed}");
+            Debug.Log($"Max.Time: {runtimeStats.MaxVitalTime}");
+            Debug.Log($"Movement Speed: {runtimeStats.MovementSpeed}");
         }
     }
 }

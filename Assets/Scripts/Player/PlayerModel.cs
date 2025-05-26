@@ -21,9 +21,9 @@ public class PlayerModel: MonoBehaviour, IDamageable, IHealable
         stats = RunData.CurrentStats;
 
         CurrentTime = stats.CurrentEnergyTime;
-        maxTime = stats.MaxEnergyTime;
+        maxTime = stats.MaxVitalTime;
         TimeDrainRate = stats.DrainRatePerSecond;
-        Speed = stats.MoveSpeed;
+        Speed = stats.MovementSpeed;
     }
 
     public void TakeDamage(float timeTaken) 
