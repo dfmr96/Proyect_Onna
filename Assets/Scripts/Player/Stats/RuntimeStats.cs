@@ -5,77 +5,56 @@ namespace Player.Stats
     [System.Serializable]
     public class RuntimeStats
     {
-        [SerializeField] private float currentEnergyTime;
-        [SerializeField] private float drainRatePerSecond;
-        [SerializeField] private float maxVitalTime;
-        [SerializeField] private float movementSpeed;
-        [SerializeField] private float overheatCooldown;
-        [SerializeField] private float attackRange;
-        [SerializeField] private float damage;
-        [SerializeField] private float damageResistance;
+        private float currentEnergyTime;
+
+        private StatBlock baseStats;
+        private StatBlock runtimeBonuses;
 
         public float CurrentEnergyTime => currentEnergyTime;
-        public float DrainRatePerSecond => drainRatePerSecond;
 
-        public float MaxVitalTime
+        public RuntimeStats(CharacterBaseStats baseStatsAsset, StatRegistry registry)
         {
-            get => maxVitalTime;
-            set => maxVitalTime = value;
+            baseStats = Object.Instantiate(baseStatsAsset.BaseStats);
+            runtimeBonuses = ScriptableObject.CreateInstance<StatBlock>();
+
+            var maxVitalDef = registry.GetByName("MaxVitalTime");
+            var startEnergyDef = registry.GetByName("StartEnergyTime");
+
+            if (maxVitalDef == null || startEnergyDef == null)
+            {
+                Debug.LogError("❌ No se encontraron MaxVitalTime o StartEnergyTime en el StatRegistry.");
+                return;
+            }
+
+            float maxVital = baseStats.Get(maxVitalDef);
+            float start = baseStats.Get(startEnergyDef);
+            currentEnergyTime = Mathf.Min(start, maxVital);
         }
 
-        public float MovementSpeed
+        public float Get(StatDefinition stat)
         {
-            get => movementSpeed;
-            set => movementSpeed = value;
+            return baseStats.Get(stat) + runtimeBonuses.Get(stat);
         }
 
-        public float OverheatCooldown
+        public void AddRuntimeBonus(StatDefinition stat, float amount)
         {
-            get => overheatCooldown;
-            set => overheatCooldown = value;
+            float existing = runtimeBonuses.Get(stat);
+            runtimeBonuses.Set(stat, existing + amount);
         }
 
-        public float AttackRange
+        public void MultiplyStat(StatDefinition stat, float factor)
         {
-            get => attackRange;
-            set => attackRange = value;
+            float baseVal = Get(stat);
+            float newValue = baseVal * factor;
+            AddRuntimeBonus(stat, newValue - baseVal);
         }
 
-        public float Damage
+        public void SetCurrentEnergyTime(float value, float maxVitalTime)
         {
-            get => damage;
-            set => damage = value;
+            currentEnergyTime = Mathf.Clamp(value, 0f, maxVitalTime);
         }
 
-        public float DamageResistance
-        {
-            get => damageResistance;
-            set => damageResistance = value;
-        }
 
-        public RuntimeStats(CharacterBaseStats baseStats)
-        {
-            MaxVitalTime = baseStats.MaxVitalTime;
-            // Ensure that the max energy time is not less than the start energy time
-            currentEnergyTime = Mathf.Min(baseStats.StartEnergyTime, MaxVitalTime);
-            drainRatePerSecond = baseStats.DrainRatePerSecond;
-            MovementSpeed = baseStats.MovementSpeed;
-        }
-
-        //TODO Modifier methods to add and remove bonuses
-        public void SetCurrentEnergyTime(float value)
-        {
-            currentEnergyTime = Mathf.Clamp(value, 0f, MaxVitalTime);
-        }
-
-        public void AddMultiplier(ref float stat, float multiplier)
-        {
-            stat *= 1f + multiplier;
-        }
-
-        public void AddFlat(ref float stat, float value)
-        {
-            stat += value;
-        }
+        public void ClearRuntimeBonuses() => runtimeBonuses.Clear();
     }
 }
