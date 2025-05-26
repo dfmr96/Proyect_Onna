@@ -7,8 +7,9 @@ public class PlayerModel : MonoBehaviour, IDamageable, IHealable
     public static Action OnPlayerDie;
     public static Action<float> OnUpdateTime;
 
-    [Header("Stats Config")]
-    [SerializeField] private CharacterBaseStats baseStats;
+    [Header("Stats Config")] [SerializeField]
+    private CharacterBaseStats baseStats;
+
     [SerializeField] private StatReferences statRefs;
 
     private RuntimeStats stats;
@@ -17,14 +18,9 @@ public class PlayerModel : MonoBehaviour, IDamageable, IHealable
 
     private void Awake()
     {
-        if (!statRefs.initialVitalTime || !statRefs.maxVitalTime)
-        {
-            Debug.LogError("❌ StatReferences no está correctamente configurado (falta StartEnergyTime o MaxVitalTime).");
-            return;
-        }
-
-        stats = new RuntimeStats(baseStats, statRefs);
+        stats = RunData.CurrentStats ?? new RuntimeStats(baseStats, statRefs);
         RunData.SetStats(stats);
+
         CurrentTime = stats.CurrentEnergyTime;
     }
 

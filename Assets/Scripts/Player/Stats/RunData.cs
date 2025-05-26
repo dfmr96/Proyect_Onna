@@ -3,12 +3,11 @@ using Player.Stats;
 public static class RunData
 {
     public static RuntimeStats CurrentStats { get; private set; }
-
-    public static void Initialize(CharacterBaseStats baseStats)
+    
+    public static void SetStats(RuntimeStats stats)
     {
-        if (CurrentStats == null) CurrentStats = new RuntimeStats(baseStats);
+        CurrentStats = stats;
     }
+
     public static void Clear() { CurrentStats = null; }
-    
-    
 }
