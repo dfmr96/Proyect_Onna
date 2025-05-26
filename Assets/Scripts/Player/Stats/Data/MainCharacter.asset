@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a160d8a14434e458a11804beaaf5af, type: 3}
   m_Name: MainCharacter
   m_EditorClassIdentifier: 
-  startEnergyTime: 60
-  drainRatePerSecond: 2
-  maxEnergyTime: 60
-  baseMoveSpeed: 6
+  baseStatBlock: {fileID: 11400000, guid: 7da8c568a2998754f8d835daad308ad4, type: 2}

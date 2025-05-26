@@ -73,7 +73,5 @@ MonoBehaviour:
       Value: 4
     - Key: {fileID: 11400000, guid: 3857823e71d6d8e4081f24e258a0d8c4, type: 2}
       Value: 1
-    - Key: {fileID: 11400000, guid: dc096431d7f45b442b1ef7a169360a21, type: 2}
-      Value: 0
   newStatName: StartVitalTime
   newStatValue: 0

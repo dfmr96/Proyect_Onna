@@ -468,12 +468,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fc80a863b2473099f2be0da4db6173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: a5da7aaa589d60c48ab3aad0dddc2cda, type: 2}
-  stats:
-    currentEnergyTime: 0
-    drainRatePerSecond: 0
-    maxEnergyTime: 0
-    moveSpeed: 0
+  baseStats: {fileID: 11400000, guid: a5da7aaa589d60c48ab3aad0dddc2cda, type: 2}
+  statRegistry: {fileID: 11400000, guid: 8c726f5c480f8aa4b9473df470a4826e, type: 2}
+  statRefs: {fileID: 11400000, guid: 32dafbba4d335714c8c998c91f07c1d4, type: 2}
 --- !u!114 &4339932572223991893
 MonoBehaviour:
   m_ObjectHideFlags: 0

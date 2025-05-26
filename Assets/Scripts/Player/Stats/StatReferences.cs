@@ -7,7 +7,7 @@ namespace Player.Stats
     {
         [Header("Vital Stats")]
         public StatDefinition maxVitalTime;
-        public StatDefinition startVitalTime;
+        public StatDefinition initialVitalTime;
         public StatDefinition passiveDrainRate;
         public StatDefinition enemyHitPenalty;
 
@@ -38,7 +38,7 @@ namespace Player.Stats
             }
 
             TryAssign(ref maxVitalTime, "MaxVitalTime", registry);
-            TryAssign(ref startVitalTime, "StartVitalTime", registry);
+            TryAssign(ref initialVitalTime, "InitialVitalTime", registry);
             TryAssign(ref passiveDrainRate, "PassiveDrainRate", registry);
             TryAssign(ref enemyHitPenalty, "EnemyHitPenalty", registry);
             TryAssign(ref damage, "Damage", registry);

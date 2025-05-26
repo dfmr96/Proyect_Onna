@@ -12,22 +12,13 @@ namespace Player.Stats
 
         public float CurrentEnergyTime => currentEnergyTime;
 
-        public RuntimeStats(CharacterBaseStats baseStatsAsset, StatRegistry registry)
+        public RuntimeStats(CharacterBaseStats baseStatsAsset, StatReferences references)
         {
             baseStats = Object.Instantiate(baseStatsAsset.BaseStats);
             runtimeBonuses = ScriptableObject.CreateInstance<StatBlock>();
 
-            var maxVitalDef = registry.GetByName("MaxVitalTime");
-            var startEnergyDef = registry.GetByName("StartEnergyTime");
-
-            if (maxVitalDef == null || startEnergyDef == null)
-            {
-                Debug.LogError("❌ No se encontraron MaxVitalTime o StartEnergyTime en el StatRegistry.");
-                return;
-            }
-
-            float maxVital = baseStats.Get(maxVitalDef);
-            float start = baseStats.Get(startEnergyDef);
+            float maxVital = baseStats.Get(references.maxVitalTime);
+            float start = baseStats.Get(references.initialVitalTime);
             currentEnergyTime = Mathf.Min(start, maxVital);
         }
 
@@ -53,8 +44,7 @@ namespace Player.Stats
         {
             currentEnergyTime = Mathf.Clamp(value, 0f, maxVitalTime);
         }
-
-
+        
         public void ClearRuntimeBonuses() => runtimeBonuses.Clear();
     }
 }
