@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HeartTest4
   m_EditorClassIdentifier: 
   mutationName: HeartMutation4
-  description: HeartMutation4
+  description: This is a mutation test description
   organ: 2
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   effect: {fileID: 0}

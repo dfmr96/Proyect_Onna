@@ -9,15 +9,10 @@ namespace Mutations
     [CreateAssetMenu(fileName = "New Mutation Database", menuName = "Mutations/Database", order = 0)]
     public class MutationDatabase : ScriptableObject
     {
-        [field:SerializeField] private List<MutationData> allMutations;
+        [SerializeField] private List<MutationData> allMutations;
         [SerializeField] private SerializedDictionary <OrganType, List<MutationData>> mutationLookup;
+        
         public IEnumerable<OrganType> AvailableOrgans => mutationLookup.Keys;
-
-
-
-        public List<MutationData> AllMutations => allMutations;
-
-
         public List<MutationData> GetMutationsByOrgan(OrganType organ)
         {
             return mutationLookup.TryGetValue(organ, out var list)
