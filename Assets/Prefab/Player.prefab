@@ -440,11 +440,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponController: {fileID: 1108355771667216337}
-  playerInput: {fileID: 8144839512589497895}
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
-  playerInputHandler: {fileID: 4339932572223991893}
 --- !u!114 &597474821443021411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -746,13 +744,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6239ad5eac6097d4b81cf66f17e88098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 5548806120118100397, guid: 5d06cecf3b82f0f47a37db2ad21c554b, type: 3}
-  bulletSpawnPoint: {fileID: 2511859693823612000}
-  bulletSpeed: 30
-  fireRate: 0.5
-  maxAmmo: 12
+  bulletSettings:
+    bulletPrefab: {fileID: 5548806120118100397, guid: 5d06cecf3b82f0f47a37db2ad21c554b, type: 3}
+    bulletSpawnPoint: {fileID: 2511859693823612000}
+    bulletSpeed: 20
+    bulletMaxDistance: 10
+    damage: 10
+  cooldownSettings:
+    fireRate: 0.2
+    overheatCooldown: 1.25
+    coolingCooldown: 2
+  ammoSettings:
+    maxAmmo: 12
   currentAmmo: 0
-  overheatCooldown: 1.25
-  coolingCooldown: 2
-  bulletMaxDistance: 6
-  damage: 10
+  canFire: 1

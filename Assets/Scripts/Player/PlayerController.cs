@@ -1,3 +1,4 @@
+using Player.Weapon;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
