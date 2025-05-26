@@ -12,6 +12,9 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     private NavMeshAgent _navMeshAgent;
 
+    public Transform firePoint;
+
+
     public bool isAggroed { get; set; }
     public bool isWhitinCombatRadius { get; set; }
 
@@ -25,6 +28,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     public EnemyIdleState IdleState { get; set; }
     public EnemyStunnedState StunnedState { get; set; }
     public EnemyDeadState DeadState { get; set; }
+    public EnemyEscapeState EscapeState { get; set; }
+
 
 
     public enum InitialState
@@ -35,7 +40,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         Search,
         Idle,
         Stunned,
-        Dead
+        Dead,
+        Escape
     }
 
     public InitialState initialState = InitialState.Patrol;
@@ -53,14 +59,18 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     [SerializeField] private EnemyDeadSOBase EnemyDeadSOBase;
     [SerializeField] private EnemyPatrolSOBase EnemyPatrolSOBase;
     [SerializeField] private EnemyStunnedSOBase EnemyStunnedSOBase;
+    [SerializeField] private EnemyEscapeSOBase EnemyEscapeSOBase;
 
-    
+
+
     public EnemyIdleSOBase EnemyIdleBaseInstance { get; set; }
     public EnemyAttackSOBase EnemyAttackBaseInstance { get; set; }
     public EnemyChaseSOBase EnemyChaseBaseInstance { get; set; }
     public EnemyDeadSOBase EnemyDeadBaseInstance { get; set; }
     public EnemyPatrolSOBase EnemyPatrolBaseInstance { get; set; }
     public EnemyStunnedSOBase EnemyStunnedBaseInstance { get; set; }
+    public EnemyEscapeSOBase EnemyEscapeBaseInstance { get; set; }
+
 
 
     #endregion
@@ -73,7 +83,9 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         EnemyChaseBaseInstance = Instantiate(EnemyChaseSOBase);
         EnemyDeadBaseInstance = Instantiate(EnemyDeadSOBase);
         EnemyPatrolBaseInstance = Instantiate(EnemyPatrolSOBase);
-        EnemyStunnedBaseInstance = Instantiate(EnemyStunnedSOBase);   
+        EnemyStunnedBaseInstance = Instantiate(EnemyStunnedSOBase);
+        EnemyEscapeBaseInstance = Instantiate(EnemyEscapeSOBase);
+
 
 
 
@@ -90,6 +102,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         StunnedState = new EnemyStunnedState(this, fsm);
         IdleState = new EnemyIdleState(this, fsm);
         DeadState = new EnemyDeadState(this, fsm);
+        EscapeState = new EnemyEscapeState(this, fsm);
+
 
     }
 
@@ -105,6 +119,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         EnemyDeadBaseInstance.Initialize(gameObject, this);
         EnemyPatrolBaseInstance.Initialize(gameObject, this);
         EnemyStunnedBaseInstance.Initialize(gameObject, this);
+        EnemyEscapeBaseInstance.Initialize(gameObject, this);
+
 
         InitializeState();
 
@@ -155,6 +171,9 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
                 break;
             case InitialState.Dead:
                 fsm.Initialize(DeadState);
+                break;
+            case InitialState.Escape:
+                fsm.Initialize(EscapeState);
                 break;
 
 

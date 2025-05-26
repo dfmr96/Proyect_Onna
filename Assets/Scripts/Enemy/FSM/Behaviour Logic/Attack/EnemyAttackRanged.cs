@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Attack-Melee Basic", menuName = "Enemy Logic/Attack Logic/Melee Attack")]
-public class EnemyAttackMelee : EnemyAttackSOBase
+[CreateAssetMenu(fileName = "Attack-Ranged Attack Basic", menuName = "Enemy Logic/Attack Logic/Ranged Attack With Projectiles")]
+
+public class EnemyAttackRanged : EnemyAttackSOBase
 {
-    private bool _hasAttackedOnce = false;
+
+    private bool _hasAttackedOnce;
 
 
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
 
-        _enemyModel.OnHealthChanged += HandleHealthChanged;
-
+        _timer = 0f;
         _navMeshAgent.SetDestination(playerTransform.position);
         _hasAttackedOnce = false;
 
@@ -23,7 +23,6 @@ public class EnemyAttackMelee : EnemyAttackSOBase
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        _enemyModel.OnHealthChanged -= HandleHealthChanged;
         ResetValues();
     }
 
@@ -32,23 +31,33 @@ public class EnemyAttackMelee : EnemyAttackSOBase
 
         base.DoFrameUpdateLogic();
 
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
+
         if (!_hasAttackedOnce)
         {
             if (_timer >= _initialAttackDelay)
             {
-                Attack();
+                ShootProjectile();
                 _hasAttackedOnce = true;
                 _timer = 0f;
             }
         }
         else if (_timer >= _timeBetweenAttacks)
         {
-            Attack();
+            //TriggerAttackColorEffect();
+
+            ShootProjectile();
             _timer = 0f;
         }
 
-
+        if (enemy.isWhitinCombatRadius)
+        {
+            enemy.fsm.ChangeState(enemy.EscapeState);
+        }
     }
+
+
+
 
     public override void Initialize(GameObject gameObject, EnemyController enemy)
     {
@@ -60,41 +69,18 @@ public class EnemyAttackMelee : EnemyAttackSOBase
         base.ResetValues();
 
         _enemyView.PlayAttackAnimation(false);
+        //TriggerAttackColorEffect();
         _hasAttackedOnce = false;
-
+ 
     }
 
-
-    private void HandleHealthChanged(float currentHealth)
+    private void ShootProjectile()
     {
-        //Si es lastimado dentro del umbral de tiempo, se stunea
-        if (_timer >= _initialAttackDelay)
-        {
-            enemy.fsm.ChangeState(enemy.StunnedState);
+        _enemyView.PlayAttackAnimation(true);
+        //TriggerAttackColorEffect();
 
-        }
-
-
+       
     }
 
-
-    private void Attack()
-    {
-
-        if (playerTransform != null)
-        {
-            distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
-
-            //Si se alejo no aplicar dano
-            if (distanceToPlayer <= _distanceToCountExit)
-            {
-                _enemyView.PlayAttackAnimation(true);
-                TriggerAttackColorEffect();
-            }
-        }
-
-
-    }
-
-
+ 
 }
