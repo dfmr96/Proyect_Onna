@@ -11,6 +11,8 @@ namespace Mutations
     {
         [field:SerializeField] private List<MutationData> allMutations;
         [SerializeField] private SerializedDictionary <OrganType, List<MutationData>> mutationLookup;
+        public IEnumerable<OrganType> AvailableOrgans => mutationLookup.Keys;
+
 
 
         public List<MutationData> AllMutations => allMutations;

@@ -9,8 +9,15 @@ namespace Mutations
         
         public List<MutationData> RollMutations(int amount)
         {
-            OrganType[] organTypes = (OrganType[])System.Enum.GetValues(typeof(OrganType));
-            OrganType selectedOrgan = organTypes[Random.Range(0, organTypes.Length)];
+            List<OrganType> availableOrgans = new List<OrganType>(mutationDatabase.AvailableOrgans);
+
+            if (availableOrgans.Count == 0)
+            {
+                Debug.LogWarning("No organs with available mutations.");
+                return new List<MutationData>();
+            }
+
+            OrganType selectedOrgan = availableOrgans[Random.Range(0, availableOrgans.Count)];
 
             List<MutationData> pool = mutationDatabase.GetMutationsByOrgan(selectedOrgan);
 
@@ -19,14 +26,16 @@ namespace Mutations
 
         private List<MutationData> GetRandomDistinct(List<MutationData> source, int count)
         {
-            List<MutationData> result = new List<MutationData>();
-            List<MutationData> temp = new List<MutationData>(source);
+            if (source == null || source.Count == 0) return new List<MutationData>();
 
-            for (int i = 0; i < count && temp.Count > 0; i++)
+            List<MutationData> result = new List<MutationData>();
+            List<MutationData> copy = new List<MutationData>(source);
+
+            for (int i = 0; i < count && copy.Count > 0; i++)
             {
-                int index = Random.Range(0, temp.Count);
-                result.Add(temp[index]);
-                temp.RemoveAt(index);
+                int index = Random.Range(0, copy.Count);
+                result.Add(copy[index]);
+                copy.RemoveAt(index);
             }
 
             return result;
