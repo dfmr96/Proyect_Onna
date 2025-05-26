@@ -4,18 +4,16 @@ using UnityEngine;
 using Player;
 using UnityEngine.AI;
 
-public class EnemyPatrolSOBase : ScriptableObject
+public class EnemyHurtSOBase : ScriptableObject
 {
     protected EnemyController enemy;
     protected Transform transform;
     protected GameObject gameObject;
 
     protected Transform playerTransform;
+    protected EnemyView _enemyView;
 
     protected NavMeshAgent _navMeshAgent;
-
-    protected Vector3 _targetPos;
-    protected EnemyModel _enemyModel;
 
     public virtual void Initialize(GameObject gameObject, EnemyController enemy)
     {
@@ -30,18 +28,12 @@ public class EnemyPatrolSOBase : ScriptableObject
 
     public virtual void DoEnterLogic()
     {
-        _enemyModel = enemy.GetComponent<EnemyModel>();
-        _navMeshAgent.isStopped = false;
+        _enemyView = enemy.GetComponent<EnemyView>();
 
     }
     public virtual void DoExitLogic() { ResetValues(); }
     public virtual void DoFrameUpdateLogic()
     {
-
-        if (enemy.isAggroed)
-        {
-            enemy.fsm.ChangeState(enemy.ChaseState);
-        }
 
     }
     public virtual void ResetValues()
@@ -49,3 +41,4 @@ public class EnemyPatrolSOBase : ScriptableObject
 
     }
 }
+

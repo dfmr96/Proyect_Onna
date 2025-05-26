@@ -40,7 +40,7 @@ public class EnemyModel : MonoBehaviour, IDamageable
 
         CurrentHealth -= damageAmount;
         OnHealthChanged?.Invoke(CurrentHealth);
-        view.PlayDamageAnimation();
+        //view.PlayDamageAnimation();
 
         if (CurrentHealth <= 0)
         {

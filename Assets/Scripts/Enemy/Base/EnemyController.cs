@@ -29,6 +29,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     public EnemyStunnedState StunnedState { get; set; }
     public EnemyDeadState DeadState { get; set; }
     public EnemyEscapeState EscapeState { get; set; }
+    public EnemyHurtState HurtState { get; set; }
+
 
 
 
@@ -60,6 +62,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     [SerializeField] private EnemyPatrolSOBase EnemyPatrolSOBase;
     [SerializeField] private EnemyStunnedSOBase EnemyStunnedSOBase;
     [SerializeField] private EnemyEscapeSOBase EnemyEscapeSOBase;
+    [SerializeField] private EnemyHurtSOBase EnemyHurtSOBase;
+
 
 
 
@@ -70,6 +74,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     public EnemyPatrolSOBase EnemyPatrolBaseInstance { get; set; }
     public EnemyStunnedSOBase EnemyStunnedBaseInstance { get; set; }
     public EnemyEscapeSOBase EnemyEscapeBaseInstance { get; set; }
+    public EnemyHurtSOBase EnemyHurtBaseInstance { get; set; }
+
 
 
 
@@ -85,6 +91,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         EnemyPatrolBaseInstance = Instantiate(EnemyPatrolSOBase);
         EnemyStunnedBaseInstance = Instantiate(EnemyStunnedSOBase);
         EnemyEscapeBaseInstance = Instantiate(EnemyEscapeSOBase);
+        EnemyHurtBaseInstance = Instantiate(EnemyHurtSOBase);
+
 
 
 
@@ -103,6 +111,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         IdleState = new EnemyIdleState(this, fsm);
         DeadState = new EnemyDeadState(this, fsm);
         EscapeState = new EnemyEscapeState(this, fsm);
+        HurtState = new EnemyHurtState(this, fsm);
+
 
 
     }
@@ -120,6 +130,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         EnemyPatrolBaseInstance.Initialize(gameObject, this);
         EnemyStunnedBaseInstance.Initialize(gameObject, this);
         EnemyEscapeBaseInstance.Initialize(gameObject, this);
+        EnemyHurtBaseInstance.Initialize(gameObject, this);
+
 
 
         InitializeState();
@@ -203,8 +215,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     {
         float healthPercentage = currentHealth / model.statsSO.MaxHealth;
 
-        //Cuando lo hieren pasa a stunneado
-        //fsm.ChangeState(StunnedState);
+        //Cuando lo hieren pasa a Hurt
+        fsm.ChangeState(HurtState);
     }
 
     private void HandleDeath(EnemyModel enemy)

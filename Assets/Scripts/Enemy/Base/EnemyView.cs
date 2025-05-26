@@ -91,6 +91,8 @@ public class EnemyView : MonoBehaviour
         animator.SetTrigger("IsStunned");
     }
 
+
+
     public void PlayDamageAnimation()
     {
         animator.SetTrigger("IsDamaged");

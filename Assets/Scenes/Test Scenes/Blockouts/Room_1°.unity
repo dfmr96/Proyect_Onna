@@ -1034,6 +1034,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyRangePrototype
       objectReference: {fileID: 0}
+    - target: {fileID: 6237415634096583368, guid: d1c1258e46102514daaf61b0a339baa2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8318987351491422929, guid: d1c1258e46102514daaf61b0a339baa2, type: 3}
       propertyPath: m_Enabled
       value: 1

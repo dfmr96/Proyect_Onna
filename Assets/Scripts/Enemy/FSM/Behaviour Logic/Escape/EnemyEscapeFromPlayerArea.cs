@@ -7,12 +7,14 @@ using UnityEngine.AI;
 
 public class EnemyEscapeFromPlayerArea : EnemyEscapeSOBase
 {
+    [SerializeField] private int _speedAgentMultiply;
 
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
 
-
+        //_navMeshAgent.speed = _enemyModel.statsSO.moveSpeed * _speedAgentMultiply;
+        //_navMeshAgent.angularSpeed = _enemyModel.statsSO.rotationSpeed * _speedAgentMultiply; 
 
     }
 

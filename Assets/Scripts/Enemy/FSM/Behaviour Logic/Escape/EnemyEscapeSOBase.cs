@@ -12,6 +12,8 @@ public class EnemyEscapeSOBase : ScriptableObject
 
     protected Transform playerTransform;
     protected EnemyView _enemyView;
+    protected EnemyModel _enemyModel;
+
 
     protected NavMeshAgent _navMeshAgent;
 

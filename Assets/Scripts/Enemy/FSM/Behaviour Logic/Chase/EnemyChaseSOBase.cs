@@ -33,6 +33,7 @@ public class EnemyChaseSOBase : ScriptableObject
     public virtual void DoEnterLogic()
     {
         _enemyModel = enemy.GetComponent<EnemyModel>();
+        _navMeshAgent.isStopped = false;
 
     }
     public virtual void DoExitLogic() { ResetValues(); }

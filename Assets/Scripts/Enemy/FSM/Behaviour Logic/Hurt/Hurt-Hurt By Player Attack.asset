@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7581574c1f13a7e419ef6f3e248141d1, type: 3}
-  m_Name: Chase-Chase Basic
+  m_Script: {fileID: 11500000, guid: 5af13dce29138d74998b56704269e2d6, type: 3}
+  m_Name: Hurt-Hurt By Player Attack
   m_EditorClassIdentifier: 
-  minDistanceToPlayer: 5
-  _speedAgentMultiply: 2
+  _timeHurt: 0.2

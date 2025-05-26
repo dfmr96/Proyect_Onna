@@ -11,7 +11,6 @@ public class EnemyChaseInDistance : EnemyChaseSOBase
         base.DoEnterLogic();
 
 
-
     }
 
     public override void DoExitLogic()
@@ -30,36 +29,24 @@ public class EnemyChaseInDistance : EnemyChaseSOBase
         float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
 
         if (distanceToPlayer > minDistanceToPlayer)
-        {
-            // Solo perseguir si estamos muy lejos
+        { 
+            //Solo perseguir si estamos muy lejos
             _navMeshAgent.SetDestination(playerTransform.position);
             _navMeshAgent.isStopped = false;
         }
         else
         {
-            // Detenerse para no acercarse demasiado
             _navMeshAgent.ResetPath();
             _navMeshAgent.isStopped = true;
 
-            // Opcional: mirar al jugador si querés que lo enfrente
             Vector3 lookDir = (playerTransform.position - transform.position).normalized;
-            lookDir.y = 0f; // Evita rotar en vertical
+            lookDir.y = 0f; 
             if (lookDir != Vector3.zero)
             {
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(lookDir), Time.deltaTime * 5f);
             }
         }
 
-        // Lógica de transición
-        //if (!enemy.isAggroed)
-        //{
-        //    enemy.fsm.ChangeState(enemy.SearchState);
-        //}
-
-        //if (enemy.isWhitinCombatRadius)
-        //{
-        //    enemy.fsm.ChangeState(enemy.AttackState);
-        //}
 
         if (distanceToPlayer <= _enemyModel.statsSO.AttackRange)
         {

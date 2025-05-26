@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class EnemyAttackRanged : EnemyAttackSOBase
 {
-
     private bool _hasAttackedOnce;
 
 
@@ -15,8 +14,9 @@ public class EnemyAttackRanged : EnemyAttackSOBase
         base.DoEnterLogic();
 
         _timer = 0f;
-        _navMeshAgent.SetDestination(playerTransform.position);
         _hasAttackedOnce = false;
+
+
 
     }
 
@@ -31,7 +31,12 @@ public class EnemyAttackRanged : EnemyAttackSOBase
 
         base.DoFrameUpdateLogic();
 
-        float distance = Vector3.Distance(transform.position, playerTransform.position);
+        if (enemy.isWhitinCombatRadius)
+        {
+            enemy.fsm.ChangeState(enemy.EscapeState);
+        }
+
+
 
         if (!_hasAttackedOnce)
         {
@@ -50,10 +55,7 @@ public class EnemyAttackRanged : EnemyAttackSOBase
             _timer = 0f;
         }
 
-        if (enemy.isWhitinCombatRadius)
-        {
-            enemy.fsm.ChangeState(enemy.EscapeState);
-        }
+        
     }
 
 

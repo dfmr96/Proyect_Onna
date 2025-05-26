@@ -1,19 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
-[CreateAssetMenu(fileName = "Stunned-Stunned Basic", menuName = "Enemy Logic/Stuned Logic/Stunned Basic")]
- public class EnemyStunnedBasic : EnemyStunnedSOBase
+[CreateAssetMenu(fileName = "Hurt-Hurt By Player Attack", menuName = "Enemy Logic/Hurt Logic/Hurt By Player Attack")]
+ public class EnemyHurtByPlayer : EnemyHurtSOBase
  {
     private float _timer;
-    [SerializeField] private float _timeStun = 5f;
+    [SerializeField] private float _timeHurt = 0.1f;
 
 
     public override void DoEnterLogic()
         {
             base.DoEnterLogic();
 
-            _enemyView.PlayStunnedAnimation();
+        _navMeshAgent.isStopped = true;
+        _navMeshAgent.ResetPath();
+        _navMeshAgent.velocity = Vector3.zero;
+
+        _enemyView.PlayDamageAnimation();
 
         }
 
@@ -21,7 +26,8 @@ using UnityEngine;
         {
             base.DoExitLogic();
 
-            _timer = 0f;
+            ResetValues();
+
             enemy.fsm.ChangeStateDirect(enemy.SearchState);
     }
 
@@ -31,12 +37,12 @@ using UnityEngine;
 
              _timer += Time.deltaTime;
 
-            if (_timer >= _timeStun)
-                {
+            if (_timer >= _timeHurt)
+            {
+                ResetValues();
+                enemy.fsm.ChangeState(enemy.ChaseState);
 
-                    enemy.fsm.ChangeState(enemy.ChaseState);
-
-                 }
+            }
     }
 
         public override void Initialize(GameObject gameObject, EnemyController enemy)
@@ -47,6 +53,9 @@ using UnityEngine;
         public override void ResetValues()
         {
             base.ResetValues();
-        }
- }
+            _timer = 0f;
+            _navMeshAgent.isStopped = false;
+
+    }
+}
 
