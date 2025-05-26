@@ -33,13 +33,14 @@ public class Bullet : MonoBehaviour
         maxDistance = distance;
     }
 
-    public void OnCollisionEnter(Collision other)
+    private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        if (other.TryGetComponent<IDamageable>(out var damageable))
         {
             damageable.TakeDamage(damage);
             Debug.Log("Enemy damaged");
             Destroy(gameObject);
         }
     }
+
 }
