@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 3435388732386355774}
   - component: {fileID: 597474821443021411}
   - component: {fileID: 2024501622075525127}
+  - component: {fileID: 4339932572223991893}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -335,8 +336,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3435388732386355774}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4339932572223991893}
+        m_TargetAssemblyTypeName: Player.PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnMove
         m_Mode: 0
         m_Arguments:
@@ -391,8 +392,8 @@ MonoBehaviour:
     m_ActionName: UI/TrackedDeviceOrientation
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3435388732386355774}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4339932572223991893}
+        m_TargetAssemblyTypeName: Player.PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnFire
         m_Mode: 0
         m_Arguments:
@@ -407,8 +408,8 @@ MonoBehaviour:
     m_ActionName: Player/Fire[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 3435388732386355774}
-        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+      - m_Target: {fileID: 4339932572223991893}
+        m_TargetAssemblyTypeName: Player.PlayerInputHandler, Assembly-CSharp
         m_MethodName: OnAim
         m_Mode: 0
         m_Arguments:
@@ -443,6 +444,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 512
+  playerInputHandler: {fileID: 4339932572223991893}
 --- !u!114 &597474821443021411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +476,18 @@ MonoBehaviour:
     drainRatePerSecond: 0
     maxEnergyTime: 0
     moveSpeed: 0
+--- !u!114 &4339932572223991893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3863611926642077226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99b00bb276444f70a965cb024e5d5c66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7120414884439126169
 GameObject:
   m_ObjectHideFlags: 0

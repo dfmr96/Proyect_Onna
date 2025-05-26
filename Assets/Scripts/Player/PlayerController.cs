@@ -1,81 +1,97 @@
-using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+namespace Player
 {
-    [SerializeField] private WeaponController weaponController = null;
-    [SerializeField] private PlayerInput playerInput;
-    [SerializeField] private LayerMask groundLayer;
-
-    private PlayerView _playerView;
-    private PlayerModel _playerModel;
-    private Vector3 _direction = Vector3.zero;
-    private Vector3 _aimDirection = Vector3.zero;
-    private Vector3 _mouseWorldPos;
-    private Camera _mainCamera;
-
-    void Awake()
+    [RequireComponent(typeof(CharacterController))]
+    public class PlayerController : MonoBehaviour
     {
-        PlayerHelper.SetPlayer(gameObject);
-        _mainCamera = Camera.main;
-        _playerModel = GetComponent<PlayerModel>();
-        _playerView = GetComponent<PlayerView>();
-        _playerView.Initialize();
-    }
+        private const float AimRaycastMaxDistance = 100f;
+    
+        [SerializeField] private WeaponController weaponController = null;
+        [SerializeField] private LayerMask groundLayer;
 
-    void Update()
-    {
-        _playerView.Move(_direction, _playerModel.Speed);
-        _playerView.Rotate(_aimDirection);
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        Vector2 readVector = context.ReadValue<Vector2>();
-        _direction = Utils.IsoVectorConvert(new Vector3(readVector.x, 0, readVector.y));
-    }
-
-    public void OnFire(InputAction.CallbackContext context)
-    {
-        if (context.performed)
+        private CharacterController _characterController;
+        private Vector3 _aimDirection = Vector3.forward;
+        private PlayerInputHandler _playerInputHandler;
+        private Vector3 _direction = Vector3.zero;
+        private PlayerModel _playerModel;
+        private PlayerInput _playerInput;
+        private PlayerView _playerView;
+        private Vector3 _mouseWorldPos;
+        private Camera _mainCamera;
+    
+        void Awake()
         {
-            Debug.Log("Fire");
-            weaponController?.Attack();
+            PlayerHelper.SetPlayer(gameObject);
+        
+            _mainCamera = Camera.main;
+            _playerModel = GetComponent<PlayerModel>();
+            _playerView = GetComponent<PlayerView>();
+            _playerInputHandler = GetComponent<PlayerInputHandler>();
+            _characterController = GetComponent<CharacterController>();
+        
+            _playerInputHandler.FirePerformed += HandleFire;
         }
-    }
 
-    public void OnAim(InputAction.CallbackContext context)
-    {
-        
-        Vector3 readValue = context.ReadValue<Vector2>();
-        
-        if (playerInput.currentControlScheme == "Keyboard&Mouse")
+        void Update()
         {
-            if (_mainCamera != null)
+            _direction = _playerInputHandler.MovementInput;
+            HandleAiming(_playerInputHandler.RawAimInput);
+        
+            Move(_direction, _playerModel.Speed);
+            Rotate(_aimDirection);
+            _playerView.UpdateVisuals(_aimDirection);
+        }
+    
+        private void HandleAiming(Vector2 rawInput)
+        {
+            if (_playerInput.currentControlScheme == "Keyboard&Mouse")
             {
-                Ray ray = _mainCamera.ScreenPointToRay(readValue);
+                Ray ray = _mainCamera.ScreenPointToRay(rawInput);
 
-                if (Physics.Raycast(ray, out RaycastHit hit, 99, groundLayer)) //TODO Quitar numero magico
+                if (Physics.Raycast(ray, out RaycastHit hit, AimRaycastMaxDistance, groundLayer))
                 {
                     _mouseWorldPos = hit.point;
                     _mouseWorldPos.y = 0;
-                    _aimDirection = (_mouseWorldPos - new Vector3(transform.position.x, 0, transform.position.z))
-                        .normalized;
+
+                    var position = transform.position;
+                    Vector3 flatPos = new Vector3(position.x, 0f, position.z);
+                    _aimDirection = (_mouseWorldPos - flatPos).normalized;
                 }
             }
+            else if (_playerInput.currentControlScheme == "Gamepad")
+            {
+                Vector3 aim = new Vector3(rawInput.x, 0f, rawInput.y);
+                _aimDirection = Utils.IsoVectorConvert(aim).normalized;
+            }
         }
-        else if (playerInput.currentControlScheme == "Gamepad")
-        {
-            Debug.Log(readValue);
-            Vector3 toConvert = new Vector3(readValue.x, 0, readValue.y);
-            _aimDirection = Utils.IsoVectorConvert(toConvert);
-        }
-    }
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawSphere(_mouseWorldPos, 0.5f);
+        private void Move(Vector3 direction, float speed)
+        {
+            if (direction.sqrMagnitude > 0.01f)
+            {
+                _characterController.Move(direction * (speed * Time.deltaTime));
+            }
+        }
+
+        private void Rotate(Vector3 aimDirection)
+        {
+            if (aimDirection.sqrMagnitude > 0.01f)
+            {
+                transform.rotation = Quaternion.LookRotation(aimDirection);
+            }
+        }
+    
+        private void HandleFire()
+        {
+            Debug.Log("Fire");
+            weaponController.Attack();
+        }
+
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawSphere(_mouseWorldPos, 0.5f);
+        }
     }
 }
