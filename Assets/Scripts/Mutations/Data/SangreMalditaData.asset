@@ -13,10 +13,9 @@ MonoBehaviour:
   m_Name: SangreMalditaData
   m_EditorClassIdentifier: 
   mutationName: Sangre Maldita
-  description: "\"Tu arma entra en simbiosis con el n\xFAcleo vital del ON\u0418A
-    ca\xEDdo, lo que la vuelve m\xE1s sedienta de sangre. \r\n\r\nTu \u201CTiempo
-    Vital\u201D se agota un 50% m\xE1s r\xE1pido pero tu arma inflige el doble de
-    da\xF1o.\""
+  description: "Tu arma entra en simbiosis con el n\xFAcleo vital del ON\u0418A ca\xEDdo,
+    lo que la vuelve m\xE1s sedienta de sangre. \r\n\r\nTu \u201CTiempo Vital\u201D
+    se agota un 50% m\xE1s r\xE1pido pero tu arma inflige el doble de da\xF1o."
   organ: 2
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   effect: {fileID: 11400000, guid: ad485becd471cb9488d0e82cab4b5577, type: 2}

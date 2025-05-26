@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: OxigenoOnnaData
   m_EditorClassIdentifier: 
   mutationName: "Ox\xEDgeno ON\u0418A"
-  description: "\"Aumenta la velocidad de movimiento del jugador.\r\n\r\nVelocidad
-    de movimiento extra = +5%\r\""
+  description: "Aumenta la velocidad de movimiento del jugador.\r\n\r\nVelocidad
+    de movimiento extra = +5%\r"
   organ: 0
   icon: {fileID: 0}
   effect: {fileID: 11400000, guid: 031aa9bd600ff6647a646761bdb77937, type: 2}
