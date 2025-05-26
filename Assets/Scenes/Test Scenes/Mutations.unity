@@ -2401,6 +2401,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
+      propertyPath: statRefs
+      value: 
+      objectReference: {fileID: 11400000, guid: 32dafbba4d335714c8c998c91f07c1d4, type: 2}
+    - target: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
+      propertyPath: baseStats
+      value: 
+      objectReference: {fileID: 11400000, guid: a5da7aaa589d60c48ab3aad0dddc2cda, type: 2}
+    - target: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
+      propertyPath: statRegistry
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c726f5c480f8aa4b9473df470a4826e, type: 2}
     - target: {fileID: 3863611926642077226, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
       propertyPath: m_Name
       value: Player
