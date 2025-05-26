@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Mutations
@@ -8,12 +10,41 @@ namespace Mutations
     public class MutationDatabase : ScriptableObject
     {
         [field:SerializeField] private List<MutationData> allMutations;
+        [SerializeField] private SerializedDictionary <OrganType, List<MutationData>> mutationLookup;
+
 
         public List<MutationData> AllMutations => allMutations;
 
+
         public List<MutationData> GetMutationsByOrgan(OrganType organ)
         {
-            return AllMutations.Where(m => m.Organ == organ).ToList();
+            return mutationLookup.TryGetValue(organ, out var list)
+                ? list
+                : new List<MutationData>();
+        }
+        
+        [Button("Rebuild Lookup")]
+        private void RebuildLookup()
+        {
+            mutationLookup = new SerializedDictionary<OrganType, List<MutationData>>();
+
+            foreach (var mutation in allMutations)
+            {
+                if (!mutationLookup.TryGetValue(mutation.Organ, out var list))
+                {
+                    list = new List<MutationData>();
+                    mutationLookup[mutation.Organ] = list;
+                }
+
+                list.Add(mutation);
+            }
+
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(this);
+            UnityEditor.AssetDatabase.SaveAssets();
+#endif
+
+            Debug.Log("Mutation lookup rebuilt and saved.");
         }
     }
 }
