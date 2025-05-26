@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using UnityEngine;
 
 namespace Player.Stats
@@ -5,20 +6,20 @@ namespace Player.Stats
     [System.Serializable]
     public class RuntimeStats
     {
-        private float currentEnergyTime;
 
-        private StatBlock baseStats;
-        private StatBlock runtimeBonuses;
-
+        [SerializeField] private StatBlock baseStats;
+        [SerializeField] private StatBlock runtimeBonuses;
         public float CurrentEnergyTime => currentEnergyTime;
 
-        public RuntimeStats(CharacterBaseStats baseStatsAsset, StatReferences references)
+        private float currentEnergyTime;
+
+        public RuntimeStats(StatBlock baseStats, StatReferences references)
         {
-            baseStats = Object.Instantiate(baseStatsAsset.BaseStats);
+            this.baseStats = Object.Instantiate(baseStats);
             runtimeBonuses = ScriptableObject.CreateInstance<StatBlock>();
 
-            float maxVital = baseStats.Get(references.maxVitalTime);
-            float start = baseStats.Get(references.initialVitalTime);
+            float maxVital = this.baseStats.Get(references.maxVitalTime);
+            float start = this.baseStats.Get(references.initialVitalTime);
             currentEnergyTime = Mathf.Min(start, maxVital);
         }
 
