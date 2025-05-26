@@ -13,9 +13,10 @@ namespace Player.Stats
         [SerializeField] private float attackRange;
         [SerializeField] private float damage;
         [SerializeField] private float damageResistance;
-        
+
         public float CurrentEnergyTime => currentEnergyTime;
         public float DrainRatePerSecond => drainRatePerSecond;
+
         public float MaxVitalTime
         {
             get => maxVitalTime;
@@ -60,7 +61,21 @@ namespace Player.Stats
             drainRatePerSecond = baseStats.DrainRatePerSecond;
             MovementSpeed = baseStats.MovementSpeed;
         }
+
         //TODO Modifier methods to add and remove bonuses
-        public void SetCurrentEnergyTime(float value) { currentEnergyTime = Mathf.Clamp(value, 0f, MaxVitalTime); }
-    }                
+        public void SetCurrentEnergyTime(float value)
+        {
+            currentEnergyTime = Mathf.Clamp(value, 0f, MaxVitalTime);
+        }
+
+        public void AddMultiplier(ref float stat, float multiplier)
+        {
+            stat *= 1f + multiplier;
+        }
+
+        public void AddFlat(ref float stat, float value)
+        {
+            stat += value;
+        }
+    }
 }

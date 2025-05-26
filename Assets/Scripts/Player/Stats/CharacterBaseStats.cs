@@ -27,5 +27,15 @@ namespace Player.Stats
         public float MaxVitalTime => maxVitalTime;
 
         public float MovementSpeed => movementSpeed;
+
+        public float OverheatCooldown => overheatCooldown;
+
+        public float WeaponFireRate => weaponFireRate;
+
+        public float WeaponRange => weaponRange;
+
+        public float WeaponDamage => weaponDamage;
+
+        public float DamageResistance => damageResistance;
     }
 }

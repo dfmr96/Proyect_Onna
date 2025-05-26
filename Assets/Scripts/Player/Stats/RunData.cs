@@ -9,4 +9,6 @@ public static class RunData
         if (CurrentStats == null) CurrentStats = new RuntimeStats(baseStats);
     }
     public static void Clear() { CurrentStats = null; }
+    
+    
 }
