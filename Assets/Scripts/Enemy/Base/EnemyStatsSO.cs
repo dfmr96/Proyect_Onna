@@ -21,5 +21,8 @@ public class EnemyStatsSO : ScriptableObject
     [Header("Rastro Orb")]
     public bool RastroOrbOnHit = true;
     public bool RastroOrbOnDeath = true;
+
+    [Header("Coins")]
+    public int CoinsToDrop = 1;
 }
 

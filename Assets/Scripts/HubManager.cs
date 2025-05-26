@@ -8,6 +8,8 @@ public class HubManager : MonoBehaviour
     private void Awake()
     {
         levelProgression.ResetProgress();
+        if (RunData.CurrentCurrency != null)
+            SaveSystem.SaveCoins(RunData.CurrentCurrency.Coins);
         RunData.Clear();
         spawner.SpawnPlayer();
         PlayerHelper.EnableInput();

@@ -42,10 +42,7 @@ public class EnemyModel : MonoBehaviour, IDamageable
         OnHealthChanged?.Invoke(CurrentHealth);
         //view.PlayDamageAnimation();
 
-        if (CurrentHealth <= 0)
-        {
-            Die();
-        }
+        if (CurrentHealth <= 0) Die();
     }
 
     public void Die()
@@ -56,7 +53,7 @@ public class EnemyModel : MonoBehaviour, IDamageable
             orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
             orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
         }
-
+        RunData.CurrentCurrency.AddCoins(statsSO.CoinsToDrop);
         OnDeath?.Invoke(this);
     }
 }
