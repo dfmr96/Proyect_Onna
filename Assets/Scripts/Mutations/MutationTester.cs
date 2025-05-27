@@ -83,4 +83,32 @@ public class MutationTester : MonoBehaviour
         Debug.Log($"✅ Aplicando mutación: {effect.GetType().Name}");
         effect.Apply(playerRuntimeStats);
     }
+    
+    [Button("🧪 Test Damage (con resistencia)")]
+    private void TestDamageWithResistance()
+    {
+        var player = FindObjectOfType<PlayerModel>();
+        if (player != null)
+        {
+            float testDamage = 10f;
+            player.ApplyDamage(testDamage, applyResistance: true);
+            Debug.Log($"🧪 Damage aplicado con resistencia: {testDamage}");
+        }
+        else
+        {
+            Debug.LogWarning("⛔ PlayerModel no encontrado en escena.");
+        }
+    }
+    
+    [Button("🧪 Test Damage (sin resistencia)")]
+    private void TestDamageNoResistance()
+    {
+        var player = FindObjectOfType<PlayerModel>();
+        if (player != null)
+        {
+            float testDamage = 10f;
+            player.ApplyDamage(testDamage, applyResistance: false);
+            Debug.Log($"🧪 Damage aplicado sin resistencia: {testDamage}");
+        }
+    }
 }
