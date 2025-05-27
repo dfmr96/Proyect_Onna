@@ -15,5 +15,5 @@ MonoBehaviour:
   mutationName: Mirada del Umbral
   description: El alcance de los ataques aumenta un 10%
   organ: 1
-  icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 21300000, guid: c75415bb95b1a3d468658fd5d8d684dc, type: 3}
   upgradeEffect: {fileID: 11400000, guid: 6b7a2da209f0bcb41af6c65a534cc678, type: 2}
