@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using NaughtyAttributes;
 using UnityEngine;
@@ -19,9 +20,16 @@ namespace Player.Weapon
         [SerializeField] private bool canFire = true;
 
         private Coroutine _coolingCooldownCoroutine;
+        [SerializeField] private PlayerModel playerModel;
 
         private void Start()
         {
+            var stats = playerModel.RuntimeStats;
+
+            cooldownSettings.Init(stats);
+            bulletSetting.Init(stats);
+
+            currentAmmo = ammoSettings.maxAmmo;
             currentAmmo = ammoSettings.maxAmmo;
         }
 
@@ -45,9 +53,9 @@ namespace Player.Weapon
 
         private void FireBullet()
         {
-            var bullet = Instantiate(bulletSetting.bulletPrefab, bulletSetting.bulletSpawnPoint.position, bulletSetting.bulletSpawnPoint.rotation);
-            bullet.SetSpeed(bulletSetting.bulletSpeed);
-            bullet.SetMaxDistance(bulletSetting.bulletMaxDistance);
+            var bullet = Instantiate(bulletSetting.BulletPrefab, bulletSetting.BulletSpawnPoint.position, bulletSetting.BulletSpawnPoint.rotation);
+            bullet.SetSpeed(bulletSetting.BulletSpeed);
+            bullet.SetMaxDistance(bulletSetting.BulletMaxDistance);
         }
 
         private void StartCoolingCooldown()
@@ -76,21 +84,21 @@ namespace Player.Weapon
         private IEnumerator FireRateCooldown()
         {
             canFire = false;
-            yield return new WaitForSeconds(cooldownSettings.fireRate);
+            yield return new WaitForSeconds(cooldownSettings.FireRate);
             canFire = true;
         }
 
         private IEnumerator OverheatCooldown()
         {
             canFire = false;
-            yield return new WaitForSeconds(cooldownSettings.overheatCooldown);
+            yield return new WaitForSeconds(cooldownSettings.OverheatCooldown);
             currentAmmo = ammoSettings.maxAmmo;
             canFire = true;
         }
 
         private IEnumerator CoolingCooldown()
         {
-            yield return new WaitForSeconds(cooldownSettings.coolingCooldown);
+            yield return new WaitForSeconds(cooldownSettings.CoolingCooldown);
             currentAmmo = ammoSettings.maxAmmo;
             _coolingCooldownCoroutine = null;
         }

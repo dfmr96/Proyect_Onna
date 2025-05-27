@@ -1,23 +1,51 @@
-﻿using UnityEngine;
+﻿using Player.Stats;
+using UnityEngine;
 
 namespace Player.Weapon
 {
     [System.Serializable]
     public class BulletSettings
     {
-        public Bullet bulletPrefab;
-        public Transform bulletSpawnPoint;
-        public float bulletSpeed = 20f;
-        public float bulletMaxDistance = 10f;
-        public float damage = 10f;
+        [SerializeField] private Bullet bulletPrefab;
+        [SerializeField] private Transform bulletSpawnPoint;
+        private float _bulletSpeed = 20f;
+        private float _bulletBulletMaxDistance = 10f;
+        private StatDefinition _damage;
+
+        private RuntimeStats _stats;
+
+        public void Init(RuntimeStats stats)
+        {
+            _stats = stats;
+        }
+
+        public float BulletMaxDistance => _bulletBulletMaxDistance;
+        public float Damage => _stats.Get(_damage);
+
+        public Bullet BulletPrefab => bulletPrefab;
+
+        public Transform BulletSpawnPoint => bulletSpawnPoint;
+
+        public float BulletSpeed => _bulletSpeed;
     }
 
     [System.Serializable]
     public class CooldownSettings
     {
-        public float fireRate = 0.2f;
-        public float overheatCooldown = 1.25f;
-        public float coolingCooldown = 2f;
+        private float _fireRate;
+        private StatDefinition _overheatCooldown;
+        private StatDefinition _coolingCooldown;
+
+        private RuntimeStats _stats;
+
+        public void Init(RuntimeStats stats)
+        {
+            _stats = stats;
+        }
+
+        public float FireRate => _fireRate;
+        public float OverheatCooldown => _stats.Get(_overheatCooldown);
+        public float CoolingCooldown => _stats.Get(_coolingCooldown);
     }
 
     [System.Serializable]
