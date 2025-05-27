@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using Player;
+using Player.Stats;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,9 +11,14 @@ namespace Mutations
         [SerializeField] private Image mutationIcon;
         [SerializeField] private TextMeshProUGUI mutationName;
         [SerializeField] private TextMeshProUGUI mutationDescription;
+        [SerializeField] private Button selectButton;
+        
+        private MutationData mutation;
 
-        public void SetData(MutationData mutation)
+        public void SetData(MutationData mutationData)
         {
+            mutation = mutationData;
+
             if (mutationIcon != null)
                 mutationIcon.sprite = mutation.Icon;
 
@@ -20,6 +27,27 @@ namespace Mutations
 
             if (mutationDescription != null)
                 mutationDescription.text = mutation.Description;
+
+            if (selectButton != null)
+            {
+                selectButton.onClick.RemoveAllListeners();
+                selectButton.onClick.AddListener(OnSelected);
+            }
+        }
+        
+        private void OnSelected()
+        {
+            var playerStats = PlayerHelper.GetPlayer().GetComponent<PlayerModel>().RuntimeStats;
+            if (playerStats == null)
+            {
+                Debug.LogWarning("⛔ No RuntimeStats available.");
+                return;
+            }
+
+            mutation.UpgradeEffect.Apply(playerStats);
+            Debug.Log($"✅ Mutación aplicada: {mutation.MutationName}");
+
+            transform.parent.gameObject.SetActive(false);
         }
     }
 }

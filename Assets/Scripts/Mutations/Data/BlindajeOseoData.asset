@@ -16,4 +16,4 @@ MonoBehaviour:
   description: "Aumenta tu resistencia al da\xF1o un 5%\r\n\r"
   organ: 0
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  effect: {fileID: 11400000, guid: 160423481a79f314798cf1f461ac60f6, type: 2}
+  upgradeEffect: {fileID: 11400000, guid: 160423481a79f314798cf1f461ac60f6, type: 2}

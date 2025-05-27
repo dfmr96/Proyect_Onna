@@ -16,4 +16,4 @@ MonoBehaviour:
   description: El alcance de los ataques aumenta un 10%
   organ: 1
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  effect: {fileID: 11400000, guid: 6b7a2da209f0bcb41af6c65a534cc678, type: 2}
+  upgradeEffect: {fileID: 11400000, guid: 6b7a2da209f0bcb41af6c65a534cc678, type: 2}

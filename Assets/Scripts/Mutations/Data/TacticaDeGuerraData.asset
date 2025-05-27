@@ -17,4 +17,4 @@ MonoBehaviour:
     10%.
   organ: 0
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  effect: {fileID: 11400000, guid: 673fb24ce278bb244bd11f262c85909c, type: 2}
+  upgradeEffect: {fileID: 11400000, guid: 673fb24ce278bb244bd11f262c85909c, type: 2}

@@ -18,4 +18,4 @@ MonoBehaviour:
     se agota un 50% m\xE1s r\xE1pido pero tu arma inflige el doble de da\xF1o."
   organ: 2
   icon: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  effect: {fileID: 11400000, guid: ad485becd471cb9488d0e82cab4b5577, type: 2}
+  upgradeEffect: {fileID: 11400000, guid: ad485becd471cb9488d0e82cab4b5577, type: 2}

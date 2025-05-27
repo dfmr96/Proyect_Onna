@@ -9,7 +9,7 @@ namespace Mutations
         [field:SerializeField] [TextArea]  private string description;
         [field:SerializeField] private OrganType organ;
         [field:SerializeField] private Sprite icon;
-        [field:SerializeField] private UpgradeEffect effect;
+        [field:SerializeField] private UpgradeEffect upgradeEffect;
         public string MutationName
         {
             get => mutationName;
@@ -30,10 +30,6 @@ namespace Mutations
 
         public Sprite Icon => icon;
 
-        public UpgradeEffect Effect
-        {
-            get => effect;
-            set => effect = value;
-        }
+        public UpgradeEffect UpgradeEffect => upgradeEffect;
     }
 }

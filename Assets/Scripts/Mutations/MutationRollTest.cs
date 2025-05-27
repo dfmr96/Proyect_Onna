@@ -48,6 +48,7 @@ namespace Mutations
                 Debug.LogError("Missing references: selector, UI prefab, or container.");
                 return;
             }
+            
 
             foreach (Transform child in uiContainer)
             {
@@ -61,12 +62,13 @@ namespace Mutations
                 Debug.LogWarning("No mutations rolled.");
                 return;
             }
-
+            Debug.Log("Mutations rolled successfully. Displaying UI...");
             foreach (var mutation in mutations)
             {
                 var ui = Instantiate(mutationUIPrefab, uiContainer);
                 ui.SetData(mutation);
             }
+            uiContainer.gameObject.SetActive(true);
         }
         
     }
