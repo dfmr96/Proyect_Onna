@@ -7,12 +7,12 @@ namespace Mutations
     [CreateAssetMenu(menuName = "Mutations/Effects/Mirada del Umbral")]
     public class AttackRangeIncreaseEffect : UpgradeEffect
     {
-        [SerializeField] private float increasePercent = 0.1f;
+        [SerializeField] private float increasePercent;
         
 
         public override void Apply(RuntimeStats player)
         {
-            player.IncreaseStatByPercent(statRefs.attackRange, 10f);
+            player.IncreaseStatByPercent(statRefs.attackRange, increasePercent);
         }
         
 #if UNITY_EDITOR

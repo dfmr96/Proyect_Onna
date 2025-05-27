@@ -32,7 +32,6 @@ namespace Player.Weapon
             bulletSetting.Init(stats, refs);
 
             currentAmmo = ammoSettings.maxAmmo;
-            currentAmmo = ammoSettings.maxAmmo;
         }
 
         public void Attack()

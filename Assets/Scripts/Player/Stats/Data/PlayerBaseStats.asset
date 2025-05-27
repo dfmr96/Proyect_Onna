@@ -56,7 +56,7 @@ MonoBehaviour:
     - Key: {fileID: 11400000, guid: f0fb482783c35e44e9d107ae015b6a67, type: 2}
       Value: 10
     - Key: {fileID: 11400000, guid: c097363ef9e22c343838d787cbfd03b5, type: 2}
-      Value: 15
+      Value: 5
     - Key: {fileID: 11400000, guid: 7d6d579f7ee372d45ae131905ac548c3, type: 2}
       Value: 0.5
     - Key: {fileID: 11400000, guid: 5dfb5e797e2f0ff47a56dff6fd845339, type: 2}
