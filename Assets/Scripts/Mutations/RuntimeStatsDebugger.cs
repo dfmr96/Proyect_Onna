@@ -19,12 +19,13 @@ public class RuntimeStatsDebugger : MonoBehaviour
         GUILayout.BeginArea(new Rect(10, 10, 300, 200), "Runtime Stats", GUI.skin.window);
 
         var stats = player.RuntimeStats;
+        DrawStat("Max Vital", statRefs.maxVitalTime);
+        DrawStat("Passive Drain Rate", statRefs.passiveDrainRate);
+        DrawStat("Damage Resistance", statRefs.damageResistance);
         DrawStat("Speed", statRefs.movementSpeed);
         DrawStat("Damage", statRefs.damage);
-        DrawStat("Max Vital", statRefs.maxVitalTime);
         DrawStat("Overheat Cooldown", statRefs.overheatCooldown);
         DrawStat("Attack Range", statRefs.attackRange);
-        DrawStat("Damage Resistance", statRefs.damageResistance);
 
         GUILayout.EndArea();
     }
@@ -39,7 +40,7 @@ public class RuntimeStatsDebugger : MonoBehaviour
         float total = baseVal + bonus;
 
         GUILayout.BeginHorizontal();
-        GUILayout.Label($"{label}: {baseVal}", GUILayout.Width(120));
+        GUILayout.Label($"{label}: {baseVal}", GUILayout.ExpandWidth(true));
 
         if (!Mathf.Approximately(bonus, 0f))
         {
