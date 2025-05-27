@@ -18,6 +18,8 @@ public class EnemyView : MonoBehaviour
     {
         animator = GetComponent<Animator>();
     }
+    public Animator Animator => animator;
+
     private void Start()
     {
         //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
@@ -69,6 +71,11 @@ public class EnemyView : MonoBehaviour
     public void PlayAttackAnimation(bool isAttacking)
     {
         animator.SetBool("IsAttacking", isAttacking);
+    }
+
+    public void PlayStrafeAnimation()
+    {
+        animator.SetTrigger("IsStrafing");
     }
 
     public bool GetBoolAttackAnimation()

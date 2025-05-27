@@ -15,6 +15,15 @@ MonoBehaviour:
   MaxHealth: 10
   AttackDamage: 5
   AttackRange: 7
+  combatAngle: 30
+  obstacleCombatLayers:
+    serializedVersion: 2
+    m_Bits: 384
+  detectionRange: 10
+  visionAngle: 45
+  obstacleDetectionLayers:
+    serializedVersion: 2
+    m_Bits: 256
   ShootForce: 15
   moveSpeed: 6
   rotationSpeed: 400

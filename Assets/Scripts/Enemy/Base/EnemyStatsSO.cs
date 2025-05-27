@@ -10,6 +10,15 @@ public class EnemyStatsSO : ScriptableObject
     public float AttackDamage = 20f;
     public float AttackRange = 10f;
 
+    [Header("Vision Combat Stats")]
+    public float combatAngle = 30f;
+    public LayerMask obstacleCombatLayers;
+
+    [Header("Vision Cone Stats")]
+    public float detectionRange = 10f;
+    public float visionAngle = 45f;
+    public LayerMask obstacleDetectionLayers;
+
     [Header("Ranged Combat")]
     public float ShootForce = 15f;
 

@@ -23,7 +23,6 @@ public class EnemyAttackMelee : EnemyAttackSOBase
     public override void DoExitLogic()
     {
         base.DoExitLogic();
-        _enemyModel.OnHealthChanged -= HandleHealthChanged;
         ResetValues();
     }
 
@@ -71,6 +70,8 @@ public class EnemyAttackMelee : EnemyAttackSOBase
 
         _enemyView.PlayAttackAnimation(false);
         _hasAttackedOnce = false;
+        _enemyModel.OnHealthChanged -= HandleHealthChanged;
+
 
     }
 

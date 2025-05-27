@@ -5,19 +5,17 @@ using UnityEngine;
 
 public class EnemyCombatRadiusCheck : MonoBehaviour
 {
-    [Header("Vision Combat Stats")]
-    [SerializeField] private float combatRange = 5f; 
-    [SerializeField] private float combatAngle = 30f; 
-    [SerializeField] private LayerMask obstacleLayers; 
 
     private EnemyController _enemyController;
+    private EnemyModel _enemyModel;
     private Transform _playerTransform;
 
     private void Awake()
     {
         _enemyController = GetComponentInParent<EnemyController>();
-        //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-            
+        _enemyModel = GetComponentInParent<EnemyModel>();
+
+
     }
 
     private void Start()
@@ -37,20 +35,20 @@ public class EnemyCombatRadiusCheck : MonoBehaviour
         Vector3 directionToPlayer = (_playerTransform.position - transform.position).normalized;
         float distanceToPlayer = Vector3.Distance(transform.position, _playerTransform.position);
 
-        if (distanceToPlayer > combatRange)
+        if (distanceToPlayer > _enemyModel.statsSO.AttackRange)
         {
             _enemyController.SetCombatRadiusBool(false);
             return;
         }
 
         float angleToPlayer = Vector3.Angle(transform.forward, directionToPlayer);
-        if (angleToPlayer > combatAngle / 2)
+        if (angleToPlayer > _enemyModel.statsSO.combatAngle / 2)
         {
             _enemyController.SetCombatRadiusBool(false);
             return;
         }
 
-        if (!Physics.Raycast(transform.position, directionToPlayer, distanceToPlayer, obstacleLayers))
+        if (!Physics.Raycast(transform.position, directionToPlayer, distanceToPlayer, _enemyModel.statsSO.obstacleCombatLayers))
         {
             _enemyController.SetCombatRadiusBool(true);
         }
@@ -65,10 +63,10 @@ public class EnemyCombatRadiusCheck : MonoBehaviour
         if (_playerTransform == null) return;
 
         Gizmos.color = Color.blue;
-        Vector3 rightBoundary = Quaternion.Euler(0, combatAngle / 2, 0) * transform.forward;
-        Vector3 leftBoundary = Quaternion.Euler(0, -combatAngle / 2, 0) * transform.forward;
+        Vector3 rightBoundary = Quaternion.Euler(0, _enemyModel.statsSO.combatAngle / 2, 0) * transform.forward;
+        Vector3 leftBoundary = Quaternion.Euler(0, -_enemyModel.statsSO.combatAngle / 2, 0) * transform.forward;
 
-        Gizmos.DrawLine(transform.position, transform.position + rightBoundary * combatRange);
-        Gizmos.DrawLine(transform.position, transform.position + leftBoundary * combatRange);
+        Gizmos.DrawLine(transform.position, transform.position + rightBoundary * _enemyModel.statsSO.AttackRange);
+        Gizmos.DrawLine(transform.position, transform.position + leftBoundary * _enemyModel.statsSO.AttackRange);
     }
 }

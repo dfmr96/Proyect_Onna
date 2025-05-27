@@ -14,7 +14,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     public Transform firePoint;
 
-
+    private bool shouldDodge = false;
     public bool isAggroed { get; set; }
     public bool isWhitinCombatRadius { get; set; }
 
@@ -117,6 +117,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     }
 
+    public Rigidbody Rb => rb;
 
     private void Start()
     {
@@ -144,9 +145,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         model.OnHealthChanged += HandleHealthChanged;
         model.OnDeath += HandleDeath;
 
-       
 
-       
+
     }
 
     private void Update()
@@ -223,9 +223,12 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     {
         fsm.ChangeState(DeadState);
     }
-  
 
-
+    public void SetDodgeStatus(bool ShouldDodge)
+    {
+        shouldDodge = ShouldDodge;
+    }
+    
 
     public void SetAggroStatus(bool IsAggroed)
     {
