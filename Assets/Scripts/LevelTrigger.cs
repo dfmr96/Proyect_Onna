@@ -12,7 +12,8 @@ public class LevelTrigger : MonoBehaviour
     }
 
     protected virtual void OnTrigger(Collider other) { }
-    protected virtual void SavePlayerData(Collider other) { RunData.CurrentStats.SetCurrentEnergyTime(other.GetComponent<PlayerModel>().CurrentTime); }
+    //protected virtual void SavePlayerData(Collider other) { RunData.CurrentStats.SetCurrentEnergyTime(other.GetComponent<PlayerModel>().CurrentTime); }
+    //TODO Que hace esto?
     protected virtual void LoadNextLevel() { SceneManagementUtils.AsyncLoadSceneByName(levelProgression.GetNextRoom(), loadCanvasPrefab, this); }
     protected virtual void LoadLevelByName(string sceneName) { SceneManagementUtils.AsyncLoadSceneByName(sceneName, loadCanvasPrefab, this); }
 }

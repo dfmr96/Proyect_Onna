@@ -13,7 +13,6 @@ public class GameManager : MonoBehaviour
     [Header("Doors")]
     [SerializeField] private GameObject[] doors;
     private GameObject player;
-    private PlayerModel _playerModel;
     private EnemySpawner _enemySpawner;
 
     private void Awake()
@@ -23,16 +22,9 @@ public class GameManager : MonoBehaviour
         player = playerSpawner.GetComponent<PlayerSpawner>().SpawnPlayer();
         PlayerHelper.SetPlayer(player);
         PlayerHelper.EnableInput();
-        _playerModel = player.GetComponent<PlayerModel>();
         _enemySpawner = enemySpawner.GetComponent<EnemySpawner>();
         PlayerModel.OnPlayerDie += DefeatGame;
         _enemySpawner.OnAllWavesCompleted += WinGame;
-    }
-    private void Update()
-    {
-        float damagePerFrame = _playerModel.TimeDrainRate * Time.deltaTime;
-        TimeRemaining -= damagePerFrame;
-        _playerModel.TakeDamage(damagePerFrame);
     }
     private void WinGame() 
     {
