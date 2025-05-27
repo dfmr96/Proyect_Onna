@@ -7,11 +7,12 @@ namespace Mutations
     [CreateAssetMenu(menuName = "Mutations/Effects/Blindaje Oseo")]
     public class DamageResistanceEffect : UpgradeEffect
     {
-        [SerializeField] private float resistanceBonus = 0.05f;
+        [SerializeField] private float resistanceBonus;
 
         public override void Apply(RuntimeStats player)
         {
-            player.AddRuntimeBonus(statRefs.damageResistance, resistanceBonus);
+            float bonus = resistanceBonus / 100f;
+            player.AddRuntimeBonus(statRefs.damageResistance, bonus);
         }
 #if UNITY_EDITOR    
         [Button("🔬 Test Effect")]
