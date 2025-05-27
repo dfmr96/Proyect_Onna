@@ -23,7 +23,7 @@ MonoBehaviour:
   criticalDamageMultiplier: {fileID: 11400000, guid: 6ec4540f2a5dd1542b61090416dc06c4, type: 2}
   damageResistance: {fileID: 11400000, guid: a0a90bd999aa99143bbe6aa2fd0214b9, type: 2}
   overheatCooldown: {fileID: 11400000, guid: c460d9cdefe54ad449d6854d4b8aaff0, type: 2}
-  coolingCooldown: {fileID: 0}
+  coolingCooldown: {fileID: 11400000, guid: 0f3c229d30e5d5745a517bbef31afe8a, type: 2}
   movementSpeed: {fileID: 11400000, guid: 6f20e8aa8a55e3e46bcbb08664708756, type: 2}
   dashDistance: {fileID: 11400000, guid: 75dc9929020fb3f49b2b8e60ad74acdc, type: 2}
   dashCooldown: {fileID: 11400000, guid: 3857823e71d6d8e4081f24e258a0d8c4, type: 2}

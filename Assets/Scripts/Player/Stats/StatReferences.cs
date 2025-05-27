@@ -52,7 +52,7 @@ namespace Player.Stats
             TryAssign(ref movementSpeed, "MovementSpeed", registry);
             TryAssign(ref dashDistance, "DashDistance", registry);
             TryAssign(ref dashCooldown, "DashCooldown", registry);
-            TryAssign(ref dashCooldown, "CoolingCooldown", registry);
+            TryAssign(ref coolingCooldown, "CoolingCooldown", registry);
 
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.AssetDatabase.SaveAssets();
