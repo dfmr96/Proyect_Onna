@@ -15,6 +15,11 @@ namespace Player.Stats
 
         public RuntimeStats(StatBlock baseStats, StatReferences references)
         {
+            Init(baseStats, references);
+        }
+        
+        public void Init(StatBlock baseStats, StatReferences references)
+        {
             this.baseStats = Object.Instantiate(baseStats);
             runtimeBonuses = ScriptableObject.CreateInstance<StatBlock>();
 
@@ -55,5 +60,15 @@ namespace Player.Stats
         }
         
         public void ClearRuntimeBonuses() => runtimeBonuses.Clear();
+        
+        public float GetBaseValue(StatDefinition stat)
+        {
+            return baseStats.Get(stat);
+        }
+
+        public float GetBonusValue(StatDefinition stat)
+        {
+            return runtimeBonuses.Get(stat);
+        }
     }
 }

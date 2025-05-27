@@ -236,8 +236,8 @@ MonoBehaviour:
   m_Follow: {fileID: 722877556}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 5.32
-    NearClipPlane: -40
+    OrthographicSize: 7.72
+    NearClipPlane: 0.03
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -458,7 +458,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &233592526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -705,11 +705,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: -40
+  near clip plane: 0.03
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.32
+  orthographic size: 7.72
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2133,6 +2133,8 @@ GameObject:
   - component: {fileID: 1268881327}
   - component: {fileID: 1268881329}
   - component: {fileID: 1268881328}
+  - component: {fileID: 1268881330}
+  - component: {fileID: 1268881331}
   m_Layer: 0
   m_Name: MutationsRoll
   m_TagString: Untagged
@@ -2183,6 +2185,40 @@ MonoBehaviour:
   selector: {fileID: 1268881328}
   mutationUIPrefab: {fileID: 1569389354747678759, guid: cc28ea3171f454146b0b37d7f201ca8d, type: 3}
   uiContainer: {fileID: 233592526}
+--- !u!114 &1268881330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268881326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae583efb4c5c4ec69eeb5daac1e230f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerRuntimeStats:
+    baseStats: {fileID: 0}
+    runtimeBonuses: {fileID: 0}
+  oxigenoOnna: {fileID: 11400000, guid: 031aa9bd600ff6647a646761bdb77937, type: 2}
+  blindajeOseo: {fileID: 11400000, guid: 160423481a79f314798cf1f461ac60f6, type: 2}
+  miradaDelUmbral: {fileID: 11400000, guid: 6b7a2da209f0bcb41af6c65a534cc678, type: 2}
+  segundaAlma: {fileID: 11400000, guid: 53f0829c93e00814aac65c90998bb762, type: 2}
+  tacticaDeGuerra: {fileID: 11400000, guid: 673fb24ce278bb244bd11f262c85909c, type: 2}
+  sangreMaldita: {fileID: 11400000, guid: ad485becd471cb9488d0e82cab4b5577, type: 2}
+--- !u!114 &1268881331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268881326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25eb06973c44f27bcbcb683d4feeb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statRefs: {fileID: 11400000, guid: 32dafbba4d335714c8c998c91f07c1d4, type: 2}
 --- !u!1 &1280345727
 GameObject:
   m_ObjectHideFlags: 0
@@ -2408,7 +2444,7 @@ PrefabInstance:
     - target: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
       propertyPath: baseStats
       value: 
-      objectReference: {fileID: 11400000, guid: a5da7aaa589d60c48ab3aad0dddc2cda, type: 2}
+      objectReference: {fileID: 11400000, guid: 7da8c568a2998754f8d835daad308ad4, type: 2}
     - target: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
       propertyPath: statRegistry
       value: 
