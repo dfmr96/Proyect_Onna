@@ -25,9 +25,9 @@ namespace Player.Weapon
         private void Start()
         {
             var stats = playerModel.RuntimeStats;
-
-            cooldownSettings.Init(stats);
-            bulletSetting.Init(stats);
+            var refs = playerModel.StatRefs;
+            cooldownSettings.Init(stats, refs);
+            bulletSetting.Init(stats, refs);
 
             currentAmmo = ammoSettings.maxAmmo;
             currentAmmo = ammoSettings.maxAmmo;
@@ -55,7 +55,7 @@ namespace Player.Weapon
         {
             var bullet = Instantiate(bulletSetting.BulletPrefab, bulletSetting.BulletSpawnPoint.position, bulletSetting.BulletSpawnPoint.rotation);
             bullet.SetSpeed(bulletSetting.BulletSpeed);
-            bullet.SetMaxDistance(bulletSetting.BulletMaxDistance);
+            bullet.SetMaxDistance(bulletSetting.AttackRange);
         }
 
         private void StartCoolingCooldown()

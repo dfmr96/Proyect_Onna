@@ -19,6 +19,7 @@ namespace Player.Stats
         public StatDefinition criticalDamageMultiplier;
         public StatDefinition damageResistance;
         public StatDefinition overheatCooldown;
+        public StatDefinition coolingCooldown;
 
         [Header("Movement Stats")]
         public StatDefinition movementSpeed;
@@ -51,6 +52,7 @@ namespace Player.Stats
             TryAssign(ref movementSpeed, "MovementSpeed", registry);
             TryAssign(ref dashDistance, "DashDistance", registry);
             TryAssign(ref dashCooldown, "DashCooldown", registry);
+            TryAssign(ref dashCooldown, "CoolingCooldown", registry);
 
             UnityEditor.EditorUtility.SetDirty(this);
             UnityEditor.AssetDatabase.SaveAssets();

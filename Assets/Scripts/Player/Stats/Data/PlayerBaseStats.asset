@@ -41,6 +41,8 @@ MonoBehaviour:
     value: 4
   - stat: {fileID: 11400000, guid: 3857823e71d6d8e4081f24e258a0d8c4, type: 2}
     value: 1
+  - stat: {fileID: 11400000, guid: 0f3c229d30e5d5745a517bbef31afe8a, type: 2}
+    value: 12
   _lookup:
     _serializedList:
     - Key: {fileID: 11400000, guid: bc84f739d621bab438f553a42b77088d, type: 2}
@@ -71,5 +73,7 @@ MonoBehaviour:
       Value: 4
     - Key: {fileID: 11400000, guid: 3857823e71d6d8e4081f24e258a0d8c4, type: 2}
       Value: 1
-  newStatName: StartVitalTime
-  newStatValue: 0
+    - Key: {fileID: 11400000, guid: 0f3c229d30e5d5745a517bbef31afe8a, type: 2}
+      Value: 12
+  newStatName: CoolingCooldown
+  newStatValue: 12
