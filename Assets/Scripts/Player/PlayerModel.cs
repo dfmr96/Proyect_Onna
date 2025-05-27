@@ -34,19 +34,29 @@ namespace Player
 
         private void Update()
         {
-            ApplyPassiveDrain();
+            //ApplyPassiveDrain();
         }
 
         private void ApplyPassiveDrain()
         {
             float damagePerFrame = DrainRate * Time.deltaTime;
-            TakeDamage(damagePerFrame);
+            ApplyDamage(damagePerFrame, false);
         }
 
         public void TakeDamage(float timeTaken)
         {
-            CurrentTime -= timeTaken;
+            ApplyDamage(timeTaken, true);
+        }
+        
+        public void ApplyDamage(float timeTaken, bool applyResistance)
+        {
+            float resistance = applyResistance ? Mathf.Clamp01(RuntimeStats.Get(statRefs.damageResistance)) : 0f;
+            float effectiveDamage = timeTaken * (1f - resistance);
+
+            CurrentTime -= effectiveDamage;
             ClampEnergy();
+            Debug.Log($"🧪 Damage recibido: Base = {timeTaken}, Resistance = {(resistance * 100f)}%, Final = {effectiveDamage}");
+
             OnUpdateTime?.Invoke(CurrentTime / RuntimeStats.Get(statRefs.maxVitalTime));
 
             if (CurrentTime <= 0)
