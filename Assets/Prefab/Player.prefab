@@ -402,7 +402,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed99d6b90924ecfbf1e77ed4ab7ab48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glassesTransform: {fileID: 0}
 --- !u!114 &2024501622075525127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,12 +414,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07fc80a863b2473099f2be0da4db6173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: a5da7aaa589d60c48ab3aad0dddc2cda, type: 2}
-  stats:
-    currentEnergyTime: 0
-    drainRatePerSecond: 0
-    maxEnergyTime: 0
-    moveSpeed: 0
+  devMode: 0
+  baseStats: {fileID: 11400000, guid: 7da8c568a2998754f8d835daad308ad4, type: 2}
+  statRefs: {fileID: 11400000, guid: 32dafbba4d335714c8c998c91f07c1d4, type: 2}
 --- !u!114 &4339932572223991893
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,17 +532,11 @@ MonoBehaviour:
   bulletSetting:
     bulletPrefab: {fileID: 5548806120118100397, guid: 5d06cecf3b82f0f47a37db2ad21c554b, type: 3}
     bulletSpawnPoint: {fileID: 2511859693823612000}
-    bulletSpeed: 20
-    bulletMaxDistance: 10
-    damage: 10
-  cooldownSettings:
-    fireRate: 0.2
-    overheatCooldown: 1.25
-    coolingCooldown: 2
   ammoSettings:
     maxAmmo: 12
   currentAmmo: 0
   canFire: 1
+  playerModel: {fileID: 2024501622075525127}
 --- !u!1001 &2646636499928872379
 PrefabInstance:
   m_ObjectHideFlags: 0

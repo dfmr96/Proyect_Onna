@@ -43,7 +43,6 @@ namespace Player
         
             Move(_direction, _playerModel.Speed);
             Rotate(_aimDirection);
-            _playerView.UpdateVisuals(_aimDirection);
         }
     
         private void HandleAiming(Vector2 rawInput)

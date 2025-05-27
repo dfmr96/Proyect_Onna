@@ -5,10 +5,13 @@ public static class RunData
     public static RuntimeStats CurrentStats { get; private set; }
     public static RunCurrency CurrentCurrency { get; private set; }
 
-    public static void Initialize(CharacterBaseStats baseStats)
+    public static void Initialize()
     {
-        if (CurrentStats == null) CurrentStats = new RuntimeStats(baseStats);
         if (CurrentCurrency == null) CurrentCurrency = new RunCurrency();
+    }
+    public static void SetStats(RuntimeStats stats)
+    {
+        CurrentStats = stats;
     }
     public static void Clear() 
     { 
