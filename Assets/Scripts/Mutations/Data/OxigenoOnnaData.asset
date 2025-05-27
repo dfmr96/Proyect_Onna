@@ -16,5 +16,5 @@ MonoBehaviour:
   description: "Aumenta la velocidad de movimiento del jugador.\r\n\r\nVelocidad
     de movimiento extra = +5%\r"
   organ: 0
-  icon: {fileID: 21300000, guid: a4c843bc3230c3c4888f0f1e51377ade, type: 3}
+  icon: {fileID: 21300000, guid: 874fc3bf925b58140b67c013abae76e9, type: 3}
   upgradeEffect: {fileID: 11400000, guid: 031aa9bd600ff6647a646761bdb77937, type: 2}

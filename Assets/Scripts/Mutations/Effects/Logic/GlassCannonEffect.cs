@@ -13,7 +13,8 @@ namespace Mutations
         public override void Apply(RuntimeStats player)
         {
             player.MultiplyStat(statRefs.damage, damageMultiplier);
-            player.MultiplyStat(statRefs.passiveDrainRate, 1f + vitalReduction);        }
+            player.MultiplyStat(statRefs.passiveDrainRate, 1f + vitalReduction);        
+        }
         
 #if UNITY_EDITOR
 

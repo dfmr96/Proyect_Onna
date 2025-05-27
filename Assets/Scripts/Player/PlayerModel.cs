@@ -9,9 +9,11 @@ namespace Player
         public static Action OnPlayerDie;
         public static Action<float> OnUpdateTime;
 
+        [SerializeField] private bool devMode = false;
         [Header("Stats Config")] 
         [SerializeField] private StatBlock baseStats;
         [SerializeField] private StatReferences statRefs;
+        
 
         public float Speed => RuntimeStats.Get(StatRefs.movementSpeed);
         private float DrainRate => RuntimeStats.Get(StatRefs.passiveDrainRate);
@@ -36,7 +38,10 @@ namespace Player
 
         private void Update()
         {
-            ApplyPassiveDrain();
+            if (!devMode)
+            {
+                ApplyPassiveDrain();
+            }
         }
 
         private void ApplyPassiveDrain()
