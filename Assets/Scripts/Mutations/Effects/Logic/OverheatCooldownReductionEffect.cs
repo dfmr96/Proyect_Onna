@@ -1,4 +1,5 @@
-﻿using Player.Stats;
+﻿using NaughtyAttributes;
+using Player.Stats;
 using UnityEngine;
 
 namespace Mutations
@@ -10,7 +11,28 @@ namespace Mutations
 
         public override void Apply(RuntimeStats player)
         {
-            player.OverheatCooldown *= 1f - reduction;
+            float reductionFactor = 1f - (reduction / 100f);
+            player.MultiplyStat(statRefs.overheatCooldown, reductionFactor);
         }
+        
+#if UNITY_EDITOR
+        [Button("🔬 Test Effect")]
+        private void TestEffect()
+        {
+            if (statRefs == null || statRefs.overheatCooldown == null || testBaseStats == null)
+            {
+                Debug.LogWarning("⚠️ Faltan testBaseStats o referencias para testear.");
+                return;
+            }
+
+            var testStats = new RuntimeStats(testBaseStats, statRefs);
+            float before = testStats.Get(statRefs.overheatCooldown);
+
+            Apply(testStats);
+
+            float after = testStats.Get(statRefs.overheatCooldown);
+            Debug.Log($"🧪 {name}: OverheatCooldown\nAntes: {before:F2} → Después: {after:F2}");
+        }
+#endif
     }
 }

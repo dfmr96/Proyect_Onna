@@ -40,6 +40,14 @@ namespace Player.Stats
             float newValue = baseVal * factor;
             AddRuntimeBonus(stat, newValue - baseVal);
         }
+        
+        public void IncreaseStatByPercent(StatDefinition stat, float percent)
+        {
+            float baseVal = Get(stat);
+            float delta = baseVal * (percent / 100f);
+            AddRuntimeBonus(stat, delta);
+        }
+
 
         public void SetCurrentEnergyTime(float value, float maxVitalTime)
         {

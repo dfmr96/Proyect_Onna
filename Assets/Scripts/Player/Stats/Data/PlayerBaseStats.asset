@@ -41,8 +41,6 @@ MonoBehaviour:
     value: 4
   - stat: {fileID: 11400000, guid: 3857823e71d6d8e4081f24e258a0d8c4, type: 2}
     value: 1
-  - stat: {fileID: 11400000, guid: dc096431d7f45b442b1ef7a169360a21, type: 2}
-    value: 0
   _lookup:
     _serializedList:
     - Key: {fileID: 11400000, guid: bc84f739d621bab438f553a42b77088d, type: 2}

@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c998d10b46b486e8a970d8d4f7b6d17, type: 3}
   m_Name: SegundaAlmaEffect
   m_EditorClassIdentifier: 
-  increasePercent: 0.2
+  statRefs: {fileID: 11400000, guid: 32dafbba4d335714c8c998c91f07c1d4, type: 2}
+  testBaseStats: {fileID: 11400000, guid: 7da8c568a2998754f8d835daad308ad4, type: 2}
+  increasePercent: 20
