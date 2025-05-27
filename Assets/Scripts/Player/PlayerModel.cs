@@ -57,7 +57,13 @@ namespace Player
 
             CurrentTime -= effectiveDamage;
             ClampEnergy();
-            //Debug.Log($"🧪 Damage recibido: Base = {timeTaken}, Resistance = {(resistance * 100f)}%, Final = {effectiveDamage}");
+            if (applyResistance)
+            {
+                Debug.Log($"" +
+                          $"🧪 Damage recibido: Base = {timeTaken}, " +
+                          $"Resistance = {(resistance * 100f)}%, " +
+                          $"Final = {effectiveDamage}");
+            }
 
             OnUpdateTime?.Invoke(CurrentTime / RuntimeStats.Get(StatRefs.maxVitalTime));
 
