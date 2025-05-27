@@ -22,11 +22,13 @@ namespace Player.Weapon
         private Coroutine _coolingCooldownCoroutine;
         [SerializeField] private PlayerModel playerModel;
 
+        public CooldownSettings Settings => cooldownSettings;
+
         private void Start()
         {
             var stats = playerModel.RuntimeStats;
             var refs = playerModel.StatRefs;
-            cooldownSettings.Init(stats, refs);
+            Settings.Init(stats, refs);
             bulletSetting.Init(stats, refs);
 
             currentAmmo = ammoSettings.maxAmmo;
@@ -84,21 +86,21 @@ namespace Player.Weapon
         private IEnumerator FireRateCooldown()
         {
             canFire = false;
-            yield return new WaitForSeconds(cooldownSettings.FireRate);
+            yield return new WaitForSeconds(Settings.FireRate);
             canFire = true;
         }
 
         private IEnumerator OverheatCooldown()
         {
             canFire = false;
-            yield return new WaitForSeconds(cooldownSettings.OverheatCooldown);
+            yield return new WaitForSeconds(Settings.OverheatCooldown);
             currentAmmo = ammoSettings.maxAmmo;
             canFire = true;
         }
 
         private IEnumerator CoolingCooldown()
         {
-            yield return new WaitForSeconds(cooldownSettings.CoolingCooldown);
+            yield return new WaitForSeconds(Settings.CoolingCooldown);
             currentAmmo = ammoSettings.maxAmmo;
             _coolingCooldownCoroutine = null;
         }
