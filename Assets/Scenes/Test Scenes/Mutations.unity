@@ -2437,22 +2437,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1108355771667216337, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
-      propertyPath: playerModel
-      value: 
-      objectReference: {fileID: 1558319249}
-    - target: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
-      propertyPath: statRefs
-      value: 
-      objectReference: {fileID: 11400000, guid: 32dafbba4d335714c8c998c91f07c1d4, type: 2}
-    - target: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
-      propertyPath: baseStats
-      value: 
-      objectReference: {fileID: 11400000, guid: 7da8c568a2998754f8d835daad308ad4, type: 2}
-    - target: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
-      propertyPath: statRegistry
-      value: 
-      objectReference: {fileID: 11400000, guid: 8c726f5c480f8aa4b9473df470a4826e, type: 2}
     - target: {fileID: 3863611926642077226, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2834,17 +2818,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1558319249 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2024501622075525127, guid: b33c40dcbf1abff4e90acc1afae25b55, type: 3}
-  m_PrefabInstance: {fileID: 1295450390}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07fc80a863b2473099f2be0da4db6173, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1581485273
 GameObject:
   m_ObjectHideFlags: 0

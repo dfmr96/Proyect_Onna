@@ -36,7 +36,7 @@ namespace Player
 
         private void Update()
         {
-            //ApplyPassiveDrain();
+            ApplyPassiveDrain();
         }
 
         private void ApplyPassiveDrain()
@@ -57,7 +57,7 @@ namespace Player
 
             CurrentTime -= effectiveDamage;
             ClampEnergy();
-            Debug.Log($"🧪 Damage recibido: Base = {timeTaken}, Resistance = {(resistance * 100f)}%, Final = {effectiveDamage}");
+            //Debug.Log($"🧪 Damage recibido: Base = {timeTaken}, Resistance = {(resistance * 100f)}%, Final = {effectiveDamage}");
 
             OnUpdateTime?.Invoke(CurrentTime / RuntimeStats.Get(StatRefs.maxVitalTime));
 
