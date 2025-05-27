@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56f7c7cf7d0442ad8c5f1179ba9e3720, type: 3}
+  m_Name: SangreMalditaData
+  m_EditorClassIdentifier: 
+  mutationName: Sangre Maldita
+  description: "Tu arma entra en simbiosis con el n\xFAcleo vital del ON\u0418A ca\xEDdo,
+    lo que la vuelve m\xE1s sedienta de sangre. \r\n\r\nTu \u201CTiempo Vital\u201D
+    se agota un 50% m\xE1s r\xE1pido pero tu arma inflige el doble de da\xF1o."
+  organ: 2
+  icon: {fileID: 21300000, guid: 6a43d316d042db24bba8ffd5a0002186, type: 3}
+  upgradeEffect: {fileID: 11400000, guid: ad485becd471cb9488d0e82cab4b5577, type: 2}

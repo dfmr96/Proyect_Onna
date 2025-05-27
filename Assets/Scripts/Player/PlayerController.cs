@@ -87,7 +87,6 @@ namespace Player
     
         private void HandleFire()
         {
-            Debug.Log("Fire");
             weaponController.Attack();
         }
 

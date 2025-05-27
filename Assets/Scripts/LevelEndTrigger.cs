@@ -5,7 +5,7 @@ public class LevelEndTrigger : LevelTrigger
 {
     protected override void OnTrigger(Collider other)
     {
-        SavePlayerData(other);
+        //SavePlayerData(other); //TODO Que hace esto?
         PlayerHelper.DisableInput();
         LoadNextLevel();
     }
