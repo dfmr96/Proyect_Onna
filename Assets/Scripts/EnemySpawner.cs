@@ -5,7 +5,7 @@ using Player;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject enemyPrefab;
+    [SerializeField] private EnemySpawnInfo[] enemiesToSpawn;
     [SerializeField] private int wavesQuantity = 3;
     [SerializeField] private Transform[] spawnPoints;
     [SerializeField] private Vector3 spawnAreaCenter;
@@ -21,20 +21,26 @@ public class EnemySpawner : MonoBehaviour
     private void Start() 
     {
         playerTransform = PlayerHelper.GetPlayer().transform;
-        StarWave();
+        StartWave();
     }
-    public void StarWave()
+    public void StartWave()
     {
         actualWave++;
-        Vector3 randomPosition;
-        if (TryGetRandomNavMeshPosition(out randomPosition))
+
+        if (TryGetRandomNavMeshPosition(out Vector3 randomPosition))
             transform.position = randomPosition;
-        else Debug.LogWarning("No se encontró posición válida sobre el NavMesh.");
+        else
+            Debug.LogWarning("No se encontró posición válida sobre el NavMesh.");
+
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[i].position, Quaternion.identity);
-            enemy.GetComponent<EnemyModel>().OnDeath += OnEnemyDeath;
-            enemiesQuantity++;
+            GameObject prefabToSpawn = GetRandomEnemyPrefab();
+            if (prefabToSpawn != null)
+            {
+                GameObject enemy = Instantiate(prefabToSpawn, spawnPoints[i].position, Quaternion.identity);
+                enemy.GetComponent<EnemyModel>().OnDeath += OnEnemyDeath;
+                enemiesQuantity++;
+            }
         }
     }
     private bool TryGetRandomNavMeshPosition(out Vector3 result)
@@ -57,6 +63,26 @@ public class EnemySpawner : MonoBehaviour
         result = Vector3.zero;
         return false;
     }
+
+    private GameObject GetRandomEnemyPrefab()
+    {
+        float totalProb = 0f;
+        foreach (var enemyInfo in enemiesToSpawn)
+            totalProb += enemyInfo.probability;
+
+        float randomPoint = UnityEngine.Random.Range(0f, totalProb);
+        float currentSum = 0f;
+
+        foreach (var enemyInfo in enemiesToSpawn)
+        {
+            currentSum += enemyInfo.probability;
+            if (randomPoint <= currentSum)
+                return enemyInfo.prefab;
+        }
+
+        return enemiesToSpawn.Length > 0 ? enemiesToSpawn[0].prefab : null;
+    }
+
     private void OnEnemyDeath(EnemyModel enemy)
     {
         enemy.OnDeath -= OnEnemyDeath;
@@ -65,7 +91,7 @@ public class EnemySpawner : MonoBehaviour
         {
             if (actualWave <= wavesQuantity)
             {
-                StarWave();
+                StartWave();
                 //OnWaveCompleted?.Invoke();
             }
             else OnAllWavesCompleted?.Invoke();
