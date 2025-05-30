@@ -43,6 +43,12 @@ public class EnemyPatrolSOBase : ScriptableObject
             enemy.fsm.ChangeState(enemy.ChaseState);
         }
 
+        if (playerTransform == null)
+        {
+            enemy.fsm.ChangeState(enemy.IdleState);
+            return;
+        }
+
     }
     public virtual void ResetValues()
     {

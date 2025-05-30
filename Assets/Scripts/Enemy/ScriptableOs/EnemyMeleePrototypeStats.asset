@@ -20,7 +20,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 384
   detectionRange: 10
-  visionAngle: 45
+  visionAngle: 360
   obstacleDetectionLayers:
     serializedVersion: 2
     m_Bits: 256
@@ -30,3 +30,4 @@ MonoBehaviour:
   RandomMovementRange: 30
   RastroOrbOnHit: 1
   RastroOrbOnDeath: 1
+  CoinsToDrop: 1
