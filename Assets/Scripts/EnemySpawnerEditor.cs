@@ -66,7 +66,6 @@ public class EnemySpawnerEditor : Editor
             int newVal = Mathf.RoundToInt(proportion * remaining);
             percentProp.floatValue = newVal;
         }
-
         serializedObject.ApplyModifiedProperties();
     }
 }
