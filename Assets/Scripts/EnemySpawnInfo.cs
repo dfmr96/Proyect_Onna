@@ -4,6 +4,10 @@ using UnityEngine;
 public class EnemySpawnInfo
 {
     public GameObject prefab;
-    [Range(0f, 1f)]
-    public float probability = 0.33f;
+
+    [Range(0, 100)]
+    public float percentChance;
+
+    [HideInInspector]
+    public int weight;
 }

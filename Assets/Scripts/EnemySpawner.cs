@@ -26,21 +26,17 @@ public class EnemySpawner : MonoBehaviour
     public void StartWave()
     {
         actualWave++;
-
-        if (TryGetRandomNavMeshPosition(out Vector3 randomPosition))
+        Vector3 randomPosition;
+        if (TryGetRandomNavMeshPosition(out randomPosition))
             transform.position = randomPosition;
-        else
-            Debug.LogWarning("No se encontró posición válida sobre el NavMesh.");
+        else Debug.LogWarning("No se encontró posición válida sobre el NavMesh.");
 
         for (int i = 0; i < spawnPoints.Length; i++)
         {
-            GameObject prefabToSpawn = GetRandomEnemyPrefab();
-            if (prefabToSpawn != null)
-            {
-                GameObject enemy = Instantiate(prefabToSpawn, spawnPoints[i].position, Quaternion.identity);
-                enemy.GetComponent<EnemyModel>().OnDeath += OnEnemyDeath;
-                enemiesQuantity++;
-            }
+            GameObject enemyPrefab = GetRandomEnemyPrefab();
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[i].position, Quaternion.identity);
+            enemy.GetComponent<EnemyModel>().OnDeath += OnEnemyDeath;
+            enemiesQuantity++;
         }
     }
     private bool TryGetRandomNavMeshPosition(out Vector3 result)
@@ -66,21 +62,42 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject GetRandomEnemyPrefab()
     {
-        float totalProb = 0f;
-        foreach (var enemyInfo in enemiesToSpawn)
-            totalProb += enemyInfo.probability;
+        NormalizePercentagesToWeights();
 
-        float randomPoint = UnityEngine.Random.Range(0f, totalProb);
-        float currentSum = 0f;
+        int totalWeight = 0;
+        foreach (var enemy in enemiesToSpawn)
+            totalWeight += enemy.weight;
 
-        foreach (var enemyInfo in enemiesToSpawn)
+        int randomValue = UnityEngine.Random.Range(0, totalWeight);
+        int currentSum = 0;
+
+        foreach (var enemy in enemiesToSpawn)
         {
-            currentSum += enemyInfo.probability;
-            if (randomPoint <= currentSum)
-                return enemyInfo.prefab;
+            currentSum += enemy.weight;
+            if (randomValue < currentSum)
+                return enemy.prefab;
         }
 
         return enemiesToSpawn.Length > 0 ? enemiesToSpawn[0].prefab : null;
+    }
+
+    private void NormalizePercentagesToWeights()
+    {
+        float totalPercent = 0f;
+        foreach (var enemy in enemiesToSpawn)
+            totalPercent += enemy.percentChance;
+
+        if (totalPercent == 0f)
+        {
+            int equalWeight = 1;
+            foreach (var enemy in enemiesToSpawn)
+                enemy.weight = equalWeight;
+        }
+        else
+        {
+            for (int i = 0; i < enemiesToSpawn.Length; i++)
+                enemiesToSpawn[i].weight = Mathf.RoundToInt(enemiesToSpawn[i].percentChance * 100);
+        }
     }
 
     private void OnEnemyDeath(EnemyModel enemy)

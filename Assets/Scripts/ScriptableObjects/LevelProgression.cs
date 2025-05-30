@@ -8,7 +8,6 @@ public class LevelProgression : ScriptableObject
     public List<SceneAsset> region_0;
     public List<SceneAsset> region_1;
     public List<SceneAsset> region_2;
-    public List<SceneAsset> region_3;
     public SceneAsset region_final;
 
     public int minRoomsPerLevel = 2;
@@ -26,7 +25,7 @@ public class LevelProgression : ScriptableObject
             currentRegion += 1;
             roomsToPlay = Random.Range(minRoomsPerLevel, maxRoomsPerLevel + 1);
 
-            if (currentRegion > 3)
+            if (currentRegion > 2)
             {
                 ResetProgress();
                 return GetFinalRegion();
@@ -57,7 +56,6 @@ public class LevelProgression : ScriptableObject
             case 0: return region_0;
             case 1: return region_1;
             case 2: return region_2;
-            case 3: return region_3;
             default: return null;
         }
     }

@@ -1643,6 +1643,14 @@ PrefabInstance:
       propertyPath: enemiesToSpawn.Array.data[1].probability
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 32902766306509460, guid: e5d6a4426831464489a88f2c650b19f5, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[0].percentChance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 32902766306509460, guid: e5d6a4426831464489a88f2c650b19f5, type: 3}
+      propertyPath: enemiesToSpawn.Array.data[1].percentChance
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7520276946578091184, guid: e5d6a4426831464489a88f2c650b19f5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.3
