@@ -18973,7 +18973,7 @@ PrefabInstance:
     - target: {fileID: 32902766306509460, guid: e5d6a4426831464489a88f2c650b19f5, type: 3}
       propertyPath: enemiesToSpawn.Array.data[1].prefab
       value: 
-      objectReference: {fileID: 6237415634096583368, guid: d1c1258e46102514daaf61b0a339baa2, type: 3}
+      objectReference: {fileID: 3901971453084199732, guid: c4231d6eab901ac4db2686bb5a354a47, type: 3}
     - target: {fileID: 32902766306509460, guid: e5d6a4426831464489a88f2c650b19f5, type: 3}
       propertyPath: enemiesToSpawn.Array.data[0].percentChance
       value: 50
