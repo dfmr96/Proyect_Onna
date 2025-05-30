@@ -68,16 +68,15 @@ public class EnemyProjectile : MonoBehaviour
 
         if (hasHit) return;
 
-        if (collision.gameObject.layer == obstacleLayers)
+        if (((1 << collision.gameObject.layer) & obstacleLayers) != 0)
         {
             PlayImpactParticles();
-
             onRelease?.Invoke();
 
         }
 
 
-        if ( (collision.transform.root == playerTransform) && (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)) )
+        if ((collision.transform.root == playerTransform) && (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable)))
         {
             hasHit = true;
 
@@ -91,11 +90,8 @@ public class EnemyProjectile : MonoBehaviour
 
 
         }
-      
-
-
-
 
     }
+ 
 }
 

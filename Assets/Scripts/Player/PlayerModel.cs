@@ -31,8 +31,9 @@ namespace Player
         private void Awake()
         {
             _runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, StatRefs);
+            RunData.Initialize();
             RunData.SetStats(RuntimeStats);
-
+          
             CurrentTime = RuntimeStats.CurrentEnergyTime;
         }
 

@@ -14,7 +14,6 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     public Transform firePoint;
 
-    private bool shouldDodge = false;
     public bool isAggroed { get; set; }
     public bool isWhitinCombatRadius { get; set; }
 
@@ -222,11 +221,6 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     private void HandleDeath(EnemyModel enemy)
     {
         fsm.ChangeState(DeadState);
-    }
-
-    public void SetDodgeStatus(bool ShouldDodge)
-    {
-        shouldDodge = ShouldDodge;
     }
     
 

@@ -83,6 +83,8 @@ public class EnemySearchState : EnemyState
     private void StartPatrol()
     {
         _isPatrolling = true;
+        _lastKnownPosition = _playerTransform.position;
+
         Vector3 randomPatrolPoint = GetRandomPointInRadius(_lastKnownPosition, _patrolRadius);
         _navMeshAgent.SetDestination(randomPatrolPoint);
     }

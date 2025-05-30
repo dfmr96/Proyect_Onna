@@ -18,7 +18,7 @@ MonoBehaviour:
   _timeBetweenAttacks: 1.5
   _initialAttackDelay: 0.3
   _targetColor: {r: 1, g: 0, b: 0, a: 1}
-  _maxNumberConsecutiveAttacks: 1
+  _maxNumberConsecutiveAttacks: 3
   _strafeCooldown: 1.5
   strafeDistance: 1.5
   _strafeSpeed: 10

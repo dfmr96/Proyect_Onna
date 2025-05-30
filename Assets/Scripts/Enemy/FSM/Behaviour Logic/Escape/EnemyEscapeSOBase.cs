@@ -40,7 +40,11 @@ public class EnemyEscapeSOBase : ScriptableObject
     public virtual void DoExitLogic() { ResetValues(); }
     public virtual void DoFrameUpdateLogic()
     {
-
+        if (playerTransform == null)
+        {
+            enemy.fsm.ChangeState(enemy.IdleState);
+            return;
+        }
     }
     public virtual void ResetValues()
     {

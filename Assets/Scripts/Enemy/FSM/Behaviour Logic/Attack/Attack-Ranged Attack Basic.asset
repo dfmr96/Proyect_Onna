@@ -18,3 +18,11 @@ MonoBehaviour:
   _timeBetweenAttacks: 1.5
   _initialAttackDelay: 0.3
   _targetColor: {r: 1, g: 0, b: 0, a: 1}
+  personalDistance: 5
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 256
+  projectileRadius: 0.5
+  strafeDistance: 3
+  strafeCooldown: 2
+  strafeStopDistance: 0.2
