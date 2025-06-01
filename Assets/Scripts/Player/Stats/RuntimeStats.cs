@@ -13,8 +13,9 @@ namespace Player.Stats
         public float CurrentEnergyTime => currentEnergyTime;
         private float currentEnergyTime;
 
-        public RuntimeStats(StatBlock baseStats, StatReferences references)
+        public RuntimeStats(StatBlock baseStats, MetaStatBlock metaStats, StatReferences references)
         {
+            this.metaStats = metaStats ?? new MetaStatBlock();
             Init(baseStats, references);
         }
 

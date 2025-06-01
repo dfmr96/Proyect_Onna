@@ -12,6 +12,7 @@ namespace Player
         [SerializeField] private bool devMode = false;
         [Header("Stats Config")] 
         [SerializeField] private StatBlock baseStats;
+        [SerializeField] private MetaStatBlock metaStats;
         [SerializeField] private StatReferences statRefs;
         
 
@@ -30,10 +31,11 @@ namespace Player
 
         private void Awake()
         {
-            _runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, StatRefs);
+            _runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, metaStats, StatRefs);
+
             RunData.Initialize();
             RunData.SetStats(RuntimeStats);
-          
+
             CurrentTime = RuntimeStats.CurrentEnergyTime;
         }
 
