@@ -1,29 +1,27 @@
 using System.Collections.Generic;
-using NaughtyAttributes;
 using UnityEngine;
 
 namespace Player.Stats
 {
     [System.Serializable]
-    public class RuntimeStats: IStatContainer
+    public class RuntimeStats : IStatContainer
     {
-
         [SerializeField] private StatBlock baseStats;
         [SerializeField] private MetaStatBlock metaStats;
-        [SerializeField] private StatBlock runtimeBonuses;
-        public float CurrentEnergyTime => currentEnergyTime;
+        [SerializeField] private StatContainerLogic runtimeBonuses = new();
 
+        public float CurrentEnergyTime => currentEnergyTime;
         private float currentEnergyTime;
 
         public RuntimeStats(StatBlock baseStats, StatReferences references)
         {
             Init(baseStats, references);
         }
-        
+
         public void Init(StatBlock baseStats, StatReferences references)
         {
             this.baseStats = Object.Instantiate(baseStats);
-            runtimeBonuses = ScriptableObject.CreateInstance<StatBlock>();
+            runtimeBonuses.Clear();
 
             float maxVital = this.baseStats.Get(references.maxVitalTime);
             float start = this.baseStats.Get(references.initialVitalTime);
@@ -32,7 +30,9 @@ namespace Player.Stats
 
         public float Get(StatDefinition stat)
         {
-            return baseStats.Get(stat) + metaStats.Get(stat) + runtimeBonuses.Get(stat);
+            return baseStats.Get(stat)
+                 + (metaStats?.Get(stat) ?? 0f)
+                 + runtimeBonuses.Get(stat);
         }
 
         public void Set(StatDefinition stat, float value)
@@ -40,7 +40,7 @@ namespace Player.Stats
             runtimeBonuses.Set(stat, value);
         }
 
-        public IReadOnlyDictionary<StatDefinition, float> All { get; }
+        public IReadOnlyDictionary<StatDefinition, float> All => null; // Podés implementar si lo necesitás
 
         public void AddRuntimeBonus(StatDefinition stat, float amount)
         {
@@ -54,7 +54,7 @@ namespace Player.Stats
             float newValue = baseVal * factor;
             AddRuntimeBonus(stat, newValue - baseVal);
         }
-        
+
         public void IncreaseStatByPercent(StatDefinition stat, float percent)
         {
             float baseVal = Get(stat);
@@ -62,22 +62,15 @@ namespace Player.Stats
             AddRuntimeBonus(stat, delta);
         }
 
-
         public void SetCurrentEnergyTime(float value, float maxVitalTime)
         {
             currentEnergyTime = Mathf.Clamp(value, 0f, maxVitalTime);
         }
-        
-        public void ClearRuntimeBonuses() => runtimeBonuses.Clear();
-        
-        public float GetBaseValue(StatDefinition stat)
-        {
-            return baseStats.Get(stat);
-        }
 
-        public float GetBonusValue(StatDefinition stat)
-        {
-            return runtimeBonuses.Get(stat);
-        }
+        public void ClearRuntimeBonuses() => runtimeBonuses.Clear();
+
+        public float GetBaseValue(StatDefinition stat) => baseStats.Get(stat);
+
+        public float GetBonusValue(StatDefinition stat) => runtimeBonuses.Get(stat);
     }
 }
