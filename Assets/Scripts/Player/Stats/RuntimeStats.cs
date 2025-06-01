@@ -1,13 +1,15 @@
+using System.Collections.Generic;
 using NaughtyAttributes;
 using UnityEngine;
 
 namespace Player.Stats
 {
     [System.Serializable]
-    public class RuntimeStats
+    public class RuntimeStats: IStatContainer
     {
 
         [SerializeField] private StatBlock baseStats;
+        [SerializeField] private MetaStatBlock metaStats;
         [SerializeField] private StatBlock runtimeBonuses;
         public float CurrentEnergyTime => currentEnergyTime;
 
@@ -30,8 +32,15 @@ namespace Player.Stats
 
         public float Get(StatDefinition stat)
         {
-            return baseStats.Get(stat) + runtimeBonuses.Get(stat);
+            return baseStats.Get(stat) + metaStats.Get(stat) + runtimeBonuses.Get(stat);
         }
+
+        public void Set(StatDefinition stat, float value)
+        {
+            runtimeBonuses.Set(stat, value);
+        }
+
+        public IReadOnlyDictionary<StatDefinition, float> All { get; }
 
         public void AddRuntimeBonus(StatDefinition stat, float amount)
         {
