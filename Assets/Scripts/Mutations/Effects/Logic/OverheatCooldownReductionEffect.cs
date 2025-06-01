@@ -25,7 +25,7 @@ namespace Mutations
                 return;
             }
 
-            var testStats = new RuntimeStats(testBaseStats, statRefs);
+            var testStats = new RuntimeStats(testBaseStats, testMetaStats, statRefs);
             float before = testStats.Get(statRefs.overheatCooldown);
 
             Apply(testStats);

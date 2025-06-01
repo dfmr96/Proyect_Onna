@@ -11,13 +11,19 @@ namespace Mutations
 
         public override void Apply(RuntimeStats player)
         {
-            player.IncreaseStatByPercent(statRefs.movementSpeed, increasePercent);
+            var statDef = statRefs.movementSpeed;
+            float fullValue = player.Get(statDef); // ✅ incluye base + meta + runtime
+            float bonus = fullValue * (increasePercent / 100f);
+
+            player.AddRuntimeBonus(statDef, bonus);
+
+            Debug.Log($"💨 Oxígeno ONИA aplicado: {increasePercent}% de {fullValue} = {bonus}");
         }
 #if UNITY_EDITOR    
         [Button("🔬 Test Effect")]
         private void TestEffect()
         {
-            var testStats = new RuntimeStats(testBaseStats, statRefs);
+            var testStats = new RuntimeStats(testBaseStats, testMetaStats, statRefs);
             float before = testStats.Get(statRefs.movementSpeed);
             Apply(testStats);
             float after = testStats.Get(statRefs.movementSpeed);

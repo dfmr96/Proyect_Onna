@@ -18,7 +18,7 @@ namespace Mutations
         [Button("🔬 Test Effect")]
         private void TestEffect()
         {
-            var testStats = new RuntimeStats(testBaseStats, statRefs);
+            var testStats = new RuntimeStats(testBaseStats, testMetaStats, statRefs);
             float before = testStats.Get(statRefs.damageResistance);
             Apply(testStats);
             float after = testStats.Get(statRefs.damageResistance);

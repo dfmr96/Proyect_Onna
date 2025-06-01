@@ -27,7 +27,7 @@ namespace Mutations
                 return;
             }
 
-            var testStats = new RuntimeStats(testBaseStats, statRefs);
+            var testStats = new RuntimeStats(testBaseStats, testMetaStats, statRefs);
 
             float dmgBefore = testStats.Get(statRefs.damage);
             float hpBefore = testStats.Get(statRefs.maxVitalTime);

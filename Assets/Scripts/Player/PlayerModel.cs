@@ -29,15 +29,33 @@ namespace Player
 
         public StatReferences StatRefs => statRefs;
 
+        public MetaStatBlock MetaStats => metaStats;
+
         private void Awake()
         {
-            _runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, metaStats, StatRefs);
+            _runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, MetaStats, StatRefs);
 
             RunData.Initialize();
             RunData.SetStats(RuntimeStats);
 
             CurrentTime = RuntimeStats.CurrentEnergyTime;
         }
+        
+        public void ForceReinitStats()
+        {
+            var oldBonuses = _runtimeStats?.GetAllRuntimeBonuses(); // Necesitarías exponer esto
+
+            _runtimeStats = new RuntimeStats(baseStats, MetaStats, statRefs);
+            RunData.SetStats(_runtimeStats);
+            CurrentTime = _runtimeStats.CurrentEnergyTime;
+
+            if (oldBonuses != null)
+            {
+                foreach (var kvp in oldBonuses)
+                    _runtimeStats.AddRuntimeBonus(kvp.Key, kvp.Value);
+            }
+        }
+
 
         private void Update()
         {

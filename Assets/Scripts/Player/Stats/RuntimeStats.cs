@@ -32,7 +32,7 @@ namespace Player.Stats
         public float Get(StatDefinition stat)
         {
             return baseStats.Get(stat)
-                 + (metaStats?.Get(stat) ?? 0f)
+                 + (MetaStats?.Get(stat) ?? 0f)
                  + runtimeBonuses.Get(stat);
         }
 
@@ -42,6 +42,8 @@ namespace Player.Stats
         }
 
         public IReadOnlyDictionary<StatDefinition, float> All => null; // Podés implementar si lo necesitás
+
+        public MetaStatBlock MetaStats => metaStats;
 
         public void AddRuntimeBonus(StatDefinition stat, float amount)
         {
@@ -58,8 +60,8 @@ namespace Player.Stats
 
         public void IncreaseStatByPercent(StatDefinition stat, float percent)
         {
-            float baseVal = Get(stat);
-            float delta = baseVal * (percent / 100f);
+            float basePlusMeta = GetBaseValue(stat) + (MetaStats?.Get(stat) ?? 0f);
+            float delta = basePlusMeta * (percent / 100f);
             AddRuntimeBonus(stat, delta);
         }
 
@@ -73,5 +75,10 @@ namespace Player.Stats
         public float GetBaseValue(StatDefinition stat) => baseStats.Get(stat);
 
         public float GetBonusValue(StatDefinition stat) => runtimeBonuses.Get(stat);
+        
+        public Dictionary<StatDefinition, float> GetAllRuntimeBonuses()
+        {
+            return new Dictionary<StatDefinition, float>(runtimeBonuses.All);
+        }
     }
 }

@@ -19,7 +19,7 @@ namespace Mutations
         [Button("🔬 Test Effect (Editor)")]
         private void TestEffect()
         {
-            var stats = new RuntimeStats(testBaseStats, statRefs);
+            var stats = new RuntimeStats(testBaseStats, testMetaStats, statRefs);
 
             float before = stats.Get(statRefs.attackRange);
 

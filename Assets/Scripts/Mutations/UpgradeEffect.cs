@@ -8,6 +8,7 @@ namespace Mutations
     {
         [Header("🔬 Test Config (Editor Only)")]
         [SerializeField] protected StatReferences statRefs;
+        [SerializeField] protected MetaStatBlock testMetaStats;
         [SerializeField] protected StatBlock testBaseStats;
         public abstract void Apply(RuntimeStats player);
     }
