@@ -16,7 +16,7 @@ public class RuntimeStatsDebugger : MonoBehaviour
     {
         if (player == null || player.RuntimeStats == null) return;
 
-        GUILayout.BeginArea(new Rect(10, 10, 300, 200), "Runtime Stats", GUI.skin.window);
+        GUILayout.BeginArea(new Rect(10, 10, 360, 300), "Runtime Stats", GUI.skin.window);
 
         var stats = player.RuntimeStats;
         DrawStat("Max Vital", statRefs.maxVitalTime);
@@ -36,24 +36,33 @@ public class RuntimeStatsDebugger : MonoBehaviour
         if (def == null) return;
 
         float baseVal = stats.GetBaseValue(def);
-        float bonus = stats.GetBonusValue(def);
-        float total = baseVal + bonus;
+        float metaVal = stats.MetaStats?.Get(def) ?? 0f;
+        float runtimeBonus = stats.GetBonusValue(def);
+        float total = baseVal + metaVal + runtimeBonus;
 
         GUILayout.BeginHorizontal();
-        GUILayout.Label($"{label}: {baseVal}", GUILayout.ExpandWidth(true));
+    
+        // Label
+        GUI.contentColor = Color.white;
+        GUILayout.Label($"{label}:", GUILayout.Width(100));
+    
+        // Base (blanco)
+        GUI.contentColor = Color.white;
+        GUILayout.Label($"B:{baseVal:0.##}", GUILayout.Width(50));
+    
+        // Meta (celeste)
+        GUI.contentColor = new Color(0.5f, 0.8f, 1f); // azul claro
+        GUILayout.Label($"M:{metaVal:0.##}", GUILayout.Width(50));
+    
+        // Runtime (verde)
+        GUI.contentColor = Color.green;
+        GUILayout.Label($"R:{runtimeBonus:0.##}", GUILayout.Width(50));
+    
+        // Total (cian fuerte)
+        GUI.contentColor = Color.cyan;
+        GUILayout.Label($"= {total:0.##}", GUILayout.Width(60));
 
-        if (!Mathf.Approximately(bonus, 0f))
-        {
-            GUI.contentColor = Color.green;
-            GUILayout.Label($" + {bonus}", GUILayout.Width(60));
-            GUI.contentColor = Color.white;
-            GUILayout.Label($" = {total}", GUILayout.Width(60));
-        }
-        else
-        {
-            GUILayout.Label($"", GUILayout.Width(120));
-        }
-
+        GUI.contentColor = Color.white;
         GUILayout.EndHorizontal();
     }
 }

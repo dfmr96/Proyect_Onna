@@ -8,8 +8,7 @@ using Player.Weapon;
 
 public class MutationTester : MonoBehaviour
 {
-    [Header("Player Runtime Stats")] public RuntimeStats playerRuntimeStats;
-
+    private PlayerModel player;
     [Header("Mutations")] public UpgradeEffect oxigenoOnna;
     public UpgradeEffect blindajeOseo;
     public UpgradeEffect miradaDelUmbral;
@@ -19,16 +18,11 @@ public class MutationTester : MonoBehaviour
 
     private void Start()
     {
-        var player = FindObjectOfType<PlayerModel>();
+        player = FindObjectOfType<PlayerModel>();
         if (player != null)
-        {
-            playerRuntimeStats = player.RuntimeStats;
-            Debug.Log("✅ RuntimeStats obtenido desde PlayerModel.");
-        }
+            Debug.Log("✅ PlayerModel obtenido.");
         else
-        {
             Debug.LogWarning("⛔ No se encontró PlayerModel en la escena.");
-        }
     }
 
 
@@ -70,20 +64,17 @@ public class MutationTester : MonoBehaviour
 
     private void ApplyMutation(UpgradeEffect effect)
     {
-        if (playerRuntimeStats == null)
+        if (player == null || player.RuntimeStats == null)
         {
-            Debug.LogWarning("⛔ PlayerRuntimeStats no está asignado.");
-            return;
-        }
-
-        if (effect == null)
-        {
-            Debug.LogWarning("⛔ Mutation effect no asignado.");
+            Debug.LogWarning("⛔ PlayerModel o RuntimeStats no válidos.");
             return;
         }
 
         Debug.Log($"✅ Aplicando mutación: {effect.GetType().Name}");
-        effect.Apply(playerRuntimeStats);
+        effect.Apply(player.RuntimeStats);
+
+        float val = player.RuntimeStats.Get(player.StatRefs.movementSpeed);
+        Debug.Log($"🔍 Valor actual de movementSpeed tras aplicar: {val}");
     }
     
     [Button("🧪 Test Damage (con resistencia)")]
