@@ -1,6 +1,8 @@
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
+
 [CustomEditor(typeof(EnemySpawner))]
 public class EnemySpawnerEditor : Editor
 {
@@ -69,3 +71,4 @@ public class EnemySpawnerEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+#endif
