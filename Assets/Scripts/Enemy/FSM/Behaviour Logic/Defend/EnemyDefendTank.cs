@@ -1,28 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-[CreateAssetMenu(fileName = "Idle-Still In Place", menuName = "Enemy Logic/Idle Logic/Still In Place")]
+[CreateAssetMenu(fileName = "Defend-Tank use Shield for a time", menuName = "Enemy Logic/Defend Logic/Tank use Shield for a time")]
 
-public class EnemyIdleJustStill : EnemyIdleSOBase
+public class EnemyDefendTank : EnemyDefendSOBase
 {
-    [SerializeField] private float duration = 2f;
-    private float timer = 0f;
+    private float defendDuration;
+    private float timer;
 
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-        _navMeshAgent.isStopped = true;
-        _navMeshAgent.ResetPath();
-        _navMeshAgent.velocity = Vector3.zero;
-        enemy.SetAggroChecksEnabled(false);
+        enemyModel = enemy.GetComponent<EnemyModel>();
+
+        //enemyModel.SetShield(true);
+        defendDuration = Random.Range(minDefendTime, maxDefendTime);
+        timer = 0f;
 
     }
 
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+
+        ResetValues();
     }
 
     public override void DoFrameUpdateLogic()
@@ -31,13 +33,10 @@ public class EnemyIdleJustStill : EnemyIdleSOBase
 
         timer += Time.deltaTime;
 
-        if (timer > duration)
+        if (timer >= defendDuration)
         {
-            enemy.SetAggroChecksEnabled(true);
-            enemy.fsm.ChangeState(enemy.ChaseState);
-
+            enemy.fsm.ChangeState(enemy.AttackState);
         }
-
     }
 
     public override void Initialize(GameObject gameObject, EnemyController enemy)
@@ -48,7 +47,7 @@ public class EnemyIdleJustStill : EnemyIdleSOBase
     public override void ResetValues()
     {
         base.ResetValues();
-        _navMeshAgent.isStopped = false;
+        //enemyModel.SetShield(false);
 
     }
 

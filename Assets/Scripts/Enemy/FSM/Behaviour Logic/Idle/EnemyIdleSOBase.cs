@@ -13,8 +13,8 @@ public class EnemyIdleSOBase : ScriptableObject
 
     protected Transform playerTransform;
 
-    private NavMeshAgent _navMeshAgent;
-    private float initialSpeed;
+    protected NavMeshAgent _navMeshAgent;
+    protected float initialSpeed;
 
     public virtual void Initialize(GameObject gameObject, EnemyController enemy)
     {

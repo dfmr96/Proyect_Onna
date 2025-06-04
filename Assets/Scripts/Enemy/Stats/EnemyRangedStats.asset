@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0a980c3ede781443bca97b6deaac8b3, type: 3}
-  m_Name: EnemyRangedPrototipeStats
+  m_Name: EnemyRangedStats
   m_EditorClassIdentifier: 
   MaxHealth: 10
   AttackDamage: 5

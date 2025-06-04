@@ -17,7 +17,7 @@ public class EnemyAttackRanged : EnemyAttackSOBase
 
     [SerializeField] private float personalDistance;
     [SerializeField] private LayerMask obstacleLayers;
-    [SerializeField] private float projectileRadius = 0.2f;
+    //[SerializeField] private float projectileRadius = 0.2f;
     [SerializeField] private float strafeDistance = 3f;
     [SerializeField] private float strafeCooldown = 2f;
     [SerializeField] private float strafeStopDistance = 0.2f;
