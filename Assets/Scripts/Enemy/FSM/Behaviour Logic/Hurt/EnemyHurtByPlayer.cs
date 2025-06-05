@@ -7,7 +7,6 @@ using UnityEngine.AI;
  public class EnemyHurtByPlayer : EnemyHurtSOBase
  {
     private float _timer;
-    [SerializeField] private float _timeHurt = 0.1f;
 
 
     public override void DoEnterLogic()

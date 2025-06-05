@@ -15,6 +15,9 @@ public class EnemyHurtSOBase : ScriptableObject
 
     protected NavMeshAgent _navMeshAgent;
 
+    [SerializeField] protected float _timeHurt = 0.1f;
+
+
     public virtual void Initialize(GameObject gameObject, EnemyController enemy)
     {
         this.gameObject = gameObject;
