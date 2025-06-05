@@ -15,9 +15,8 @@ public class EnemyIdleJustStill : EnemyIdleSOBase
         base.DoEnterLogic();
         _navMeshAgent.isStopped = true;
         _navMeshAgent.ResetPath();
-        _navMeshAgent.velocity = Vector3.zero;
-        enemy.SetAggroChecksEnabled(false);
 
+        timer = 0f;
     }
 
     public override void DoExitLogic()
@@ -33,8 +32,18 @@ public class EnemyIdleJustStill : EnemyIdleSOBase
 
         if (timer > duration)
         {
-            enemy.SetAggroChecksEnabled(true);
-            enemy.fsm.ChangeState(enemy.ChaseState);
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+            if (distanceToPlayer > model.statsSO.AttackRange)
+            {
+                enemy.fsm.ChangeState(enemy.ChaseState);
+
+            }
+            else
+            {
+                enemy.fsm.ChangeState(enemy.AttackState);
+
+            }
 
         }
 

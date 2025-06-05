@@ -15,8 +15,10 @@ MonoBehaviour:
   _distanceToCountExit: 3
   AttackingMovingSpeed: 0
   isMovingSpeedChangesOnAttack: 0
-  _timeBetweenAttacks: 1.5
-  _initialAttackDelay: 0.3
+  _timeBetweenAttacks: 1
+  _initialAttackDelay: 1
   _targetColor: {r: 1, g: 0, b: 0, a: 1}
-  chargeSpeed: 10
-  chargeDuration: 2
+  isLookingPlayer: 1
+  rotationSpeed: 10
+  chargeSpeed: 20
+  chargeDuration: 1

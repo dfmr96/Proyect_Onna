@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Attack-Charging attack Tank type", menuName = "Enemy Logic/Attack Logic/Charging attack Tank type")]
@@ -15,11 +12,14 @@ public class EnemyAttackCharge : EnemyAttackSOBase
     private float chargeTimer = 0f;
     private Vector3 chargeDirection;
 
+
+
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
 
-        enemy.SetShield(false);
+
+        //enemy.SetShield(false);
 
         _navMeshAgent.SetDestination(playerTransform.position);
         _hasAttackedOnce = false;
@@ -31,27 +31,38 @@ public class EnemyAttackCharge : EnemyAttackSOBase
     public override void DoExitLogic()
     {
         base.DoExitLogic();
+
+
         ResetValues();
     }
 
     public override void DoFrameUpdateLogic()
     {
-
         base.DoFrameUpdateLogic();
 
         _timer += Time.deltaTime;
 
-        if (!_hasAttackedOnce && _timer >= _initialAttackDelay)
+        if (!_hasAttackedOnce && !isCharging && _timer >= _initialAttackDelay)
         {
             StartCharge();
+            return;
         }
 
         if (isCharging)
         {
             chargeTimer += Time.deltaTime;
-            enemy.transform.position += chargeDirection * (chargeSpeed * Time.deltaTime);
 
-            if (chargeTimer >= chargeDuration)
+            float distanceToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+
+
+            _navMeshAgent.Move(chargeDirection * chargeSpeed * Time.deltaTime);
+
+            //if (chargeTimer >= chargeDuration)
+            //{
+            //    EndCharge(); 
+            //}
+
+            if (distanceToPlayer < 1 || chargeTimer >= chargeDuration)
             {
                 EndCharge();
             }
@@ -59,6 +70,7 @@ public class EnemyAttackCharge : EnemyAttackSOBase
 
 
     }
+
 
     public override void Initialize(GameObject gameObject, EnemyController enemy)
     {
@@ -69,21 +81,40 @@ public class EnemyAttackCharge : EnemyAttackSOBase
     {
         base.ResetValues();
 
-        _enemyView.PlayAttackAnimation(false);
         _hasAttackedOnce = false;
-        enemy.SetShield(true);
+        isCharging = false;
+        chargeTimer = 0f;
+        chargeDirection = Vector3.zero;
+
+        if (_navMeshAgent != null)
+        {
+            _navMeshAgent.isStopped = true;
+            _navMeshAgent.velocity = Vector3.zero;
+            _navMeshAgent.ResetPath();
+        }
 
     }
+
+
+   
 
 
     private void StartCharge()
     {
         if (playerTransform == null) return;
 
+        isLookingPlayer = false;
+
+        _enemyView.PlayAttackAnimation(true);
+
+        //enemy.SetShield(false);
+
+        _navMeshAgent.isStopped = false;
+        _navMeshAgent.ResetPath();
+
         chargeDirection = (playerTransform.position - enemy.transform.position).normalized;
         chargeTimer = 0f;
         isCharging = true;
-        _enemyView.PlayAttackAnimation(true);
         _hasAttackedOnce = true;
         _timer = 0f;
     }
@@ -92,11 +123,13 @@ public class EnemyAttackCharge : EnemyAttackSOBase
     {
         isCharging = false;
         _navMeshAgent.isStopped = true;
-        _navMeshAgent.ResetPath();
         _navMeshAgent.velocity = Vector3.zero;
 
         _enemyView.PlayAttackAnimation(false);
-        enemy.SetAggroChecksEnabled(false);
+        //enemy.SetShield(true);
+        enemy.SetShield(false);
+        isLookingPlayer = true;
+
 
         enemy.fsm.ChangeState(enemy.IdleState);
     }

@@ -17,6 +17,7 @@ public class EnemyModel : MonoBehaviour, IDamageable
     public event Action<EnemyModel> OnDeath;
 
     private EnemyView view;
+    private EnemyController enemy;
     private OrbSpawner orbSpawner;
 
 
@@ -27,12 +28,14 @@ public class EnemyModel : MonoBehaviour, IDamageable
         CurrentHealth = MaxHealth;
 
         view = GetComponent<EnemyView>();
+        enemy = GetComponent<EnemyController>();
+
         orbSpawner = FindObjectOfType<OrbSpawner>();
     }
 
     public void TakeDamage(float damageAmount)
     {
-        if (statsSO.isShieldActive) return;
+        if (enemy.GetShield()) return;
 
         Debug.Log("Damagen received: " + damageAmount);
         if (statsSO.RastroOrbOnHit && orbSpawner != null)

@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     public Transform firePoint;
     public GameObject shieldObject;
+    private bool isShieldActive;
     public GameObject aggroChecksObject;
 
 
@@ -155,8 +156,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         model.OnHealthChanged += HandleHealthChanged;
         model.OnDeath += HandleDeath;
 
-
-        SetShield(model.statsSO.isShieldActive);
+        isShieldActive = model.statsSO.isShieldActive;
+        SetShield(isShieldActive);
     }
 
     private void Update()
@@ -226,7 +227,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         //float healthPercentage = currentHealth / model.statsSO.MaxHealth;
 
         //Cuando lo hieren pasa a Hurt
-        fsm.ChangeState(HurtState);
+        //fsm.ChangeState(HurtState);
+        view.PlayDamageAnimation();
     }
 
     private void HandleDeath(EnemyModel enemy)
@@ -259,7 +261,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     public void SetShield(bool isGod)
     {
-        model.statsSO.isShieldActive = isGod;
+        isShieldActive = isGod;
 
         if (isGod)
         {
@@ -269,6 +271,11 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         {
             shieldObject.SetActive(false);
         }
+    }
+
+    public bool GetShield()
+    {
+        return isShieldActive;
     }
 
 }

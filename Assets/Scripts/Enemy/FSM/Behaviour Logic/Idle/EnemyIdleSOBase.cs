@@ -8,6 +8,7 @@ public class EnemyIdleSOBase : ScriptableObject
 {
 
     protected EnemyController enemy;
+    protected EnemyModel model;
     protected Transform transform;
     protected GameObject gameObject;
 
@@ -33,6 +34,8 @@ public class EnemyIdleSOBase : ScriptableObject
         initialSpeed = _navMeshAgent.speed;
         _navMeshAgent.speed = 0;
         _navMeshAgent.isStopped = true;
+        model = enemy.GetComponent<EnemyModel>();
+
     }
     public virtual void DoExitLogic() { ResetValues(); }
     public virtual void DoFrameUpdateLogic() { 
