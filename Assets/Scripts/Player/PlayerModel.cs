@@ -10,40 +10,30 @@ namespace Player
         public static Action<float> OnUpdateTime;
 
         [SerializeField] private bool devMode = false;
-        [Header("Stats Config")] 
-        [SerializeField] private StatBlock baseStats;
-        [SerializeField] private MetaStatBlock metaStats;
         [SerializeField] private StatReferences statRefs;
+
+        private float _currentTime;
+        private PlayerStatContext _statContext;
+        
         
 
-        public float Speed => RuntimeStats.Get(StatRefs.movementSpeed);
-        private float DrainRate => RuntimeStats.Get(StatRefs.passiveDrainRate);
-        public float MaxHealth => RuntimeStats.Get(StatRefs.maxVitalTime);
-        public float CurrentHealth => CurrentTime;
-
-        private RuntimeStats _runtimeStats;
-
-        private float CurrentTime { get; set; }
-
-        public RuntimeStats RuntimeStats => _runtimeStats;
-
         public StatReferences StatRefs => statRefs;
+        public float Speed => StatContext.Source.Get(statRefs.movementSpeed);
+        private float DrainRate => StatContext.Source.Get(statRefs.passiveDrainRate);
+        public float MaxHealth => StatContext.Source.Get(statRefs.maxVitalTime);
+        public float CurrentHealth => _currentTime;
 
-        public MetaStatBlock MetaStats => metaStats;
+        public PlayerStatContext StatContext => _statContext;
 
-        private void Awake()
+        public void InjectStatContext(PlayerStatContext context)
         {
-            _runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, MetaStats, StatRefs);
-
-            RunData.Initialize();
-            RunData.SetStats(RuntimeStats);
-
-            CurrentTime = RuntimeStats.CurrentEnergyTime;
+            _statContext = context;
+            _currentTime = StatContext.Runtime != null ? StatContext.Runtime.CurrentEnergyTime : float.PositiveInfinity;
         }
         
         public void ForceReinitStats()
         {
-            var oldBonuses = _runtimeStats?.GetAllRuntimeBonuses(); // Necesitarías exponer esto
+            /*var oldBonuses = _runtimeStats?.GetAllRuntimeBonuses(); // Necesitarías exponer esto
 
             _runtimeStats = new RuntimeStats(baseStats, MetaStats, statRefs);
             RunData.SetStats(_runtimeStats);
@@ -53,13 +43,13 @@ namespace Player
             {
                 foreach (var kvp in oldBonuses)
                     _runtimeStats.AddRuntimeBonus(kvp.Key, kvp.Value);
-            }
+            }*/
         }
 
 
         private void Update()
         {
-            if (!devMode)
+            if (!devMode || StatContext.Runtime != null)
             {
                 ApplyPassiveDrain();
             }
@@ -78,10 +68,10 @@ namespace Player
         
         public void ApplyDamage(float timeTaken, bool applyResistance)
         {
-            float resistance = applyResistance ? Mathf.Clamp01(RuntimeStats.Get(StatRefs.damageResistance)) : 0f;
+            float resistance = applyResistance ? Mathf.Clamp01(StatContext.Source.Get(statRefs.damageResistance)) : 0f;
             float effectiveDamage = timeTaken * (1f - resistance);
 
-            CurrentTime -= effectiveDamage;
+            _currentTime -= effectiveDamage;
             ClampEnergy();
             if (applyResistance)
             {
@@ -91,22 +81,23 @@ namespace Player
                           $"Final = {effectiveDamage}");
             }
 
-            OnUpdateTime?.Invoke(CurrentTime / RuntimeStats.Get(StatRefs.maxVitalTime));
+            OnUpdateTime?.Invoke(_currentTime / StatContext.Source.Get(statRefs.maxVitalTime));
 
-            if (CurrentTime <= 0)
+            if (_currentTime <= 0)
                 Die();
         }
 
         public void RecoverTime(float timeRecovered)
         {
-            CurrentTime = Mathf.Min(CurrentTime + timeRecovered, RuntimeStats.Get(StatRefs.maxVitalTime));
+            _currentTime = Mathf.Min(_currentTime + timeRecovered, StatContext.Source.Get(statRefs.maxVitalTime));
             ClampEnergy();
-            OnUpdateTime?.Invoke(CurrentTime / RuntimeStats.Get(StatRefs.maxVitalTime));
+            OnUpdateTime?.Invoke(_currentTime / StatContext.Source.Get(statRefs.maxVitalTime));
         }
 
         private void ClampEnergy()
         {
-            RuntimeStats.SetCurrentEnergyTime(CurrentTime, RuntimeStats.Get(StatRefs.maxVitalTime));
+            if (StatContext.Runtime != null)
+                StatContext.Runtime.SetCurrentEnergyTime(_currentTime, MaxHealth);
         }
 
         public void Die() => OnPlayerDie?.Invoke();

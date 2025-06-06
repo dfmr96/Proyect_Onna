@@ -10,6 +10,6 @@ namespace Mutations
         [SerializeField] protected StatReferences statRefs;
         [SerializeField] protected MetaStatBlock testMetaStats;
         [SerializeField] protected StatBlock testBaseStats;
-        public abstract void Apply(RuntimeStats player);
+        public abstract void Apply(IStatTarget player);
     }
 }

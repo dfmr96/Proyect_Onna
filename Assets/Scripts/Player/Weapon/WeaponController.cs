@@ -26,7 +26,7 @@ namespace Player.Weapon
 
         private void Start()
         {
-            var stats = playerModel.RuntimeStats;
+            var stats = playerModel.StatContext.Source;
             var refs = playerModel.StatRefs;
             Settings.Init(stats, refs);
             bulletSetting.Init(stats, refs);

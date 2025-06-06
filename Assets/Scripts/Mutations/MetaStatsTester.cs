@@ -20,13 +20,13 @@ namespace Mutations
                 return;
             }
 
-            if (player.RuntimeStats == null)
+            if (player.StatContext.Source == null)
             {
                 Debug.LogWarning("⛔ RuntimeStats no inicializado aún.");
                 return;
             }
 
-            metaStats = player.RuntimeStats.MetaStats;
+            metaStats = player.StatContext.Meta;
             statRefs = player.StatRefs;
 
             if (metaStats == null)
@@ -42,7 +42,7 @@ namespace Mutations
         [Button("➕ +5% Velocidad Base (Meta)")]
         private void AddMetaSpeedPercent()
         {
-            float baseSpeed = player.RuntimeStats.GetBaseValue(statRefs.movementSpeed);
+            float baseSpeed = player.StatContext.Runtime.GetBaseValue(statRefs.movementSpeed);
             float increase = baseSpeed * 0.05f;
             AddMetaBonus(statRefs.movementSpeed, increase);
         }

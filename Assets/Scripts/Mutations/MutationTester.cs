@@ -64,16 +64,16 @@ public class MutationTester : MonoBehaviour
 
     private void ApplyMutation(UpgradeEffect effect)
     {
-        if (player == null || player.RuntimeStats == null)
+        if (player == null || player.StatContext.Runtime == null)
         {
             Debug.LogWarning("⛔ PlayerModel o RuntimeStats no válidos.");
             return;
         }
 
         Debug.Log($"✅ Aplicando mutación: {effect.GetType().Name}");
-        effect.Apply(player.RuntimeStats);
+        effect.Apply(player.StatContext.Runtime);
 
-        float val = player.RuntimeStats.Get(player.StatRefs.movementSpeed);
+        float val = player.StatContext.Runtime.Get(player.StatRefs.movementSpeed);
         Debug.Log($"🔍 Valor actual de movementSpeed tras aplicar: {val}");
     }
     

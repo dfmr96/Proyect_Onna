@@ -37,7 +37,7 @@ namespace Mutations
         
         private void OnSelected()
         {
-            var playerStats = PlayerHelper.GetPlayer().GetComponent<PlayerModel>().RuntimeStats;
+            var playerStats = PlayerHelper.GetPlayer().GetComponent<PlayerModel>().StatContext.Runtime;
             if (playerStats == null)
             {
                 Debug.LogWarning("⛔ No RuntimeStats available.");

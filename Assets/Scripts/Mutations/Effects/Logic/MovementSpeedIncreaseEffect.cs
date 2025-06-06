@@ -9,15 +9,9 @@ namespace Mutations
     {
         [SerializeField] private float increasePercent = 0.05f;
 
-        public override void Apply(RuntimeStats player)
+        public override void Apply(IStatTarget player)
         {
-            var statDef = statRefs.movementSpeed;
-            float fullValue = player.Get(statDef); // ✅ incluye base + meta + runtime
-            float bonus = fullValue * (increasePercent / 100f);
-
-            player.AddRuntimeBonus(statDef, bonus);
-
-            Debug.Log($"💨 Oxígeno ONИA aplicado: {increasePercent}% de {fullValue} = {bonus}");
+            player.AddPercentBonus(statRefs.movementSpeed, increasePercent);
         }
 #if UNITY_EDITOR    
         [Button("🔬 Test Effect")]

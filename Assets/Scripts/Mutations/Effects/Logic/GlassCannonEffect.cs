@@ -10,10 +10,10 @@ namespace Mutations
         [SerializeField] private float damageMultiplier = 2f;
         [SerializeField] private float vitalReduction = 0.5f;
 
-        public override void Apply(RuntimeStats player)
+        public override void Apply(IStatTarget  player)
         {
-            player.MultiplyStat(statRefs.damage, damageMultiplier);
-            player.MultiplyStat(statRefs.passiveDrainRate, 1f + vitalReduction);        
+            player.AddMultiplierBonus(statRefs.damage, damageMultiplier);
+            player.AddMultiplierBonus(statRefs.passiveDrainRate, 1f + vitalReduction);        
         }
         
 #if UNITY_EDITOR

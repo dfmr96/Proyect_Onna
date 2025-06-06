@@ -9,10 +9,10 @@ namespace Mutations
     {
         [SerializeField] private float resistanceBonus;
 
-        public override void Apply(RuntimeStats player)
+        public override void Apply(IStatTarget  player)
         {
             float bonus = resistanceBonus / 100f;
-            player.AddRuntimeBonus(statRefs.damageResistance, bonus);
+            player.AddFlatBonus(statRefs.damageResistance, bonus);
         }
 #if UNITY_EDITOR    
         [Button("🔬 Test Effect")]

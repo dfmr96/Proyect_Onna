@@ -2,7 +2,7 @@
 using Player.Stats;
 using UnityEngine;
 
-namespace Mutations
+namespace Mutations.Effects.Logic
 {
     [CreateAssetMenu(menuName = "Mutations/Effects/Mirada del Umbral")]
     public class AttackRangeIncreaseEffect : UpgradeEffect
@@ -10,9 +10,9 @@ namespace Mutations
         [SerializeField] private float increasePercent;
         
 
-        public override void Apply(RuntimeStats player)
+        public override void Apply(IStatTarget player)
         {
-            player.IncreaseStatByPercent(statRefs.attackRange, increasePercent);
+            player.AddPercentBonus(statRefs.attackRange, increasePercent);
         }
         
 #if UNITY_EDITOR
