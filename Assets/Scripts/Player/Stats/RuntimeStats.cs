@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Player.Stats
 {
     [System.Serializable]
-    public class RuntimeStats : IStatContainer
+    public class RuntimeStats : IStatContainer, IStatSource, IStatTarget
     {
         [SerializeField] private StatBlock baseStats;
         [SerializeField] private MetaStatBlock metaStats;
@@ -45,26 +45,6 @@ namespace Player.Stats
 
         public MetaStatBlock MetaStats => metaStats;
 
-        public void AddRuntimeBonus(StatDefinition stat, float amount)
-        {
-            float existing = runtimeBonuses.Get(stat);
-            runtimeBonuses.Set(stat, existing + amount);
-        }
-
-        public void MultiplyStat(StatDefinition stat, float factor)
-        {
-            float baseVal = Get(stat);
-            float newValue = baseVal * factor;
-            AddRuntimeBonus(stat, newValue - baseVal);
-        }
-
-        public void IncreaseStatByPercent(StatDefinition stat, float percent)
-        {
-            float basePlusMeta = GetBaseValue(stat) + (MetaStats?.Get(stat) ?? 0f);
-            float delta = basePlusMeta * (percent / 100f);
-            AddRuntimeBonus(stat, delta);
-        }
-
         public void SetCurrentEnergyTime(float value, float maxVitalTime)
         {
             currentEnergyTime = Mathf.Clamp(value, 0f, maxVitalTime);
@@ -79,6 +59,25 @@ namespace Player.Stats
         public Dictionary<StatDefinition, float> GetAllRuntimeBonuses()
         {
             return new Dictionary<StatDefinition, float>(runtimeBonuses.All);
+        }
+
+        public void AddFlatBonus(StatDefinition stat, float value)
+        {
+            float existing = runtimeBonuses.Get(stat);
+            runtimeBonuses.Set(stat, existing + value);
+        }
+
+        public void AddPercentBonus(StatDefinition stat, float percent)
+        {
+            float basePlusMeta = GetBaseValue(stat) + (MetaStats?.Get(stat) ?? 0f);
+            float delta = basePlusMeta * (percent / 100f);
+            AddFlatBonus(stat, delta);
+        }
+        public void AddMultiplierBonus(StatDefinition stat, float factor)
+        {
+            float baseVal = Get(stat);
+            float newValue = baseVal * factor;
+            AddFlatBonus(stat, newValue - baseVal);
         }
     }
 }
