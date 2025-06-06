@@ -3,7 +3,72 @@ guid: ff805b3c3147de24ea65ce1152f405dc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Armor_trausers
+    second: {fileID: 2100000, guid: 39a9bc20680b44d46923865ee2d137c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bags
+    second: {fileID: 2100000, guid: 926780d033caa8c4ba9ef9ef98f5af7b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black_Harness
+    second: {fileID: 2100000, guid: cc013c59ca49f604789341f63c56f35e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Bled_dark
+    second: {fileID: 2100000, guid: a8376993cfec0e445bccbeef0e59e564, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cloth_General
+    second: {fileID: 2100000, guid: 9386f32833737d54ba09eccf38f917d8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Cloth_top
+    second: {fileID: 2100000, guid: 5a233198aa566ea48a4bdb36b5e74be2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Harness
+    second: {fileID: 2100000, guid: f7eaf88070bb51e4ca5ab6f9bf8fa03d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Light
+    second: {fileID: 2100000, guid: d8e7360f8d060df4c9a4ea2ee9c03f0d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 30f9c2e02490368488394d3f1c39bc23, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 2cb02411f1f6f3b43bcd2b6a0d66283d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal_details
+    second: {fileID: 2100000, guid: d8be26490c55a2a48912e6219cc7dc74, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Metal_details2
+    second: {fileID: 2100000, guid: e36a429088f9dcd41bff046d2185424d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Tube
+    second: {fileID: 2100000, guid: df33f34dce0fd524aa3426d1beb3b622, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
