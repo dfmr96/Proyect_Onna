@@ -3,7 +3,7 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
-namespace Mutations
+namespace Mutations.Testing
 {
     public static class MutationGenerator
     {

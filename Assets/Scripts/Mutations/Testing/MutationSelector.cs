@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Mutations
+namespace Mutations.Testing
 {
     public class MutationSelector : MonoBehaviour
     {

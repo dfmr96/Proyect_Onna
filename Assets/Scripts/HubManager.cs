@@ -1,4 +1,5 @@
 using Player;
+using Player.Stats.Runtime;
 using UnityEngine;
 
 public class HubManager : MonoBehaviour

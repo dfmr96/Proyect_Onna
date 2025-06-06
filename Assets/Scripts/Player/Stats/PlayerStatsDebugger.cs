@@ -1,8 +1,7 @@
-﻿using Player;
-using Player.Stats;
+﻿using Player.Stats.Meta;
 using UnityEngine;
 
-namespace Mutations
+namespace Player.Stats
 {
     public class PlayerStatsDebugger : MonoBehaviour
     {

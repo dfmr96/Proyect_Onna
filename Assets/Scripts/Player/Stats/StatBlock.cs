@@ -2,6 +2,7 @@
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using NaughtyAttributes;
+using Player.Stats.Interfaces;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif

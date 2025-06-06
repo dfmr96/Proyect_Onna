@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Player;
+using Player.Stats.Runtime;
 using UnityEngine;
 
 public class HUBEndTrigger : LevelTrigger

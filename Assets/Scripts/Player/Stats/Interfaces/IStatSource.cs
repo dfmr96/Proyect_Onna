@@ -1,4 +1,4 @@
-﻿namespace Player.Stats
+﻿namespace Player.Stats.Interfaces
 {
     public interface IStatSource
     {

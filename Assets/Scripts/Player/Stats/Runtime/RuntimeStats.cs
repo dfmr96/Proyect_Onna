@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using Player.Stats.Interfaces;
+using Player.Stats.Meta;
 using UnityEngine;
 
-namespace Player.Stats
+namespace Player.Stats.Runtime
 {
     [System.Serializable]
     public class RuntimeStats : IStatContainer, IStatSource, IStatTarget

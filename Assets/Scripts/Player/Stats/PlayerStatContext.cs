@@ -1,4 +1,8 @@
-﻿namespace Player.Stats
+﻿using Player.Stats.Interfaces;
+using Player.Stats.Meta;
+using Player.Stats.Runtime;
+
+namespace Player.Stats
 {
     public class PlayerStatContext
     {
@@ -16,7 +20,7 @@
             source = runtimeStats;
             target = runtimeStats;
 
-            RunData.SetStats(runtimeStats); // opcional
+            RunData.SetStats(runtimeStats);
         }
 
         public void SetupForHub(IStatSource source, MetaStatBlock metaStats)
@@ -24,6 +28,15 @@
             this.metaStats = metaStats;
             this.source = source;
             this.target = metaStats;
+        }
+        
+        public void SetupFromExistingRuntime(RuntimeStats runtimeStats, MetaStatBlock metaStats)
+        {
+            this.runtimeStats = runtimeStats;
+            this.metaStats = metaStats;
+
+            source = runtimeStats;
+            target = runtimeStats;
         }
 
         public IStatSource Source => source;

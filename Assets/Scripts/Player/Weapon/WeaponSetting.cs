@@ -1,4 +1,5 @@
 ﻿using Player.Stats;
+using Player.Stats.Interfaces;
 using UnityEngine;
 
 namespace Player.Weapon

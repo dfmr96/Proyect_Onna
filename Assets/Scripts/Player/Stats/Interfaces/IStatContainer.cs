@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Player.Stats
+namespace Player.Stats.Interfaces
 {
     public interface IStatContainer
     {

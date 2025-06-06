@@ -1,9 +1,10 @@
 ﻿using NaughtyAttributes;
 using Player;
 using Player.Stats;
+using Player.Stats.Meta;
 using UnityEngine;
 
-namespace Mutations
+namespace Mutations.Testing
 {
     public class MetaStatsTester : MonoBehaviour
     {

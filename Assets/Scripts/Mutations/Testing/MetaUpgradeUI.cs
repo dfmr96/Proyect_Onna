@@ -1,10 +1,11 @@
 ﻿using Player;
 using Player.Stats;
+using Player.Stats.Meta;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace UI
+namespace Mutations.Testing
 {
     public class MetaUpgradeUI : MonoBehaviour
     {

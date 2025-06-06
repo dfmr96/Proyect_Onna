@@ -1,5 +1,7 @@
 ﻿using System;
 using Player.Stats;
+using Player.Stats.Meta;
+using Player.Stats.Runtime;
 using UnityEngine;
 
 namespace Player
@@ -35,7 +37,20 @@ namespace Player
 
             if (currentMode == GameMode.Run)
             {
-                statContext.SetupForRun(baseStats, metaStats, statRefs);
+                RuntimeStats runtimeStats;
+
+                if (RunData.CurrentStats == null)
+                {
+                    runtimeStats = new RuntimeStats(baseStats, metaStats, statRefs);
+                    RunData.SetStats(runtimeStats);
+                }
+                else
+                {
+                    runtimeStats = RunData.CurrentStats;
+                }
+
+                statContext.SetupFromExistingRuntime(runtimeStats, metaStats);
+                playerModel.InjectStatContext(statContext);
             }
             else
             {

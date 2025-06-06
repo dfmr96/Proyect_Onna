@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
-using Player.Stats;
+using Player.Stats.Interfaces;
 using UnityEngine;
 
-namespace Player
+namespace Player.Stats
 {
     [System.Serializable]
     public class StatContainerLogic : IStatContainer

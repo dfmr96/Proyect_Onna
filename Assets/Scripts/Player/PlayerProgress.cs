@@ -1,4 +1,5 @@
 using Player.Stats;
+using Player.Stats.Meta;
 using UnityEngine;
 
 namespace Player

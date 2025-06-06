@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Player.Stats
+namespace Player.Stats.Meta
 {
     [System.Serializable]
     public class MetaProgressionStats

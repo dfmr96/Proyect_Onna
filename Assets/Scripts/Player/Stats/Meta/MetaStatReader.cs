@@ -1,7 +1,7 @@
 ﻿using System;
-using Player.Stats;
+using Player.Stats.Interfaces;
 
-namespace Player.Stats
+namespace Player.Stats.Meta
 {
     [Serializable]
     public class MetaStatReader : IStatSource

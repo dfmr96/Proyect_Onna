@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace Player.Stats
+namespace Player.Stats.Meta
 {
     public static class MetaStatSaveSystem
     {

@@ -2,7 +2,7 @@
 using NaughtyAttributes;
 using UnityEngine;
 
-namespace Mutations
+namespace Mutations.Testing
 {
     [ExecuteInEditMode]
     public class MutationRollTest : MonoBehaviour

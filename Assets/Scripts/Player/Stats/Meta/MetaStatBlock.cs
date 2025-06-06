@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using Player.Stats.Interfaces;
 using UnityEngine;
 
-namespace Player.Stats
+namespace Player.Stats.Meta
 {
     [Serializable]
     public class MetaStatBlock : IStatContainer, IStatSource, IStatTarget

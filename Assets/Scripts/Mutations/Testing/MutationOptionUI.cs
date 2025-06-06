@@ -1,10 +1,9 @@
 ﻿using Player;
-using Player.Stats;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Mutations
+namespace Mutations.Testing
 {
     public class MutationOptionUI : MonoBehaviour
     {

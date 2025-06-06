@@ -1,5 +1,7 @@
 ﻿using NaughtyAttributes;
 using Player.Stats;
+using Player.Stats.Interfaces;
+using Player.Stats.Runtime;
 using UnityEngine;
 
 namespace Mutations
