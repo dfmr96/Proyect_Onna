@@ -24,6 +24,9 @@ public class EnemyAttackSOBase : ScriptableObject
     [SerializeField] protected float _timeBetweenAttacks = 1.5f;
     [SerializeField] protected float _initialAttackDelay = 0.3f;
     [SerializeField] protected Color _targetColor = Color.red;
+    [SerializeField] protected bool isLookingPlayer = true;
+    [SerializeField] protected float rotationSpeed = 5f;
+
 
 
     protected float distanceToPlayer;
@@ -80,7 +83,27 @@ public class EnemyAttackSOBase : ScriptableObject
     public virtual void DoFrameUpdateLogic()
     {
         //Siempre mira al Player al atacar
-        enemy.transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
+        if(isLookingPlayer)
+        {
+            //enemy.transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
+
+            Vector3 direction = new Vector3(
+                    playerTransform.position.x,
+                    transform.position.y,
+                    playerTransform.position.z
+                    ) - enemy.transform.position;
+
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                enemy.transform.rotation = Quaternion.Slerp(
+                    enemy.transform.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
+            }
+
+        }
 
         ColorChanger();
 

@@ -1,14 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 
 [CreateAssetMenu(fileName = "LevelProgression", menuName = "Game/LevelProgression")]
 public class LevelProgression : ScriptableObject
 {
-    public List<SceneAsset> region_0;
-    public List<SceneAsset> region_1;
-    public List<SceneAsset> region_2;
-    public SceneAsset region_final;
+    public List<string> region_0;
+    public List<string> region_1;
+    public List<string> region_2;
+    public string region_final;
 
     public int minRoomsPerLevel = 2;
     public int maxRoomsPerLevel = 3;
@@ -37,19 +36,19 @@ public class LevelProgression : ScriptableObject
 
     private string GetRandomSceneForCurrentRegion()
     {
-        List<SceneAsset> scenes = GetScenesForCurrentRegion();
+        List<string> scenes = GetScenesForCurrentRegion();
 
         if (scenes != null && scenes.Count > 0)
         {
-            SceneAsset selectedScene = scenes[Random.Range(0, scenes.Count)];
-            return selectedScene.name;
+            string selectedScene = scenes[Random.Range(0, scenes.Count)];
+            return selectedScene;
         }
         return null;
     }
 
-    private string GetFinalRegion() { return region_final.name; }
+    private string GetFinalRegion() { return region_final; }
 
-    private List<SceneAsset> GetScenesForCurrentRegion()
+    private List<string> GetScenesForCurrentRegion()
     {
         switch (currentRegion)
         {

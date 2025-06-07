@@ -5,6 +5,8 @@ public class EnemyStatsSO : ScriptableObject
 {
     [Header("Vitality")]
     public float MaxHealth = 100f;
+    public bool isShieldActive = false;
+
 
     [Header("Combat")]
     public float AttackDamage = 20f;
@@ -28,8 +30,11 @@ public class EnemyStatsSO : ScriptableObject
     public float RandomMovementRange = 30f;
 
     [Header("Rastro Orb")]
+    public float radiusSpawnOrb = 1.5f;
     public bool RastroOrbOnHit = true;
+    public int numberOfOrbsOnHit = 1;
     public bool RastroOrbOnDeath = true;
+    public int numberOfOrbsOnDeath = 2;
 
     [Header("Coins")]
     public int CoinsToDrop = 1;

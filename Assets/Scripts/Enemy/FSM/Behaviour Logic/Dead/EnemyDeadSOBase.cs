@@ -35,6 +35,7 @@ public class EnemyDeadSOBase : ScriptableObject
         _navMeshAgent.speed = 0;
         _navMeshAgent.isStopped = true;
         _collider.enabled = false;
+
     }
     public virtual void DoExitLogic() { 
         ResetValues();

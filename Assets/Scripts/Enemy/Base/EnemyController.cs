@@ -13,6 +13,10 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     private NavMeshAgent _navMeshAgent;
 
     public Transform firePoint;
+    public GameObject shieldObject;
+    private bool isShieldActive;
+    public GameObject aggroChecksObject;
+
 
     public bool isAggroed { get; set; }
     public bool isWhitinCombatRadius { get; set; }
@@ -29,6 +33,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     public EnemyDeadState DeadState { get; set; }
     public EnemyEscapeState EscapeState { get; set; }
     public EnemyHurtState HurtState { get; set; }
+    public EnemyDefendState DefendState { get; set; }
 
 
 
@@ -42,7 +47,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         Idle,
         Stunned,
         Dead,
-        Escape
+        Escape,
+        Defend
     }
 
     public InitialState initialState = InitialState.Patrol;
@@ -62,6 +68,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     [SerializeField] private EnemyStunnedSOBase EnemyStunnedSOBase;
     [SerializeField] private EnemyEscapeSOBase EnemyEscapeSOBase;
     [SerializeField] private EnemyHurtSOBase EnemyHurtSOBase;
+    [SerializeField] private EnemyDefendSOBase EnemyDefendSOBase;
 
 
 
@@ -74,6 +81,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
     public EnemyStunnedSOBase EnemyStunnedBaseInstance { get; set; }
     public EnemyEscapeSOBase EnemyEscapeBaseInstance { get; set; }
     public EnemyHurtSOBase EnemyHurtBaseInstance { get; set; }
+    public EnemyDefendSOBase EnemyDefendBaseInstance { get; set; }
 
 
 
@@ -91,6 +99,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         EnemyStunnedBaseInstance = Instantiate(EnemyStunnedSOBase);
         EnemyEscapeBaseInstance = Instantiate(EnemyEscapeSOBase);
         EnemyHurtBaseInstance = Instantiate(EnemyHurtSOBase);
+        EnemyDefendBaseInstance = Instantiate(EnemyDefendSOBase);
 
 
 
@@ -111,6 +120,7 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         DeadState = new EnemyDeadState(this, fsm);
         EscapeState = new EnemyEscapeState(this, fsm);
         HurtState = new EnemyHurtState(this, fsm);
+        DefendState = new EnemyDefendState(this, fsm);
 
 
 
@@ -131,6 +141,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         EnemyStunnedBaseInstance.Initialize(gameObject, this);
         EnemyEscapeBaseInstance.Initialize(gameObject, this);
         EnemyHurtBaseInstance.Initialize(gameObject, this);
+        EnemyDefendBaseInstance.Initialize(gameObject, this);
+
 
 
 
@@ -144,8 +156,8 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         model.OnHealthChanged += HandleHealthChanged;
         model.OnDeath += HandleDeath;
 
-
-
+        isShieldActive = model.statsSO.isShieldActive;
+        SetShield(isShieldActive);
     }
 
     private void Update()
@@ -212,10 +224,11 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
 
     private void HandleHealthChanged(float currentHealth)
     {
-        float healthPercentage = currentHealth / model.statsSO.MaxHealth;
+        //float healthPercentage = currentHealth / model.statsSO.MaxHealth;
 
         //Cuando lo hieren pasa a Hurt
-        fsm.ChangeState(HurtState);
+        //fsm.ChangeState(HurtState);
+        view.PlayDamageAnimation();
     }
 
     private void HandleDeath(EnemyModel enemy)
@@ -223,6 +236,18 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         fsm.ChangeState(DeadState);
     }
     
+    public void SetAggroChecksEnabled(bool enabled)
+    {
+        if (enabled) {
+
+            aggroChecksObject.SetActive(true);
+        }
+        else
+        {
+            aggroChecksObject.SetActive(false);
+
+        }
+    }
 
     public void SetAggroStatus(bool IsAggroed)
     {
@@ -234,6 +259,23 @@ public class EnemyController : MonoBehaviour, ITriggerCheck
         isWhitinCombatRadius = IsWhitinCombatRadius;
     }
 
+    public void SetShield(bool isGod)
+    {
+        isShieldActive = isGod;
 
+        if (isGod)
+        {
+            shieldObject.SetActive(true);
+        }
+        else
+        {
+            shieldObject.SetActive(false);
+        }
+    }
+
+    public bool GetShield()
+    {
+        return isShieldActive;
+    }
 
 }

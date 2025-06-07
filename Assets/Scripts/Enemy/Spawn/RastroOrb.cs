@@ -10,9 +10,13 @@ namespace Enemy.Spawn
         public static event Action<float> OnOrbCollected;
 
         [Header("Floating Settings")]
-        [SerializeField] private float floatSpeed = 0.5f;
-        [SerializeField] private float floatAmplitude = 0.5f;
-    
+        [SerializeField] private float minFloatSpeed = 0.2f;
+        [SerializeField] private float maxFloatSpeed = 1f;
+        [SerializeField] private float minFloatAmplitude = 0.2f;
+        [SerializeField] private float maxFloatAmplitude = 1f;
+        private float floatSpeed;
+        private float floatAmplitude;
+
         [Header("Healing Settings")]
         [SerializeField] private float healingAmount = 10f;
     
@@ -42,6 +46,9 @@ namespace Enemy.Spawn
         {
             startPos = transform.position;
             GetPlayer();
+
+            floatSpeed = UnityEngine.Random.Range(minFloatSpeed, maxFloatSpeed);
+            floatAmplitude = UnityEngine.Random.Range(minFloatAmplitude, maxFloatAmplitude);
         }
         
         void Update()

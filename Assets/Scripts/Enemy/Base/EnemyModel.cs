@@ -18,6 +18,7 @@ public class EnemyModel : MonoBehaviour, IDamageable
     public event Action<EnemyModel> OnDeath;
 
     private EnemyView view;
+    private EnemyController enemy;
     private OrbSpawner orbSpawner;
 
 
@@ -28,15 +29,22 @@ public class EnemyModel : MonoBehaviour, IDamageable
         CurrentHealth = MaxHealth;
 
         view = GetComponent<EnemyView>();
+        enemy = GetComponent<EnemyController>();
+
         orbSpawner = FindObjectOfType<OrbSpawner>();
     }
 
     public void TakeDamage(float damageAmount)
     {
+        if (enemy.GetShield()) return;
+
         Debug.Log("Damagen received: " + damageAmount);
         if (statsSO.RastroOrbOnHit && orbSpawner != null)
         {
-            orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
+            for (int i = 0; i < statsSO.numberOfOrbsOnHit; i++)
+            {
+                orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
+            }
         }
 
         CurrentHealth -= damageAmount;
@@ -50,12 +58,15 @@ public class EnemyModel : MonoBehaviour, IDamageable
     {
         if (statsSO.RastroOrbOnDeath && orbSpawner != null)
         {
-            //Al morir se instancian 2 orbes
-            orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
-            orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
+            for (int i = 0; i < statsSO.numberOfOrbsOnDeath; i++)
+            {
+                orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
+            }
         }
         RunData.CurrentCurrency.AddCoins(statsSO.CoinsToDrop);
         OnDeath?.Invoke(this);
     }
+
+  
 }
 
