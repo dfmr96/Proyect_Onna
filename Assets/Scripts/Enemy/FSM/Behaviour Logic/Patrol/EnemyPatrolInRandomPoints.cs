@@ -6,14 +6,19 @@ using UnityEngine;
 
 public class EnemyPatrolInRandomPoints : EnemyPatrolSOBase
     {
-        public override void DoEnterLogic()
+
+    protected float initialSpeed;
+    private float walkSpeed = 2f;
+    public override void DoEnterLogic()
         {
             base.DoEnterLogic();
 
             _enemyModel.OnHealthChanged += HandleHealthChanged;
 
+        initialSpeed = _enemyModel.statsSO.moveSpeed;
+
         //Se obliga a que el enemigo camine
-        _navMeshAgent.speed = _enemyModel.statsSO.moveSpeed - 2;
+        _navMeshAgent.speed = initialSpeed - walkSpeed;
         _navMeshAgent.angularSpeed = _enemyModel.statsSO.rotationSpeed;
 
         _targetPos = GetRandomPointInSphere();
@@ -56,7 +61,7 @@ public class EnemyPatrolInRandomPoints : EnemyPatrolSOBase
         {
             base.ResetValues();
             _enemyModel.OnHealthChanged -= HandleHealthChanged;
-            _navMeshAgent.speed += 2;
+            _navMeshAgent.speed = initialSpeed;
     }
 
     private Vector3 GetRandomPointInSphere()

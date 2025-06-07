@@ -22,10 +22,8 @@ public class EnemyView : MonoBehaviour
 
     private void Start()
     {
-        //_playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         _playerTransform = PlayerHelper.GetPlayer().transform;
-        projectileSpawner = FindObjectOfType<ProjectileSpawner>();
-
+        projectileSpawner = GameManager.Instance.projectileSpawner;
         _enemyController = GetComponent<EnemyController>();
         _enemyModel = GetComponent<EnemyModel>();
 

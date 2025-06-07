@@ -29,8 +29,7 @@ public class EnemyModel : MonoBehaviour, IDamageable
 
         view = GetComponent<EnemyView>();
         enemy = GetComponent<EnemyController>();
-
-        orbSpawner = FindObjectOfType<OrbSpawner>();
+        orbSpawner = GameManager.Instance.orbSpawner;
     }
 
     public void TakeDamage(float damageAmount)

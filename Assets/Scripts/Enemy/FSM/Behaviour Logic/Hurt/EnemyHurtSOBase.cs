@@ -24,7 +24,7 @@ public class EnemyHurtSOBase : ScriptableObject
         this.enemy = enemy;
         transform = gameObject.transform;
 
-        playerTransform = playerTransform = PlayerHelper.GetPlayer().transform;
+        playerTransform = PlayerHelper.GetPlayer().transform;
         _navMeshAgent = enemy.GetComponent<NavMeshAgent>();
 
     }

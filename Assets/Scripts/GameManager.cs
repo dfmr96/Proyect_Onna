@@ -15,6 +15,13 @@ public class GameManager : MonoBehaviour
     private GameObject player;
     private EnemySpawner _enemySpawner;
 
+    [Header("Enemies Spawners")]
+    public OrbSpawner orbSpawner;
+    public ProjectileSpawner projectileSpawner;
+
+
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
