@@ -5,8 +5,9 @@ namespace Player.Stats
 {
     public class PlayerStatsDebugger : MonoBehaviour
     {
-        private PlayerModel player;
         [SerializeField] private StatReferences statRefs;
+        private PlayerModel player;
+        private bool showDebugger = true;
 
         private void Start()
         {
@@ -17,8 +18,17 @@ namespace Player.Stats
         {
             if (player == null || player.StatContext == null) return;
 
+            // Botón flotante para mostrar/ocultar
+            if (GUI.Button(new Rect(10, 10, 100, 25), showDebugger ? "Ocultar Stats" : "Mostrar Stats"))
+            {
+                showDebugger = !showDebugger;
+            }
+
+            // Si está colapsado, no dibujamos nada más
+            if (!showDebugger) return;
+
             string mode = GameModeSelector.SelectedMode == GameMode.Run ? "[RUN]" : "[HUB]";
-            GUILayout.BeginArea(new Rect(10, 10, 380, 320), $"🧪 Stats Debugger {mode}", GUI.skin.window);
+            GUILayout.BeginArea(new Rect(10, 40, 380, 320), $"🧪 Stats Debugger {mode}", GUI.skin.window);
 
             DrawStat("Max Vital", statRefs.maxVitalTime);
             DrawStat("Passive Drain Rate", statRefs.passiveDrainRate);
