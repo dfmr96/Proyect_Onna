@@ -1,3 +1,5 @@
+using System;
+using Core;
 using Player.Weapon;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -21,13 +23,34 @@ namespace Player
         private PlayerView _playerView;
         private Vector3 _mouseWorldPos;
         private Camera _mainCamera;
+        
+        private bool _isReady = false;
+        
+        private void OnEnable()
+        {
+            EventBus.Subscribe<PlayerInitializedSignal>(OnPlayerInitialized);
+        }
+
+        private void OnDisable()
+        {
+            EventBus.Unsubscribe<PlayerInitializedSignal>(OnPlayerInitialized);
+        }
+        
+        private void OnPlayerInitialized(PlayerInitializedSignal signal)
+        {
+            if (signal.Model != GetComponent<PlayerModel>()) return;
+
+            Debug.Log("🎯 PlayerController: recibida señal PlayerInitializedSignal");
+
+            _playerModel = signal.Model;
+            _isReady = true;
+        }
     
         void Awake()
         {
             PlayerHelper.SetPlayer(gameObject);
         
             _mainCamera = Camera.main;
-            _playerModel = GetComponent<PlayerModel>();
             _playerView = GetComponent<PlayerView>();
             _playerInput = GetComponent<PlayerInput>();
             _playerInputHandler = GetComponent<PlayerInputHandler>();
@@ -38,6 +61,12 @@ namespace Player
 
         void Update()
         {
+            if (!_isReady)
+            {
+                Debug.Log("🕒 PlayerController: esperando inicialización...");
+                return;
+            }
+         
             _direction = _playerInputHandler.MovementInput;
             HandleAiming(_playerInputHandler.RawAimInput);
         

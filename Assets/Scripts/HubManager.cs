@@ -5,40 +5,39 @@ using TMPro;
 
 public class HubManager : MonoBehaviour
 {
+    public static HubManager Instance;
+
     [SerializeField] private LevelProgression levelProgression;
-    [SerializeField] private PlayerSpawner spawner;
     [SerializeField] private TextMeshProUGUI currencyText;
     [SerializeField] private GameObject storePrefab;
     private GameObject storeInstance;
-    public static HubManager Instance;
-    public PlayerWallet PlayerWallet { private set; get; }
+    private PlayerWallet _playerWallet;
+    public PlayerWallet PlayerWallet => _playerWallet;
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         Instance = this;
-        SetupBasics();
     }
 
-    private void SetupBasics()
+    public void Init()
     {
         levelProgression.ResetProgress();
-
-        // Crear o cargar PlayerWallet
-        if (PlayerWallet == null)
-            PlayerWallet = new PlayerWallet();
-
+        InitWallet();
+        
         // Si venimos de una run con monedas las sumamos
         if (RunData.CurrentCurrency != null)
         {
             PlayerWallet.AddCoins(RunData.CurrentCurrency.Coins);
             RunData.Clear();
         }
-
-        spawner.SpawnPlayer();
-        PlayerHelper.EnableInput();
         UpdateCoins();
     }
-
+    
+    private void InitWallet()
+    {
+        if (_playerWallet == null)
+            _playerWallet = new PlayerWallet();
+    }
     public void UpdateCoins() { currencyText.text = "Onna Fragments: " + PlayerWallet.Coins.ToString(); }
     public void OpenStore()
     {

@@ -1,14 +1,15 @@
 ﻿using System;
+using Core;
 using Player.Stats;
 using Player.Stats.Meta;
 using Player.Stats.Runtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
     public class PlayerModelBootstrapper : MonoBehaviour
     {
-        [SerializeField] private PlayerModel playerModel;
         [SerializeField] private GameMode currentMode;
 
         [Header("Stats Setup")]
@@ -16,50 +17,94 @@ namespace Player
         [SerializeField] private MetaStatBlock metaStats;
         [SerializeField] private StatReferences statRefs;
         [SerializeField] private StatRegistry registry;
+        
+        private PlayerStatContext _statContext;
 
         public MetaStatBlock MetaStats => metaStats;
 
         public StatRegistry Registry => registry;
 
-
         private void Awake()
         {
-            if (metaStats == null || registry == null)
+            DontDestroyOnLoad(gameObject);
+            if (!ValidateDependencies()) return;
+            
+            MetaStatSaveSystem.Load(metaStats, registry);
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnEnable()
+        {
+            Debug.Log("🛰 Bootstrapper suscribiéndose al PlayerSpawnedSignal");
+            EventBus.Subscribe<PlayerSpawnedSignal>(OnPlayerSpawned);
+        }
+        
+        private void OnDisable()
+        {
+            EventBus.Unsubscribe<PlayerSpawnedSignal>(OnPlayerSpawned);
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mod)
+        {
+            currentMode = scene.name == "HUB" ? GameMode.Hub : GameMode.Run;
+            GameModeSelector.SelectedMode = currentMode;
+        }
+        
+        private bool ValidateDependencies()
+        {
+            bool isValid = true;
+
+            if (metaStats == null)
             {
-                Debug.LogError("❌ MetaStats o Registry no asignados en el Inspector.");
+                Debug.LogError("❌ MetaStats no asignado en el Inspector.");
+                isValid = false;
+            }
+
+            if (registry == null)
+            {
+                Debug.LogError("❌ Registry no asignado en el Inspector.");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private void OnPlayerSpawned(PlayerSpawnedSignal signal)
+        {
+            Debug.Log("🧠 Bootstrapper: Recibida señal de jugador spawneado");
+            var playerGO = signal.PlayerGO;
+            var playerModel = playerGO.GetComponent<PlayerModel>();
+            if (playerModel == null)
+            {
+                Debug.LogError("❌ PlayerModel no encontrado en el jugador instanciado.");
                 return;
             }
 
-            MetaStatSaveSystem.Load(metaStats, registry);
+            _statContext = new PlayerStatContext();
 
-            currentMode = GameModeSelector.SelectedMode;
-            var statContext = new PlayerStatContext();
-
-            if (currentMode == GameMode.Run)
+            switch (currentMode)
             {
-                RuntimeStats runtimeStats;
-
-                if (RunData.CurrentStats == null)
-                {
-                    runtimeStats = new RuntimeStats(baseStats, metaStats, statRefs);
+                case GameMode.Run:
+                    var runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, metaStats, statRefs);
                     RunData.SetStats(runtimeStats);
-                }
-                else
-                {
-                    runtimeStats = RunData.CurrentStats;
-                }
+                    _statContext.SetupFromExistingRuntime(runtimeStats, metaStats);
+                    break;
 
-                statContext.SetupFromExistingRuntime(runtimeStats, metaStats);
-                playerModel.InjectStatContext(statContext);
-            }
-            else
-            {
-                var reader = new MetaStatReader(baseStats, metaStats);
-                statContext.SetupForHub(reader, metaStats);
-                metaStats.InjectBaseSource(reader);
+                case GameMode.Hub:
+                    var reader = new MetaStatReader(baseStats, metaStats);
+                    _statContext.SetupForHub(reader, metaStats);
+                    metaStats.InjectBaseSource(reader);
+                    break;
+
+                default:
+                    Debug.LogError("❌ Modo de juego inválido.");
+                    return;
             }
 
-            playerModel.InjectStatContext(statContext);
+            Debug.Log("✅ StatContext inyectado correctamente en PlayerModel.");
+            playerModel.InjectStatContext(_statContext);
+
         }
     }
     
@@ -75,5 +120,6 @@ namespace Player
         Hub,
         Run
     }
+    
     
 }

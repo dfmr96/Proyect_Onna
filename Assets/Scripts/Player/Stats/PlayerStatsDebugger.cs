@@ -17,7 +17,7 @@ namespace Player.Stats
         {
             if (player == null || player.StatContext == null) return;
 
-            string mode = player.StatContext.Runtime != null ? "[RUN]" : "[HUB]";
+            string mode = GameModeSelector.SelectedMode == GameMode.Run ? "[RUN]" : "[HUB]";
             GUILayout.BeginArea(new Rect(10, 10, 380, 320), $"🧪 Stats Debugger {mode}", GUI.skin.window);
 
             DrawStat("Max Vital", statRefs.maxVitalTime);
@@ -65,7 +65,7 @@ namespace Player.Stats
             GUI.contentColor = new Color(0.5f, 0.8f, 1f); // celeste claro
             GUILayout.Label($"M:{metaVal:0.##}", GUILayout.Width(50));
 
-            if (player.StatContext.Runtime != null)
+            if (GameModeSelector.SelectedMode == GameMode.Run)
             {
                 GUI.contentColor = Color.green;
                 GUILayout.Label($"R:{runtimeBonus:0.##}", GUILayout.Width(50));

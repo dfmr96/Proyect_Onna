@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Core;
 using NaughtyAttributes;
 using UnityEngine;
 
@@ -20,12 +21,24 @@ namespace Player.Weapon
         [SerializeField] private bool canFire = true;
 
         private Coroutine _coolingCooldownCoroutine;
-        [SerializeField] private PlayerModel playerModel;
+        private PlayerModel playerModel;
 
         public CooldownSettings Settings => cooldownSettings;
 
-        private void Start()
+        private void OnEnable()
         {
+            EventBus.Subscribe<PlayerInitializedSignal>(OnPlayerReady);
+        }
+        
+        private void OnDisable()
+        {
+            EventBus.Unsubscribe<PlayerInitializedSignal>(OnPlayerReady);
+        }
+        
+        private void OnPlayerReady(PlayerInitializedSignal signal)
+        {
+            playerModel = signal.Model;
+
             var stats = playerModel.StatContext.Source;
             var refs = playerModel.StatRefs;
             Settings.Init(stats, refs);

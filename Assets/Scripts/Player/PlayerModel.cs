@@ -1,4 +1,5 @@
 ﻿using System;
+using Core;
 using Player.Stats;
 using UnityEngine;
 
@@ -24,11 +25,15 @@ namespace Player
         public float CurrentHealth => _currentTime;
 
         public PlayerStatContext StatContext => _statContext;
+        public bool IsInitialized => _statContext?.Source != null;
+
 
         public void InjectStatContext(PlayerStatContext context)
         {
             _statContext = context;
-            _currentTime = StatContext.Runtime != null ? StatContext.Runtime.CurrentEnergyTime : float.PositiveInfinity;
+            _currentTime = StatContext.Runtime?.CurrentEnergyTime ?? float.PositiveInfinity;
+
+            EventBus.Publish(new PlayerInitializedSignal(this));
         }
         
         public void ForceReinitStats()
@@ -49,7 +54,9 @@ namespace Player
 
         private void Update()
         {
-            if (!devMode || StatContext.Runtime != null)
+            if (!IsInitialized) return;
+            
+            if (!devMode || GameModeSelector.SelectedMode != GameMode.Hub)
             {
                 ApplyPassiveDrain();
             }
