@@ -1,5 +1,7 @@
 ﻿using NaughtyAttributes;
 using Player.Stats;
+using Player.Stats.Interfaces;
+using Player.Stats.Runtime;
 using UnityEngine;
 
 namespace Mutations
@@ -9,16 +11,16 @@ namespace Mutations
     {
         [SerializeField] private float resistanceBonus;
 
-        public override void Apply(RuntimeStats player)
+        public override void Apply(IStatTarget  player)
         {
             float bonus = resistanceBonus / 100f;
-            player.AddRuntimeBonus(statRefs.damageResistance, bonus);
+            player.AddFlatBonus(statRefs.damageResistance, bonus);
         }
 #if UNITY_EDITOR    
         [Button("🔬 Test Effect")]
         private void TestEffect()
         {
-            var testStats = new RuntimeStats(testBaseStats, statRefs);
+            var testStats = new RuntimeStats(testBaseStats, testMetaStats, statRefs);
             float before = testStats.Get(statRefs.damageResistance);
             Apply(testStats);
             float after = testStats.Get(statRefs.damageResistance);

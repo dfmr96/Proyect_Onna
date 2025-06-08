@@ -2,6 +2,7 @@
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using NaughtyAttributes;
+using Player.Stats.Interfaces;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -9,91 +10,75 @@ using UnityEditor;
 namespace Player.Stats
 {
     [CreateAssetMenu(menuName = "Stats/Block", fileName = "New StatBlock")]
-    public class StatBlock : ScriptableObject
+    public class StatBlock : ScriptableObject, IStatContainer
     {
-        [SerializeField] private List<StatValue> stats = new();
-        [SerializeField] private SerializedDictionary<StatDefinition, float> _lookup = new();
+        [SerializeField] private StatContainerLogic container = new();
 
-        [Header("🆕 New Stat Creation")]
-        [SerializeField] private string newStatName = "NewStat";
+        [Header("🆕 New Stat Creation")] [SerializeField]
+        private string newStatName = "NewStat";
+
         [SerializeField] private float newStatValue = 0f;
 
-        public float Get(StatDefinition stat)
-        {
-            return _lookup.GetValueOrDefault(stat, 0f);
-        }
-
-        public void Set(StatDefinition stat, float value)
-        {
-            _lookup[stat] = value;
-
-            var serialized = stats.Find(s => s.stat == stat);
-            if (serialized != null)
-                serialized.value = value;
-            else
-                stats.Add(new StatValue { stat = stat, value = value });
-        }
-
-        public IReadOnlyList<StatValue> AllStats => stats;
+        public float Get(StatDefinition stat) => container.Get(stat);
+        public void Set(StatDefinition stat, float value) => container.Set(stat, value);
+        public IReadOnlyDictionary<StatDefinition, float> All => container.All;
+        public void Clear() => container.Clear();
 
         [Button("Build Lookup")]
-        private void BuildLookup()
-        {
-            _lookup.Clear();
-            foreach (var stat in stats)
-            {
-                if (stat.stat != null)
-                    _lookup[stat.stat] = stat.value;
-            }
-
-#if UNITY_EDITOR
-            EditorUtility.SetDirty(this);
-            AssetDatabase.SaveAssets();
-#endif
-
-            Debug.Log($"✅ Lookup construido para {name} con {stats.Count} stats.");
-        }
+        private void RebuildLookup() => container.RebuildLookup();
 
         [Button("Add New Stat")]
         private void AddNewStat()
         {
 #if UNITY_EDITOR
-            string rootPath = "Assets/Stats";
-            string folderPath = $"{rootPath}/Definitions";
+            string path = "Assets/Stats/Definitions";
+            if (!AssetDatabase.IsValidFolder(path))
+                AssetDatabase.CreateFolder("Assets/Stats", "Definitions");
 
-            if (!AssetDatabase.IsValidFolder(rootPath))
-            {
-                AssetDatabase.CreateFolder("Assets", "Stats");
-            }
-
-            if (!AssetDatabase.IsValidFolder(folderPath))
-            {
-                AssetDatabase.CreateFolder(rootPath, "Definitions");
-            }
-
-            string assetPath = $"{folderPath}/{newStatName}.asset";
-
-            StatDefinition newDef = CreateInstance<StatDefinition>();
-            newDef.name = newStatName;
-
-            AssetDatabase.CreateAsset(newDef, assetPath);
+            var def = CreateInstance<StatDefinition>();
+            def.name = newStatName;
+            AssetDatabase.CreateAsset(def, $"{path}/{newStatName}.asset");
             AssetDatabase.SaveAssets();
 
-            var statValue = new StatValue { stat = newDef, value = newStatValue };
-            stats.Add(statValue);
-
-            BuildLookup();
-
+            Set(def, newStatValue);
             EditorUtility.SetDirty(this);
-            Debug.Log($"✅ StatDefinition '{newStatName}' creado y agregado al StatBlock.");
 #endif
         }
-        
-        public void Clear()
-        {
-            stats.Clear();
-            _lookup.Clear();
-        }
 
+#if UNITY_EDITOR
+        [Button("Merge From Registry")]
+        private void MergeFromRegistry()
+        {
+            string assetPath = "Assets/Stats/StatRegistry.asset";
+            StatRegistry registry = AssetDatabase.LoadAssetAtPath<StatRegistry>(assetPath);
+
+            if (registry == null)
+            {
+                Debug.LogWarning($"❌ No se encontró StatRegistry en {assetPath}");
+                return;
+            }
+
+            int added = 0;
+
+            foreach (var def in registry.AllStats)
+            {
+                if (def == null)
+                    continue;
+
+                if (!container.All.ContainsKey(def))
+                {
+                    container.Set(def, 0f);
+                    added++;
+                }
+            }
+
+            container.RebuildLookup();
+
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssets();
+
+            Debug.Log($"✅ Merge completo. Se añadieron {added} nuevos stats desde StatRegistry a {name}.");
+        }
+#endif
     }
 }

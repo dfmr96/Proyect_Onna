@@ -1,0 +1,96 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8236439614788034134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5754422016002203595}
+  - component: {fileID: 5232143874810195849}
+  - component: {fileID: 2198899411062246017}
+  - component: {fileID: 2297388148948148811}
+  - component: {fileID: 5764385241443730666}
+  m_Layer: 0
+  m_Name: MutationsRoll
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5754422016002203595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236439614788034134}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.5418882, y: -2.2379396, z: 4.9016647}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5232143874810195849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236439614788034134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd475ce1e6a84cca88de6aaeb39af61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selector: {fileID: 2198899411062246017}
+  mutationUIPrefab: {fileID: 1569389354747678759, guid: cc28ea3171f454146b0b37d7f201ca8d, type: 3}
+  uiContainer: {fileID: 0}
+--- !u!114 &2198899411062246017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236439614788034134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b7f983e82cc4979bfd6aaecfe4c4ee3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mutationDatabase: {fileID: 11400000, guid: 76ce8f2a672b6e74187bf30f9fc9801d, type: 2}
+--- !u!114 &2297388148948148811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236439614788034134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae583efb4c5c4ec69eeb5daac1e230f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  oxigenoOnna: {fileID: 11400000, guid: 031aa9bd600ff6647a646761bdb77937, type: 2}
+  blindajeOseo: {fileID: 11400000, guid: 160423481a79f314798cf1f461ac60f6, type: 2}
+  miradaDelUmbral: {fileID: 11400000, guid: 6b7a2da209f0bcb41af6c65a534cc678, type: 2}
+  segundaAlma: {fileID: 11400000, guid: 53f0829c93e00814aac65c90998bb762, type: 2}
+  tacticaDeGuerra: {fileID: 11400000, guid: 673fb24ce278bb244bd11f262c85909c, type: 2}
+  sangreMaldita: {fileID: 11400000, guid: ad485becd471cb9488d0e82cab4b5577, type: 2}
+--- !u!114 &5764385241443730666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8236439614788034134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c25eb06973c44f27bcbcb683d4feeb90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statRefs: {fileID: 11400000, guid: 32dafbba4d335714c8c998c91f07c1d4, type: 2}

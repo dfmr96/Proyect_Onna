@@ -30,7 +30,7 @@ public class LevelProgression : ScriptableObject
                 return GetFinalRegion();
             }
         }
-        currentRoom += 1;
+        currentRoom++;
         return GetRandomSceneForCurrentRegion();
     }
 

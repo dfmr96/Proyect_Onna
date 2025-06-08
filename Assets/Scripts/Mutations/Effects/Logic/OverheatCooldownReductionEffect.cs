@@ -1,5 +1,7 @@
 ﻿using NaughtyAttributes;
 using Player.Stats;
+using Player.Stats.Interfaces;
+using Player.Stats.Runtime;
 using UnityEngine;
 
 namespace Mutations
@@ -9,10 +11,10 @@ namespace Mutations
     {
         [SerializeField] private float reduction = 0.1f;
 
-        public override void Apply(RuntimeStats player)
+        public override void Apply(IStatTarget player)
         {
             float reductionFactor = 1f - (reduction / 100f);
-            player.MultiplyStat(statRefs.overheatCooldown, reductionFactor);
+            player.AddMultiplierBonus(statRefs.overheatCooldown, reductionFactor);
         }
         
 #if UNITY_EDITOR
@@ -25,7 +27,7 @@ namespace Mutations
                 return;
             }
 
-            var testStats = new RuntimeStats(testBaseStats, statRefs);
+            var testStats = new RuntimeStats(testBaseStats, testMetaStats, statRefs);
             float before = testStats.Get(statRefs.overheatCooldown);
 
             Apply(testStats);

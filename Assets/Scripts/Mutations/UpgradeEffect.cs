@@ -1,5 +1,7 @@
 ﻿using NaughtyAttributes;
 using Player.Stats;
+using Player.Stats.Interfaces;
+using Player.Stats.Meta;
 using UnityEngine;
 
 namespace Mutations
@@ -8,7 +10,8 @@ namespace Mutations
     {
         [Header("🔬 Test Config (Editor Only)")]
         [SerializeField] protected StatReferences statRefs;
+        [SerializeField] protected MetaStatBlock testMetaStats;
         [SerializeField] protected StatBlock testBaseStats;
-        public abstract void Apply(RuntimeStats player);
+        public abstract void Apply(IStatTarget player);
     }
 }

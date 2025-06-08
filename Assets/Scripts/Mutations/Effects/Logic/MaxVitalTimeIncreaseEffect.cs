@@ -1,5 +1,7 @@
 ﻿using NaughtyAttributes;
 using Player.Stats;
+using Player.Stats.Interfaces;
+using Player.Stats.Runtime;
 using UnityEngine;
 
 namespace Mutations
@@ -9,9 +11,9 @@ namespace Mutations
     {
         [SerializeField] private float increasePercent = 0.2f;
 
-        public override void Apply(RuntimeStats player)
+        public override void Apply(IStatTarget player)
         {
-            player.IncreaseStatByPercent(statRefs.maxVitalTime, increasePercent);
+            player.AddPercentBonus(statRefs.maxVitalTime, increasePercent);
         }
         
 #if UNITY_EDITOR
@@ -24,7 +26,7 @@ namespace Mutations
                 return;
             }
 
-            var testStats = new RuntimeStats(testBaseStats, statRefs);
+            var testStats = new RuntimeStats(testBaseStats, testMetaStats, statRefs);
             float before = testStats.Get(statRefs.maxVitalTime);
 
             Apply(testStats);

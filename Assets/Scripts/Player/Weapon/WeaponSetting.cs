@@ -1,4 +1,5 @@
 ﻿using Player.Stats;
+using Player.Stats.Interfaces;
 using UnityEngine;
 
 namespace Player.Weapon
@@ -10,10 +11,10 @@ namespace Player.Weapon
         [SerializeField] private Transform bulletSpawnPoint;
         private float _bulletSpeed = 20f;
 
-        private RuntimeStats _stats;
+        private IStatSource _stats;
         private StatReferences _statReferences;
 
-        public void Init(RuntimeStats stats, StatReferences statReferences)
+        public void Init(IStatSource stats, StatReferences statReferences)
         {
             _statReferences = statReferences;
             _stats = stats;
@@ -32,9 +33,9 @@ namespace Player.Weapon
     [System.Serializable]
     public class CooldownSettings
     {
-        private RuntimeStats _stats;
+        private IStatSource _stats;
         private StatReferences _statReferences;
-        public void Init(RuntimeStats stats, StatReferences statReferences)
+        public void Init(IStatSource stats, StatReferences statReferences)
         {
             _statReferences = statReferences;
             _stats = stats;

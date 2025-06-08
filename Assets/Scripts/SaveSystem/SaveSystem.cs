@@ -8,27 +8,8 @@ public static class SaveSystem
     public static void SaveCoins(int newCoins)
     {
         PlayerData data = LoadData();
-        data.totalCoins += newCoins;
+        data.totalCoins = newCoins;
         WriteData(data);
-    }
-
-    public static bool TrySpendCoins(int amount)
-    {
-        PlayerData data = LoadData();
-
-        if (data.totalCoins >= amount)
-        {
-            data.totalCoins -= amount;
-            WriteData(data);
-            return true;
-        }
-        return false;
-    }
-
-    public static bool HasEnoughCoins(int amount)
-    {
-        PlayerData data = LoadData();
-        return data.totalCoins >= amount;
     }
 
     public static PlayerData LoadData()

@@ -1,45 +1,74 @@
 ﻿using System;
+using Core;
+using NaughtyAttributes;
 using Player.Stats;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
     public class PlayerModel : MonoBehaviour, IDamageable, IHealable
     {
+        
         public static Action OnPlayerDie;
         public static Action<float> OnUpdateTime;
 
-        [SerializeField] private bool devMode = false;
-        [Header("Stats Config")] 
-        [SerializeField] private StatBlock baseStats;
+        [InfoBox("WARNING: PlayerModel now requires StatContext injection at runtime via PlayerModelBootstrapper. " +
+                 "Make sure this prefab is not used directly without it.", EInfoBoxType.Warning)]        
+        [SerializeField] private bool devMode;
         [SerializeField] private StatReferences statRefs;
+
+        private float _currentTime;
+        private PlayerStatContext _statContext;
+        
         
 
-        public float Speed => RuntimeStats.Get(StatRefs.movementSpeed);
-        private float DrainRate => RuntimeStats.Get(StatRefs.passiveDrainRate);
-        public float MaxHealth => RuntimeStats.Get(StatRefs.maxVitalTime);
-        public float CurrentHealth => CurrentTime;
-
-        private RuntimeStats _runtimeStats;
-
-        private float CurrentTime { get; set; }
-
-        public RuntimeStats RuntimeStats => _runtimeStats;
-
         public StatReferences StatRefs => statRefs;
+        public float Speed => StatContext.Source.Get(statRefs.movementSpeed);
+        private float DrainRate => StatContext.Source.Get(statRefs.passiveDrainRate);
+        public float MaxHealth => StatContext.Source.Get(statRefs.maxVitalTime);
+        public float CurrentHealth => _currentTime;
 
-        private void Awake()
+        public PlayerStatContext StatContext => _statContext;
+
+        private bool _isInitialized;
+
+        private void Start()
         {
-            _runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, StatRefs);
-            RunData.Initialize();
-            RunData.SetStats(RuntimeStats);
-          
-            CurrentTime = RuntimeStats.CurrentEnergyTime;
+            Debug.LogError("Actualización 8/Junio. Ahora Player Model requiere un PlayerModelBootstrapper en escena. " +
+                           "Asegúrate de que este prefab no se use directamente sin él.");
         }
+        
+        public void InjectStatContext(PlayerStatContext context)
+        {
+            _statContext = context;
+            _currentTime = StatContext.Runtime?.CurrentEnergyTime ?? float.PositiveInfinity;
+
+            EventBus.Publish(new PlayerInitializedSignal(this));
+            _isInitialized = true;
+        }
+        
+        public void ForceReinitStats()
+        {
+            /*var oldBonuses = _runtimeStats?.GetAllRuntimeBonuses(); // Necesitarías exponer esto
+
+            _runtimeStats = new RuntimeStats(baseStats, MetaStats, statRefs);
+            RunData.SetStats(_runtimeStats);
+            CurrentTime = _runtimeStats.CurrentEnergyTime;
+
+            if (oldBonuses != null)
+            {
+                foreach (var kvp in oldBonuses)
+                    _runtimeStats.AddRuntimeBonus(kvp.Key, kvp.Value);
+            }*/
+        }
+
 
         private void Update()
         {
-            if (!devMode)
+            if (!_isInitialized) return;
+            
+            if (!devMode || GameModeSelector.SelectedMode != GameMode.Hub)
             {
                 ApplyPassiveDrain();
             }
@@ -58,10 +87,10 @@ namespace Player
         
         public void ApplyDamage(float timeTaken, bool applyResistance)
         {
-            float resistance = applyResistance ? Mathf.Clamp01(RuntimeStats.Get(StatRefs.damageResistance)) : 0f;
+            float resistance = applyResistance ? Mathf.Clamp01(StatContext.Source.Get(statRefs.damageResistance)) : 0f;
             float effectiveDamage = timeTaken * (1f - resistance);
 
-            CurrentTime -= effectiveDamage;
+            _currentTime -= effectiveDamage;
             ClampEnergy();
             if (applyResistance)
             {
@@ -71,22 +100,23 @@ namespace Player
                           $"Final = {effectiveDamage}");
             }
 
-            OnUpdateTime?.Invoke(CurrentTime / RuntimeStats.Get(StatRefs.maxVitalTime));
+            OnUpdateTime?.Invoke(_currentTime / StatContext.Source.Get(statRefs.maxVitalTime));
 
-            if (CurrentTime <= 0)
+            if (_currentTime <= 0)
                 Die();
         }
 
         public void RecoverTime(float timeRecovered)
         {
-            CurrentTime = Mathf.Min(CurrentTime + timeRecovered, RuntimeStats.Get(StatRefs.maxVitalTime));
+            _currentTime = Mathf.Min(_currentTime + timeRecovered, StatContext.Source.Get(statRefs.maxVitalTime));
             ClampEnergy();
-            OnUpdateTime?.Invoke(CurrentTime / RuntimeStats.Get(StatRefs.maxVitalTime));
+            OnUpdateTime?.Invoke(_currentTime / StatContext.Source.Get(statRefs.maxVitalTime));
         }
 
         private void ClampEnergy()
         {
-            RuntimeStats.SetCurrentEnergyTime(CurrentTime, RuntimeStats.Get(StatRefs.maxVitalTime));
+            if (StatContext.Runtime != null)
+                StatContext.Runtime.SetCurrentEnergyTime(_currentTime, MaxHealth);
         }
 
         public void Die() => OnPlayerDie?.Invoke();
