@@ -1,16 +1,21 @@
 ﻿using System;
 using Core;
+using NaughtyAttributes;
 using Player.Stats;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Player
 {
     public class PlayerModel : MonoBehaviour, IDamageable, IHealable
     {
+        
         public static Action OnPlayerDie;
         public static Action<float> OnUpdateTime;
 
-        [SerializeField] private bool devMode = false;
+        [InfoBox("WARNING: PlayerModel now requires StatContext injection at runtime via PlayerModelBootstrapper. " +
+                 "Make sure this prefab is not used directly without it.", EInfoBoxType.Warning)]        
+        [SerializeField] private bool devMode;
         [SerializeField] private StatReferences statRefs;
 
         private float _currentTime;
@@ -25,15 +30,22 @@ namespace Player
         public float CurrentHealth => _currentTime;
 
         public PlayerStatContext StatContext => _statContext;
-        public bool IsInitialized => _statContext?.Source != null;
 
+        private bool _isInitialized;
 
+        private void Start()
+        {
+            Debug.LogError("Actualización 8/Junio. Ahora Player Model requiere un PlayerModelBootstrapper en escena. " +
+                           "Asegúrate de que este prefab no se use directamente sin él.");
+        }
+        
         public void InjectStatContext(PlayerStatContext context)
         {
             _statContext = context;
             _currentTime = StatContext.Runtime?.CurrentEnergyTime ?? float.PositiveInfinity;
 
             EventBus.Publish(new PlayerInitializedSignal(this));
+            _isInitialized = true;
         }
         
         public void ForceReinitStats()
@@ -54,7 +66,7 @@ namespace Player
 
         private void Update()
         {
-            if (!IsInitialized) return;
+            if (!_isInitialized) return;
             
             if (!devMode || GameModeSelector.SelectedMode != GameMode.Hub)
             {
