@@ -9,8 +9,11 @@ public class StoreHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeName;
     [SerializeField] private TextMeshProUGUI upgradeDescription;
     [SerializeField] private TextMeshProUGUI upgradeCost;
+    [SerializeField] private List<GameObject> upgradeButtons;
     private UpgradeData selectedData;
     private HubManager hub;
+
+    private void Start() { CheckUpgradesAvailables(); }
 
     public void OnUpgradeClicked(BuyUpgradeButton button)
     {
@@ -23,12 +26,23 @@ public class StoreHandler : MonoBehaviour
 
     public void SetHubManager(HubManager hubManager) { hub = hubManager; }
     public void CloseStore() { hub.CloseStore(); }
+
+    public void CheckUpgradesAvailables()
+    {
+        foreach (GameObject button in upgradeButtons)
+        {
+            if (!hub.PlayerWallet.CheckCost(button.GetComponent<BuyUpgradeButton>().Data.cost))
+                button.GetComponent<Button>().interactable = false;
+            else button.GetComponent<Button>().interactable = true;
+        }
+    }
     public void TryBuyUpgrade()
     {
         if (hub.PlayerWallet.TrySpend(selectedData.cost))
         {
             Debug.Log($"Compraste mejora: {selectedData.upgradeName}");
             hub.UpdateCoins();
+            CheckUpgradesAvailables();
             // Do Something
         }
     }
