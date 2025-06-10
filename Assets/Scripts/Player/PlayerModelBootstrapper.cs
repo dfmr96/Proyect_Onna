@@ -31,6 +31,8 @@ namespace Player
             
             MetaStatSaveSystem.Load(metaStats, registry);
             SceneManager.sceneLoaded += OnSceneLoaded;
+            
+            EventBus.Publish(new PlayerModelBootstrapperSignal(this));
         }
 
         private void OnEnable()

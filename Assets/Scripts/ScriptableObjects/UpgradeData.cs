@@ -1,10 +1,15 @@
+using Mutations;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "UpgradeData", menuName = "Upgrades/New Upgrade")]
-public class UpgradeData : ScriptableObject
+namespace ScriptableObjects
 {
-    public string upgradeName;
-    public string description;
-    public Sprite icon;
-    public int cost;
+    [CreateAssetMenu(fileName = "UpgradeData", menuName = "Upgrades/New Upgrade")]
+    public class UpgradeData : ScriptableObject
+    {
+        public string upgradeName;
+        public string description;
+        public Sprite icon;
+        public int cost;
+        public UpgradeEffect upgradeEffect;
+    }
 }

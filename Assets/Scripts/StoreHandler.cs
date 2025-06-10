@@ -1,4 +1,8 @@
 using System.Collections.Generic;
+using Core;
+using Player;
+using Player.Stats.Meta;
+using ScriptableObjects;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -13,8 +17,21 @@ public class StoreHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI onnaFragments;
     private UpgradeData selectedData;
     private HubManager hub;
+    
+    private PlayerModel player;
+    private PlayerModelBootstrapper playerModelBootstrapper;
 
     private void Start() { CheckUpgradesAvailables(); }
+
+    private void OnEnable()
+    {
+        EventBus.Subscribe<PlayerModelBootstrapperSignal>(GetModelBoostrapper);
+    }
+    
+    private void OnDisable()
+    {
+        EventBus.Unsubscribe<PlayerModelBootstrapperSignal>(GetModelBoostrapper);
+    }
 
     public void OnUpgradeClicked(BuyUpgradeButton button)
     {
@@ -26,7 +43,12 @@ public class StoreHandler : MonoBehaviour
     }
 
     public void SetHubManager(HubManager hubManager) { hub = hubManager; }
-    public void CloseStore() { hub.CloseStore(); }
+
+    public void CloseStore()
+    {
+        MetaStatSaveSystem.Save(playerModelBootstrapper.MetaStats, playerModelBootstrapper.Registry);
+        hub.CloseStore();
+    }
     public void UpdateCurrencyStatus() { onnaFragments.text = "Onna Fragments: " + hub.PlayerWallet.Coins; }
     public void CheckUpgradesAvailables()
     {
@@ -44,11 +66,18 @@ public class StoreHandler : MonoBehaviour
         {
             if (hub.PlayerWallet.TrySpend(selectedData.cost))
             {
+                player = PlayerHelper.GetPlayer().GetComponent<PlayerModel>();
                 Debug.Log($"Compraste mejora: {selectedData.upgradeName}");
+                selectedData.upgradeEffect?.Apply(player.StatContext.Meta);
                 hub.UpdateCoins();
                 CheckUpgradesAvailables();
                 // Do Something
             }
         }
+    }
+    
+    private void GetModelBoostrapper(PlayerModelBootstrapperSignal signal)
+    {
+        playerModelBootstrapper = signal.Bootstrapper;
     }
 }
