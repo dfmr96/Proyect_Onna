@@ -10,6 +10,7 @@ public class StoreHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI upgradeDescription;
     [SerializeField] private TextMeshProUGUI upgradeCost;
     [SerializeField] private List<GameObject> upgradeButtons;
+    [SerializeField] private TextMeshProUGUI onnaFragments;
     private UpgradeData selectedData;
     private HubManager hub;
 
@@ -26,9 +27,10 @@ public class StoreHandler : MonoBehaviour
 
     public void SetHubManager(HubManager hubManager) { hub = hubManager; }
     public void CloseStore() { hub.CloseStore(); }
-
+    public void UpdateCurrencyStatus() { onnaFragments.text = "Onna Fragments: " + hub.PlayerWallet.Coins; }
     public void CheckUpgradesAvailables()
     {
+        UpdateCurrencyStatus();
         foreach (GameObject button in upgradeButtons)
         {
             if (!hub.PlayerWallet.CheckCost(button.GetComponent<BuyUpgradeButton>().Data.cost))
