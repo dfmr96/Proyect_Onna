@@ -2,6 +2,7 @@ using Player;
 using Player.Stats.Runtime;
 using UnityEngine;
 using TMPro;
+using NaughtyAttributes.Editor;
 
 public class HubManager : MonoBehaviour
 {
@@ -58,4 +59,7 @@ public class HubManager : MonoBehaviour
             PlayerHelper.EnableInput();
         }
     }
+
+    [ContextMenu("Add Currency")]
+    void ApplyCurrency() { PlayerWallet.AddCoins(100); UpdateCoins(); }
 }

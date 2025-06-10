@@ -34,7 +34,7 @@ namespace Mutations.Testing
             }
         }
         
-        private void OnSelected()
+        public void OnSelected()
         {
             var playerStats = PlayerHelper.GetPlayer().GetComponent<PlayerModel>().StatContext.Runtime;
             if (playerStats == null)

@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a49fa8e42ee38a43b750e203b22bf59, type: 3}
-  m_Name: Player1
+  m_Script: {fileID: 11500000, guid: 4c998d10b46b486e8a970d8d4f7b6d17, type: 3}
+  m_Name: VitalTime_15
   m_EditorClassIdentifier: 
-  upgradeName: player1
-  description: playerDescription1
-  icon: {fileID: 21300000, guid: b6a4a5ca51a80b948925829d296cec41, type: 3}
-  cost: 4
+  statRefs: {fileID: 11400000, guid: 32dafbba4d335714c8c998c91f07c1d4, type: 2}
+  testBaseStats: {fileID: 11400000, guid: 7da8c568a2998754f8d835daad308ad4, type: 2}
+  increasePercent: 20

@@ -140,9 +140,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3761164842a1514b98d2e5234e194f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 3854811404227342630, guid: 6d6a969a121a50e49b2dad0607bf32f2, type: 3}
+  mutationCanvasPrefab: {fileID: 3489912951650629710, guid: 1b094c0d4b5ce7047a349be75aaeb4d2, type: 3}
+  enemiesToSpawn: []
   wavesQuantity: 3
   spawnPoints:
   - {fileID: 5605882254545171578}
   - {fileID: 4553003352122691734}
   - {fileID: 4670550620565856935}
+  spawnAreaCenter: {x: 0, y: 0, z: 0}
+  spawnAreaSize: {x: 0, y: 0, z: 0}
+  safeDistanceFromPlayer: 5

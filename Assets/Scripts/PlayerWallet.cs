@@ -16,19 +16,20 @@ public class PlayerWallet
         Debug.Log($"Se sumaron {amount} monedas. Total: {Coins}");
     }
 
+    public bool CheckCost(int ammount)
+    {
+        if (Coins >= ammount) return true;
+        else return false;
+    }
+
     public bool TrySpend(int amount)
     {
         if (Coins >= amount)
         {
             Coins -= amount;
             SaveCoins();
-            Debug.Log($"Se gastaron {amount} monedas. Total restante: {Coins}");
             return true;
         }
-        else
-        {
-            Debug.Log("No hay suficientes monedas para gastar.");
-            return false;
-        }
+        return false;
     }
 }
