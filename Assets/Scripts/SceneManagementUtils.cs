@@ -1,4 +1,5 @@
 using System.Collections;
+using Player;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -38,6 +39,10 @@ public static class SceneManagementUtils
             loadingScreen.GetComponent<Animator>().SetTrigger("FadeOut");
         }
         SceneManager.sceneLoaded += OnSceneLoaded;
+        
+        var currentMode = sceneName == "HUB" ? GameMode.Hub : GameMode.Run;
+        GameModeSelector.SelectedMode = currentMode;
+        
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
         while (!asyncLoad.isDone)
         {

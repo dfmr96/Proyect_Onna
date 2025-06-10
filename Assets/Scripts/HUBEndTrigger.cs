@@ -4,7 +4,12 @@ using Player;
 using Player.Stats.Runtime;
 using UnityEngine;
 
-public class HUBEndTrigger : LevelTrigger
+public class HubEndTrigger : LevelTrigger
 {
-    protected override void OnTrigger(Collider other) { PlayerHelper.DisableInput(); LoadNextLevel(); RunData.Initialize(); }
+    protected override void OnTrigger(Collider other)
+    {
+        PlayerHelper.DisableInput(); 
+        LoadNextLevel(); 
+        RunData.Initialize();
+    }
 }

@@ -49,8 +49,7 @@ namespace Player
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mod)
         {
-            currentMode = scene.name == "HUB" ? GameMode.Hub : GameMode.Run;
-            GameModeSelector.SelectedMode = currentMode;
+            Debug.Log($"🌍 Bootstrapper: Escena cargada: {scene.name}, Modo actual: {currentMode}");
         }
         
         private bool ValidateDependencies()
@@ -85,18 +84,20 @@ namespace Player
 
             _statContext = new PlayerStatContext();
 
-            switch (currentMode)
+            switch (GameModeSelector.SelectedMode)
             {
                 case GameMode.Run:
                     var runtimeStats = RunData.CurrentStats ?? new RuntimeStats(baseStats, metaStats, statRefs);
                     RunData.SetStats(runtimeStats);
                     _statContext.SetupFromExistingRuntime(runtimeStats, metaStats);
+                    Debug.Log("<b>🛠 PlayerModelBootstrapper</b>: Inyectando RuntimeStats en PlayerModel.");
                     break;
 
                 case GameMode.Hub:
                     var reader = new MetaStatReader(baseStats, metaStats);
                     _statContext.SetupForHub(reader, metaStats);
                     metaStats.InjectBaseSource(reader);
+                    Debug.Log("<b>🛠 PlayerModelBootstrapper</b>: Inyectando MetaStats en PlayerModel.");
                     break;
 
                 default:

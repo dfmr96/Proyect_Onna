@@ -5,6 +5,8 @@ using Player;
 
 public class EnemySpawner : MonoBehaviour
 {
+    [SerializeField] private GameObject mutationCanvasPrefab;
+    
     [SerializeField] private EnemySpawnInfo[] enemiesToSpawn;
     [SerializeField] private int wavesQuantity = 3;
     [SerializeField] private Transform[] spawnPoints;
@@ -29,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
         Vector3 randomPosition;
         if (TryGetRandomNavMeshPosition(out randomPosition))
             transform.position = randomPosition;
-        else Debug.LogWarning("No se encontró posición válida sobre el NavMesh.");
+        else Debug.LogWarning("No se encontrï¿½ posiciï¿½n vï¿½lida sobre el NavMesh.");
 
         for (int i = 0; i < spawnPoints.Length; i++)
         {
@@ -111,7 +113,16 @@ public class EnemySpawner : MonoBehaviour
                 StartWave();
                 //OnWaveCompleted?.Invoke();
             }
-            else OnAllWavesCompleted?.Invoke();
+            else
+            {
+                ShowMutationSelection();
+                OnAllWavesCompleted?.Invoke();
+            }
         }
+    }
+    
+    private void ShowMutationSelection()
+    {
+        Instantiate(mutationCanvasPrefab);
     }
 }
