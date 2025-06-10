@@ -28,13 +28,8 @@ public class PlayerWallet
         {
             Coins -= amount;
             SaveCoins();
-            Debug.Log($"Se gastaron {amount} monedas. Total restante: {Coins}");
             return true;
         }
-        else
-        {
-            Debug.Log("No hay suficientes monedas para gastar.");
-            return false;
-        }
+        return false;
     }
 }

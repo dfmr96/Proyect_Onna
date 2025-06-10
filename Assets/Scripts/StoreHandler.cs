@@ -40,12 +40,15 @@ public class StoreHandler : MonoBehaviour
     }
     public void TryBuyUpgrade()
     {
-        if (hub.PlayerWallet.TrySpend(selectedData.cost))
+        if (selectedData != null)
         {
-            Debug.Log($"Compraste mejora: {selectedData.upgradeName}");
-            hub.UpdateCoins();
-            CheckUpgradesAvailables();
-            // Do Something
+            if (hub.PlayerWallet.TrySpend(selectedData.cost))
+            {
+                Debug.Log($"Compraste mejora: {selectedData.upgradeName}");
+                hub.UpdateCoins();
+                CheckUpgradesAvailables();
+                // Do Something
+            }
         }
     }
 }
