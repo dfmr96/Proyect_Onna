@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_0
+      name: "Tiempo Vital M\xE1ximo"
       rect:
         serializedVersion: 2
         x: 11
@@ -118,7 +118,7 @@ TextureImporter:
         width: 26
         height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -131,7 +131,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_1
+      name: Tiempo por Rastro Vital
       rect:
         serializedVersion: 2
         x: 60
@@ -139,7 +139,7 @@ TextureImporter:
         width: 26
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -152,7 +152,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_2
+      name: Velocidad de Movimiento
       rect:
         serializedVersion: 2
         x: 99
@@ -160,7 +160,7 @@ TextureImporter:
         width: 43
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -173,7 +173,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_3
+      name: "Sistema de Refrigeraci\xF3n"
       rect:
         serializedVersion: 2
         x: 151
@@ -181,7 +181,7 @@ TextureImporter:
         width: 37
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,7 +194,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_4
+      name: "Canal de Presi\xF3n Secundaria"
       rect:
         serializedVersion: 2
         x: 200
@@ -202,7 +202,7 @@ TextureImporter:
         width: 32
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,7 +215,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_5
+      name: "Propulsi\xF3n Espiritual"
       rect:
         serializedVersion: 2
         x: 5
@@ -223,7 +223,7 @@ TextureImporter:
         width: 38
         height: 35
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,7 +236,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_6
+      name: Cooldown de Dash
       rect:
         serializedVersion: 2
         x: 55
@@ -244,7 +244,7 @@ TextureImporter:
         width: 36
         height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -265,7 +265,7 @@ TextureImporter:
         width: 20
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -278,7 +278,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_8
+      name: Velocidad de Movimiento Mini
       rect:
         serializedVersion: 2
         x: 134
@@ -286,7 +286,7 @@ TextureImporter:
         width: 18
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -299,7 +299,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_9
+      name: Tiempo por Rastro Vital Mini
       rect:
         serializedVersion: 2
         x: 171
@@ -307,7 +307,7 @@ TextureImporter:
         width: 12
         height: 17
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -320,7 +320,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_10
+      name: "Propulsi\xF3n Espiritual  Mini"
       rect:
         serializedVersion: 2
         x: 201
@@ -328,7 +328,7 @@ TextureImporter:
         width: 16
         height: 15
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -341,7 +341,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_11
+      name: "Tiempo Vital M\xE1ximo Mini"
       rect:
         serializedVersion: 2
         x: 106
@@ -349,7 +349,7 @@ TextureImporter:
         width: 12
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -362,7 +362,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_12
+      name: "Canal de Presi\xF3n Secundaria Mini"
       rect:
         serializedVersion: 2
         x: 137
@@ -370,7 +370,7 @@ TextureImporter:
         width: 12
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -383,7 +383,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Icon_Upgrades-Sheet_13
+      name: "Sistema de Refrigeraci\xF3n Mini"
       rect:
         serializedVersion: 2
         x: 168
@@ -391,7 +391,7 @@ TextureImporter:
         width: 16
         height: 13
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -414,20 +414,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Icon_Upgrades-Sheet_0: 1699741769
-      Icon_Upgrades-Sheet_1: -2037384063
-      Icon_Upgrades-Sheet_10: -1141499564
-      Icon_Upgrades-Sheet_11: -2028315015
-      Icon_Upgrades-Sheet_12: -1471847155
-      Icon_Upgrades-Sheet_13: -649927673
-      Icon_Upgrades-Sheet_2: -181064604
-      Icon_Upgrades-Sheet_3: -2088077851
-      Icon_Upgrades-Sheet_4: 652176095
-      Icon_Upgrades-Sheet_5: 157512039
-      Icon_Upgrades-Sheet_6: 750972397
+      "Canal de Presi\xF3n Secundaria": 652176095
+      "Canal de Presi\xF3n Secundaria Mini": -1471847155
+      Cooldown de Dash: 750972397
       Icon_Upgrades-Sheet_7: 2043105403
-      Icon_Upgrades-Sheet_8: 1443567942
-      Icon_Upgrades-Sheet_9: 2145521354
+      "Propulsi\xF3n Espiritual": 157512039
+      "Propulsi\xF3n Espiritual  Mini": -1141499564
+      "Sistema de Refrigeraci\xF3n": -2088077851
+      "Sistema de Refrigeraci\xF3n Mini": -649927673
+      "Tiempo Vital M\xE1ximo": 1699741769
+      "Tiempo Vital M\xE1ximo Mini": -2028315015
+      Tiempo por Rastro Vital: -2037384063
+      Tiempo por Rastro Vital Mini: 2145521354
+      Velocidad de Movimiento: -181064604
+      Velocidad de Movimiento Mini: 1443567942
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
