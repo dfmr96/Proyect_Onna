@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2f5636f34c452354db7fcd3c39329067
+guid: 2ada49fd5d58375448626af0554dc735
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_0
+      name: Shop_Sheet_0
       rect:
         serializedVersion: 2
         x: 95
@@ -118,20 +118,20 @@ TextureImporter:
         width: 416
         height: 208
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 455a3662b1289574e9d2bf2b45d3b85d
-      internalID: 1242479549
+      spriteID: c8e6601ba7dcd8e499f4f4c7dd1544e7
+      internalID: 2122258198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_1
+      name: Shop_Sheet_1
       rect:
         serializedVersion: 2
         x: 515
@@ -139,125 +139,20 @@ TextureImporter:
         width: 408
         height: 200
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4ba37d6bde79cef4aae0a86d803b5f15
-      internalID: 323810331
+      spriteID: 654e02d6bd5ba274a8f285634136ac9f
+      internalID: 1687845083
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_2
-      rect:
-        serializedVersion: 2
-        x: 518
-        y: 434
-        width: 133
-        height: 195
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f24c660ec640e934e8eb6043e574dd7e
-      internalID: 1404289335
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_3
-      rect:
-        serializedVersion: 2
-        x: 653
-        y: 434
-        width: 134
-        height: 195
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d9d51310a4ca23f4faee8f641b2bde03
-      internalID: -1959003927
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_4
-      rect:
-        serializedVersion: 2
-        x: 789
-        y: 433
-        width: 133
-        height: 196
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c85574cc1d882c74392496584136175b
-      internalID: 579144998
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_5
-      rect:
-        serializedVersion: 2
-        x: 509
-        y: 200
-        width: 416
-        height: 209
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7b29a50d2b8a85e4dbbc5e05b20ea67c
-      internalID: -868857837
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_6
-      rect:
-        serializedVersion: 2
-        x: 383
-        y: 438
-        width: 32
-        height: 19
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 41243b7a3cb1ed046b17c15563400467
-      internalID: -2011194113
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_7
+      name: Shop_Sheet_2
       rect:
         serializedVersion: 2
         x: 111
@@ -265,20 +160,20 @@ TextureImporter:
         width: 76
         height: 76
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ad935ccae0170744bbc0115b74a41f1
-      internalID: -1819339601
+      spriteID: 219dcf32361aae44289d3ed8d9f24027
+      internalID: -710805354
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_8
+      name: Shop_Sheet_3
       rect:
         serializedVersion: 2
         x: 191
@@ -286,20 +181,20 @@ TextureImporter:
         width: 76
         height: 76
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4a82d8e0f09827d4d8dcea019d8d8822
-      internalID: -1510833229
+      spriteID: 75198cb6b66c1b940a888411b89e1030
+      internalID: 706280747
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_9
+      name: Shop_Sheet_4
       rect:
         serializedVersion: 2
         x: 271
@@ -307,20 +202,20 @@ TextureImporter:
         width: 76
         height: 76
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1aa1662f3f2e41a43979fb3720f12426
-      internalID: -30105645
+      spriteID: 12949847c3830604ea902588b7e5da8e
+      internalID: 1841488300
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_10
+      name: Shop_Sheet_5
       rect:
         serializedVersion: 2
         x: 351
@@ -328,20 +223,20 @@ TextureImporter:
         width: 76
         height: 76
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5dad9297f6082e246bcd06248ffc6e86
-      internalID: 966860968
+      spriteID: f30d6622c8febf346ba7f67209ac4be9
+      internalID: 1646873169
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_11
+      name: Shop_Sheet_6
       rect:
         serializedVersion: 2
         x: 431
@@ -349,20 +244,83 @@ TextureImporter:
         width: 76
         height: 76
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19ee443ba5ca30141aa7a8127a14cc40
-      internalID: -1043068651
+      spriteID: c856af45cd5a03340b6c901d45c7c770
+      internalID: 447931364
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_12
+      name: Shop_Sheet_7
+      rect:
+        serializedVersion: 2
+        x: 518
+        y: 433
+        width: 133
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d7fa50340dec024394547b14fd09851
+      internalID: 83298308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sheet_8
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 433
+        width: 134
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f642bd1d1f31d7342ab297ef104bdab2
+      internalID: 1554252649
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sheet_9
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 433
+        width: 133
+        height: 196
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a2854b10dc407d40a489eaee266751e
+      internalID: -141991042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sheet_10
       rect:
         serializedVersion: 2
         x: 135
@@ -370,41 +328,41 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4d0706ab648257c4ebb878ff68b4afa2
-      internalID: 33335890
+      spriteID: a2c4f24116f44a245a174c9b472c2661
+      internalID: -526056402
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_13
+      name: Shop_Sheet_11
       rect:
         serializedVersion: 2
         x: 183
         y: 432
         width: 32
-        height: 33
+        height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd53bf8136f0cd54ab53602a33859705
-      internalID: -2066271658
+      spriteID: 667e94e10e9a1e848855cc9b51f4bf0b
+      internalID: -106515213
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_14
+      name: Shop_Sheet_12
       rect:
         serializedVersion: 2
         x: 231
@@ -412,20 +370,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 907e8868d3ce21449b75a790f03008fc
-      internalID: 653564626
+      spriteID: 9d92f2b708893f84fbd6a01726d04511
+      internalID: -961650428
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_15
+      name: Shop_Sheet_13
       rect:
         serializedVersion: 2
         x: 279
@@ -433,20 +391,20 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 26111bf1d870c97468ac753c6043d9f3
-      internalID: 1654858031
+      spriteID: 52e6d715c0cc7a14883aabe75a7ef7a8
+      internalID: -2004911960
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_16
+      name: Shop_Sheet_14
       rect:
         serializedVersion: 2
         x: 327
@@ -454,20 +412,83 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b87caeff39981214c8477e91e8709bfb
-      internalID: -415570194
+      spriteID: a80dd0ebc25c93b4b9ac51920eb0511e
+      internalID: 751122953
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_17
+      name: Shop_Sheet_15
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 438
+        width: 32
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e178ef0fbbe66e54bab383b2e8e421d3
+      internalID: -597112572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sheet_16
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 396
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fd512c102b647343b656056e51a8c50
+      internalID: 1947032724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sheet_17
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 406
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a06a5024f4c6f13418f554d62e9dcaa8
+      internalID: 1923349418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sheet_18
       rect:
         serializedVersion: 2
         x: 209
@@ -475,35 +496,77 @@ TextureImporter:
         width: 128
         height: 162
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1a3832bde1ea63744b2577b48fd40757
-      internalID: 1747695295
+      spriteID: db4b837ce739d4348bef8635126cb2f8
+      internalID: -1173732986
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ONNA_SHOP_SPRITE_18
+      name: Shop_Sheet_19
       rect:
         serializedVersion: 2
-        x: 248
-        y: 572
-        width: 111
-        height: 60
+        x: 509
+        y: 200
+        width: 416
+        height: 209
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1957a1f24c21e004aae3cf6258b9b997
-      internalID: -1551214426
+      spriteID: d436c3b859df6e24586764d4efcf026f
+      internalID: 1335651531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sheet_20
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 358
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 266342cea586e7b42bfb92b9f31e8a3c
+      internalID: 795138389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Shop_Sheet_21
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 572
+        width: 114
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53ba6ee49f05fb041a33c0d6d349b6fa
+      internalID: -1473699768
       vertices: []
       indices: 
       edges: []
@@ -511,7 +574,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ae8e9605b0009d44f96aa9f542aef4bd
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -519,25 +582,28 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ONNA_SHOP_SPRITE_0: 1242479549
-      ONNA_SHOP_SPRITE_1: 323810331
-      ONNA_SHOP_SPRITE_10: 966860968
-      ONNA_SHOP_SPRITE_11: -1043068651
-      ONNA_SHOP_SPRITE_12: 33335890
-      ONNA_SHOP_SPRITE_13: -2066271658
-      ONNA_SHOP_SPRITE_14: 653564626
-      ONNA_SHOP_SPRITE_15: 1654858031
-      ONNA_SHOP_SPRITE_16: -415570194
-      ONNA_SHOP_SPRITE_17: 1747695295
-      ONNA_SHOP_SPRITE_18: -1551214426
-      ONNA_SHOP_SPRITE_2: 1404289335
-      ONNA_SHOP_SPRITE_3: -1959003927
-      ONNA_SHOP_SPRITE_4: 579144998
-      ONNA_SHOP_SPRITE_5: -868857837
-      ONNA_SHOP_SPRITE_6: -2011194113
-      ONNA_SHOP_SPRITE_7: -1819339601
-      ONNA_SHOP_SPRITE_8: -1510833229
-      ONNA_SHOP_SPRITE_9: -30105645
+      Shop_Sheet_0: 2122258198
+      Shop_Sheet_1: 1687845083
+      Shop_Sheet_10: -526056402
+      Shop_Sheet_11: -106515213
+      Shop_Sheet_12: -961650428
+      Shop_Sheet_13: -2004911960
+      Shop_Sheet_14: 751122953
+      Shop_Sheet_15: -597112572
+      Shop_Sheet_16: 1947032724
+      Shop_Sheet_17: 1923349418
+      Shop_Sheet_18: -1173732986
+      Shop_Sheet_19: 1335651531
+      Shop_Sheet_2: -710805354
+      Shop_Sheet_20: 795138389
+      Shop_Sheet_21: -1473699768
+      Shop_Sheet_3: 706280747
+      Shop_Sheet_4: 1841488300
+      Shop_Sheet_5: 1646873169
+      Shop_Sheet_6: 447931364
+      Shop_Sheet_7: 83298308
+      Shop_Sheet_8: 1554252649
+      Shop_Sheet_9: -141991042
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
