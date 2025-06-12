@@ -62,7 +62,12 @@ public class EnemyModel : MonoBehaviour, IDamageable
                 orbSpawner.SpawnHealingOrb(transform.position, transform.forward);
             }
         }
-        RunData.CurrentCurrency.AddCoins(statsSO.CoinsToDrop);
+
+        if(RunData.CurrentCurrency != null)
+        {
+            RunData.CurrentCurrency.AddCoins(statsSO.CoinsToDrop);
+
+        }
         OnDeath?.Invoke(this);
     }
 

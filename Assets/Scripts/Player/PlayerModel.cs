@@ -66,12 +66,14 @@ namespace Player
 
         private void Update()
         {
-            if (!_isInitialized) return;
+            //if (!_isInitialized) return;
             
-            if (!devMode || GameModeSelector.SelectedMode != GameMode.Hub)
-            {
-                ApplyPassiveDrain();
-            }
+            //if (!devMode || GameModeSelector.SelectedMode != GameMode.Hub)
+            //{
+            //    ApplyPassiveDrain();
+            //}
+            ApplyPassiveDrain();
+
         }
 
         private void ApplyPassiveDrain()
