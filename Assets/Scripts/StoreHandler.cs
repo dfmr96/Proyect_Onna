@@ -55,9 +55,12 @@ public class StoreHandler : MonoBehaviour
         UpdateCurrencyStatus();
         foreach (GameObject button in upgradeButtons)
         {
-            if (!hub.PlayerWallet.CheckCost(button.GetComponent<BuyUpgradeButton>().Data.cost))
-                button.GetComponent<Button>().interactable = false;
-            else button.GetComponent<Button>().interactable = true;
+            button.GetComponent<Button>().interactable = false;
+            if (button.GetComponent<BuyUpgradeButton>().Data != null)
+            {
+                if (!hub.PlayerWallet.CheckCost(button.GetComponent<BuyUpgradeButton>().Data.cost))
+                    button.GetComponent<Button>().interactable = true;
+            }
         }
     }
     public void TryBuyUpgrade()
