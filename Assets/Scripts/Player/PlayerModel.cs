@@ -114,7 +114,7 @@ namespace Player
 
             OnUpdateTime?.Invoke(_currentTime / StatContext.Source.Get(statRefs.maxVitalTime));
 
-       
+            Debug.Log("Getting Damage");
 
             if (_currentTime <= 0)
                 Die();

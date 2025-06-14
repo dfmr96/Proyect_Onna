@@ -8,6 +8,8 @@ namespace Player.Weapon
 {
     public class WeaponController : MonoBehaviour
     {
+        public static Action<int, int> OnShoot;
+
         [BoxGroup("Bullet")] 
         [SerializeField] private BulletSettings bulletSetting;
         [BoxGroup("Cooldown")] 
@@ -53,6 +55,7 @@ namespace Player.Weapon
 
             FireBullet();
             currentAmmo--;
+            OnShoot?.Invoke(currentAmmo, ammoSettings.maxAmmo);
 
             if (currentAmmo <= 0)
             {
@@ -115,6 +118,7 @@ namespace Player.Weapon
             yield return new WaitForSeconds(Settings.CoolingCooldown);
             currentAmmo = ammoSettings.maxAmmo;
             _coolingCooldownCoroutine = null;
+            OnShoot?.Invoke(currentAmmo, ammoSettings.maxAmmo);
         }
     }
 }
