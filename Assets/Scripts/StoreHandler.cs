@@ -58,7 +58,7 @@ public class StoreHandler : MonoBehaviour
             button.GetComponent<Button>().interactable = false;
             if (button.GetComponent<BuyUpgradeButton>().Data != null)
             {
-                if (!hub.PlayerWallet.CheckCost(button.GetComponent<BuyUpgradeButton>().Data.cost))
+                if (hub.PlayerWallet.CheckCost(button.GetComponent<BuyUpgradeButton>().Data.cost))
                     button.GetComponent<Button>().interactable = true;
             }
         }
