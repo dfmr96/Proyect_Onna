@@ -15,8 +15,6 @@ MonoBehaviour:
   _distanceToCountExit: 3
   AttackingMovingSpeed: 0
   isMovingSpeedChangesOnAttack: 0
-  _timeBetweenAttacks: 1.5
-  _initialAttackDelay: 0.3
   isLookingPlayer: 1
   rotationSpeed: 5
   burstDuration: 1
@@ -25,10 +23,3 @@ MonoBehaviour:
   laserCooldownAfter: 2
   rotationMultiply: 12
   rotationSmoothness: 5
-  messageDuration: 4
-  bossMessage:
-  - You forced my hand, mortal. Face my full might!
-  - Now, chaos and light shall strike together!
-  - No escape... my arsenal unleashed!
-  - Witness the glory of total annihilation!
-  - I wield the cosmos itself against you!

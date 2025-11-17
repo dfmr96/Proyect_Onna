@@ -930,7 +930,7 @@ MonoBehaviour:
   emptyBulletSprite: {fileID: 447635622, guid: a0287db917970344ca864289d5b60399, type: 3}
   bulletPrefab: {fileID: 7862721857694552232, guid: 5175d69c2b4b156428ec7dc00e75f34c, type: 3}
   bulletContainer: {fileID: 7782903958094190487}
-  reloadBulletSfx: {fileID: 8300000, guid: 7109238c56af6904a941bf25bfb14bdd, type: 3}
+  reloadBulletSfx: {fileID: 8300000, guid: fded6639435a8a9489d59a2c30cd42c1, type: 3}
 --- !u!1 &3012728361785894224
 GameObject:
   m_ObjectHideFlags: 0

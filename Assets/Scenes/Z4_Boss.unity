@@ -37389,6 +37389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss Monarch
       objectReference: {fileID: 0}
+    - target: {fileID: 2459606034415879142, guid: 22fdb95f0ca6e774ea76f7ac6e6fe85a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2676277364586986759, guid: 22fdb95f0ca6e774ea76f7ac6e6fe85a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -37445,6 +37449,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6647802734897422211, guid: 22fdb95f0ca6e774ea76f7ac6e6fe85a, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6647802734897422211, guid: 22fdb95f0ca6e774ea76f7ac6e6fe85a, type: 3}
+      propertyPath: InitialModule.startRotationX.scalar
+      value: -1.5725416
+      objectReference: {fileID: 0}
     - target: {fileID: 7352356944894951655, guid: 22fdb95f0ca6e774ea76f7ac6e6fe85a, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -37491,6 +37503,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8873889181412406992, guid: 22fdb95f0ca6e774ea76f7ac6e6fe85a, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8989821178921381296, guid: 22fdb95f0ca6e774ea76f7ac6e6fe85a, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

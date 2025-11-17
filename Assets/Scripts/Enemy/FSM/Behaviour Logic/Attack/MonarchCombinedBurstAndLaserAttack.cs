@@ -15,10 +15,6 @@ public class MonarchCombinedBurstAndLaserAttack : EnemyAttackSOBase
     [SerializeField] private float rotationMultiply = 15f;
     [SerializeField] private float rotationSmoothness = 5f;
 
-    [Header("Boss Messages")]
-    [SerializeField] private float messageDuration = 4f;
-    [SerializeField] List<string> bossMessage;
-
 
 
     private enum AttackPhase { Burst, WaitAfterBurst, Laser, WaitAfterLaser }
@@ -33,9 +29,6 @@ public class MonarchCombinedBurstAndLaserAttack : EnemyAttackSOBase
     public override void DoEnterLogic()
     {
         base.DoEnterLogic();
-
-        int randomIndex = Random.Range(0, bossMessage.Count);
-        _bossModel.PrintMessage(bossMessage[randomIndex], messageDuration);
 
         //_navMeshAgent.isStopped = true;
         _navMeshAgent.updateRotation = true;

@@ -13,10 +13,6 @@ public class MonarchLaserSweepAttack : EnemyAttackSOBase
     [SerializeField] private float rotationMultiply = 20f;
     [SerializeField] private float trackingDelay = 0.5f;
 
-    [Header("Boss Messages")]
-    [SerializeField] private float messageDuration = 4f;
-    [SerializeField] List<string> bossMessage;
-
 
     private LaserDamage _laser;
     private float _elapsedTime;
@@ -29,8 +25,7 @@ public class MonarchLaserSweepAttack : EnemyAttackSOBase
     {
         base.DoEnterLogic();
 
-        int randomIndex = Random.Range(0, bossMessage.Count);
-        _bossModel.PrintMessage(bossMessage[randomIndex], messageDuration);
+ 
 
         isLookingPlayer = false;
         _laser = _bossModel.GetComponentInChildren<LaserDamage>(true);

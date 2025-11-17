@@ -93,6 +93,7 @@ public class EnemyController : BaseEnemyController, ITriggerCheck, IEnemyBaseCon
     [SerializeField] private float checkInterval = 0.5f;
     [SerializeField] private float minMoveDistance = 0.1f;
 
+
     void Awake()
     {
         // Instanciar behaviors

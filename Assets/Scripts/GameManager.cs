@@ -45,8 +45,11 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerController>().HandlePauseAccess += TogglePauseMenu;
     }
 
-    private void OnDestroy() => player.GetComponent<PlayerController>().HandlePauseAccess -= TogglePauseMenu;
-
+    private void OnDestroy()
+    {
+        if (player != null && player.TryGetComponent<PlayerController>(out var pc))
+            pc.HandlePauseAccess -= TogglePauseMenu;
+    }
     private void WinGame() => enemySpawner.OnAllWavesCompleted -= WinGame;
 
     private void DefeatGame()
@@ -91,7 +94,7 @@ public class GameManager : MonoBehaviour
     public void ReturnToHub()
     {
         GameModeSelector.SelectedMode = GameMode.Hub;
-        PlayerHelper.EnableInput();
+        //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
         SceneManagementUtils.AsyncLoadSceneByName("HUB", loadScreenPrefab, this);
         //  NO -- Encima esta hardcodeado
@@ -100,7 +103,7 @@ public class GameManager : MonoBehaviour
     
     public void ReturnToTutorial()
     {
-        PlayerHelper.EnableInput();
+        //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
         //  NO -- Encima esta hardcodeado
         SceneManagementUtils.AsyncLoadSceneByName("Z1_L5_Tutorial", loadScreenPrefab, this);
@@ -110,7 +113,7 @@ public class GameManager : MonoBehaviour
     public void ReturnToHubTutorial()
     {
         GameModeSelector.SelectedMode = GameMode.Hub;
-        PlayerHelper.EnableInput();
+        //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
         SceneManagementUtils.AsyncLoadSceneByName("HUB_Tutorial", loadScreenPrefab, this);
         //  NO -- Encima esta hardcodeado
