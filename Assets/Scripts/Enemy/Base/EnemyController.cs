@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using Player;
 
 public class EnemyController : BaseEnemyController, ITriggerCheck, IEnemyBaseController
 {
@@ -142,6 +143,9 @@ public class EnemyController : BaseEnemyController, ITriggerCheck, IEnemyBaseCon
             _statusHandler = gameObject.AddComponent<EnemyStatusHandler>();
             //Debug.Log("[EnemyController] EnemyStatusHandler agregado autom�ticamente.");
         }
+
+        PlayerModel.OnPlayerDie += DefeatGame;
+
     }
 
     void Start()
@@ -318,4 +322,10 @@ void Update()
     //        GUI.Label(new Rect(10, 200, 400, 30), $"Estado FSM: {fsm.CurrentState.GetType().Name}", style);
     //    }
     //}
+
+    private void DefeatGame()
+    {
+        fsm.ChangeState(IdleState);
+
+    }
 }
