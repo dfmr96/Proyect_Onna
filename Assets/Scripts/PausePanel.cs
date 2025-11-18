@@ -6,8 +6,8 @@ public class PausePanel : MonoBehaviour
 {
     [SerializeField] private GameObject loadCanvasPrefab;
     [SerializeField] private TextMeshProUGUI buttonText;
-    [SerializeField] private string returnToHubText = "";
-    [SerializeField] private string quitGameText = "";
+    private string returnToMenuText = "BACK TO MENU";
+    private string quitGameText = "QUIT GAME";
 
     private void OnEnable()
     {
@@ -18,7 +18,7 @@ public class PausePanel : MonoBehaviour
                 break;
 
             default:
-                buttonText.text = returnToHubText;
+                buttonText.text = returnToMenuText;
                 break;
         }
         PlayerHelper.DisableInput();
@@ -34,8 +34,7 @@ public class PausePanel : MonoBehaviour
                 break;
 
             default:
-                //Se puede hacer que en vez de volver como tal al hub, el jugador muera capaz
-                SceneManagementUtils.AsyncLoadSceneByName("HUB", loadCanvasPrefab, this);
+                SceneManagementUtils.AsyncLoadSceneByName("MainMenu", loadCanvasPrefab, this);
                 break;
         }
     }
