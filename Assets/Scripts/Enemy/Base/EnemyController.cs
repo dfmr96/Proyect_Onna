@@ -144,7 +144,7 @@ public class EnemyController : BaseEnemyController, ITriggerCheck, IEnemyBaseCon
             //Debug.Log("[EnemyController] EnemyStatusHandler agregado autom�ticamente.");
         }
 
-        PlayerModel.OnPlayerDie += DefeatGame;
+        //PlayerModel.OnPlayerDie += DefeatGame;
 
     }
 
@@ -273,10 +273,14 @@ void Update()
             finalDamage *= multiplier;
         }
 
-        target.TakeDamage(finalDamage);
+        if(target != null)
+        {
+            target.TakeDamage(finalDamage);
+
+        }
 
         //Si el que ataque es una variante verde aplica veneno
-        if(model.variantSO.variantType == EnemyVariantType.Green)
+        if (model.variantSO.variantType == EnemyVariantType.Green)
         {
             target.ApplyDebuffDoT(model.variantSO.dotDuration, model.variantSO.dotDamage);
         }
@@ -323,9 +327,9 @@ void Update()
     //    }
     //}
 
-    private void DefeatGame()
-    {
-        fsm.ChangeState(IdleState);
+    //private void DefeatGame()
+    //{
+    //    fsm.ChangeState(IdleState);
 
-    }
+    //}
 }

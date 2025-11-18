@@ -449,7 +449,7 @@ MonoBehaviour:
   pressTextCanvasGroup: {fileID: 1113669894}
   waitTimeToShowText: 2
   textPulseSpeed: 2
-  advanceCooldown: 0.38
+  advanceCooldown: 0.3
 --- !u!4 &895325704
 Transform:
   m_ObjectHideFlags: 0

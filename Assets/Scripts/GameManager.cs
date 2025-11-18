@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     //Evento para activar portal tras seleccion de mutacion
     public event Action OnMutationUIClosed;
 
+    private bool justOnce = false;
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
@@ -49,18 +50,31 @@ public class GameManager : MonoBehaviour
     {
         if (player != null && player.TryGetComponent<PlayerController>(out var pc))
             pc.HandlePauseAccess -= TogglePauseMenu;
+        justOnce = false;
     }
     private void WinGame() => enemySpawner.OnAllWavesCompleted -= WinGame;
 
     private void DefeatGame()
     {
+        if (justOnce) return;
+        if (this == null) return;
+
         PlayerModel.OnPlayerDie -= DefeatGame;
         PlayerHelper.DisableInput();
         Cursor.visible = true;
-        playerHUD?.SetActive(false);
+
+        if(playerHUD != null)
+        {
+            playerHUD?.SetActive(false);
+
+        }
+
         Time.timeScale = 0f;
 
-        StartCoroutine(HandleDefeatSequence());
+        if (this != null && gameObject != null)
+            StartCoroutine(HandleDefeatSequence());
+
+        justOnce = true;
     }
 
     private IEnumerator HandleDefeatSequence()
