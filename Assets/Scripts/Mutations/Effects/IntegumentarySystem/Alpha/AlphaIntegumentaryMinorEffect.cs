@@ -35,13 +35,13 @@ namespace Mutations.Effects.IntegumentarySystem
 
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-            Debug.Log("[AlphaMinor] OnEnable called - subscribed to playModeStateChanged.");
+            //Debug.Log("[AlphaMinor] OnEnable called - subscribed to playModeStateChanged.");
 #endif
         }
 
         private void OnDisable()
         {
-            Debug.Log("[AlphaMinor] OnDisable called - cleaning up all references.");
+            //Debug.Log("[AlphaMinor] OnDisable called - cleaning up all references.");
             CleanupReferences();
 
 #if UNITY_EDITOR
@@ -54,7 +54,7 @@ namespace Mutations.Effects.IntegumentarySystem
         {
             if (state == PlayModeStateChange.ExitingPlayMode || state == PlayModeStateChange.EnteredEditMode)
             {
-                Debug.Log($"[AlphaMinor] Play mode state changed to {state} - forcing cleanup.");
+                //Debug.Log($"[AlphaMinor] Play mode state changed to {state} - forcing cleanup.");
                 CleanupReferences();
             }
         }
@@ -63,7 +63,7 @@ namespace Mutations.Effects.IntegumentarySystem
         public override void ApplyEffect(GameObject player, int level = 1)
         {
             // Cleanup preventivo: limpiar cualquier estado de sesión anterior
-            Debug.Log("[AlphaMinor] ApplyEffect - performing preventive cleanup.");
+            //Debug.Log("[AlphaMinor] ApplyEffect - performing preventive cleanup.");
             CleanupReferences();
 
             if (!ValidateReferences())
@@ -89,12 +89,12 @@ namespace Mutations.Effects.IntegumentarySystem
             // Suscribirse al evento
             playerModel.OnTakeDamage += OnPlayerDamaged;
 
-            Debug.Log($"[AlphaMinor] Subscribed to OnTakeDamage at level {level}.");
+            //Debug.Log($"[AlphaMinor] Subscribed to OnTakeDamage at level {level}.");
         }
 
         public override void RemoveEffect(GameObject player)
         {
-            Debug.Log("[AlphaMinor] RemoveEffect called.");
+            //Debug.Log("[AlphaMinor] RemoveEffect called.");
             CleanupReferences();
         }
 
@@ -119,7 +119,7 @@ namespace Mutations.Effects.IntegumentarySystem
             // Quitar el visual luego
             auraCtrl.StartCoroutine(RemoveAuraAfterDelay(visualDuration));
 
-            Debug.Log($"[AlphaMinor] Player took {dmg} damage — pushback triggered.");
+            //Debug.Log($"[AlphaMinor] Player took {dmg} damage — pushback triggered.");
         }
 
         private System.Collections.IEnumerator RemoveAuraAfterDelay(float t)

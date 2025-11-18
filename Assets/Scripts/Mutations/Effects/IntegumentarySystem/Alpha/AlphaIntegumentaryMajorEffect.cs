@@ -33,13 +33,13 @@ namespace Mutations.Effects.IntegumentarySystem
 
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-            Debug.Log("[AlphaIntegumentaryMajor] OnEnable called - subscribed to playModeStateChanged.");
+            //Debug.Log("[AlphaIntegumentaryMajor] OnEnable called - subscribed to playModeStateChanged.");
 #endif
         }
 
         private void OnDisable()
         {
-            Debug.Log("[AlphaIntegumentaryMajor] OnDisable called - cleaning up all references.");
+            //Debug.Log("[AlphaIntegumentaryMajor] OnDisable called - cleaning up all references.");
             CleanupReferences();
 
 #if UNITY_EDITOR
@@ -52,7 +52,7 @@ namespace Mutations.Effects.IntegumentarySystem
         {
             if (state == PlayModeStateChange.ExitingPlayMode || state == PlayModeStateChange.EnteredEditMode)
             {
-                Debug.Log($"[AlphaIntegumentaryMajor] Play mode state changed to {state} - forcing cleanup.");
+                //Debug.Log($"[AlphaIntegumentaryMajor] Play mode state changed to {state} - forcing cleanup.");
                 CleanupReferences();
             }
         }
@@ -61,7 +61,7 @@ namespace Mutations.Effects.IntegumentarySystem
         public override void ApplyEffect(GameObject player, int level = 1)
         {
             // Cleanup preventivo: limpiar cualquier estado de sesión anterior
-            Debug.Log("[AlphaIntegumentaryMajor] ApplyEffect - performing preventive cleanup.");
+            //Debug.Log("[AlphaIntegumentaryMajor] ApplyEffect - performing preventive cleanup.");
             CleanupReferences();
 
             if (!ValidateReferences())
@@ -91,16 +91,16 @@ namespace Mutations.Effects.IntegumentarySystem
             // Subscribe to player's instance event
             playerModel.OnTakeDamage += OnPlayerDamaged;
 
-            Debug.Log($"[AlphaIntegumentaryMajor] Subscribed to player.OnTakeDamage at level {level}.");
+            //Debug.Log($"[AlphaIntegumentaryMajor] Subscribed to player.OnTakeDamage at level {level}.");
 
 #if UNITY_EDITOR
-            Debug.Log($"[AlphaIntegumentaryMajor] Player has {playerModel.GetTakeDamageSubscriberCount()} active OnTakeDamage subscribers");
+            //Debug.Log($"[AlphaIntegumentaryMajor] Player has {playerModel.GetTakeDamageSubscriberCount()} active OnTakeDamage subscribers");
 #endif
         }
 
         public override void RemoveEffect(GameObject player)
         {
-            Debug.Log("[AlphaIntegumentaryMajor] RemoveEffect called.");
+            //Debug.Log("[AlphaIntegumentaryMajor] RemoveEffect called.");
             CleanupReferences();
         }
 
@@ -118,7 +118,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
             lastTriggerTime = Time.time;
             TriggerShockwave();
-            Debug.Log($"[AlphaIntegumentaryMajor] Player took {damage} damage — event received.");
+            //Debug.Log($"[AlphaIntegumentaryMajor] Player took {damage} damage — event received.");
         }
 
         private void TriggerShockwave()
@@ -134,7 +134,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
             // Aplicar un único tick de daño instantáneo
             scaledBehavior.OnAuraTick(auraCtrl.transform.position, auraData.radius, LayerMask.GetMask("Enemy"));
-            Debug.Log("[AlphaIntegumentaryMajor] Shockwave dealt instant damage.");
+            //Debug.Log("[AlphaIntegumentaryMajor] Shockwave dealt instant damage.");
 
             // Retirar aura visual luego de breve delay
             auraCtrl.StartCoroutine(RemoveAuraAfterDelay(0.5f));
