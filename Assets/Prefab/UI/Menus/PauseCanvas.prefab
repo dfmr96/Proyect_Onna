@@ -130,7 +130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: WAITING
+  m_text: OPTIONS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: dfe316e7e2d69a34498ccda8f868ca5b, type: 2}
   m_sharedMaterial: {fileID: 461757018406627867, guid: dfe316e7e2d69a34498ccda8f868ca5b, type: 2}
@@ -424,8 +424,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadCanvasPrefab: {fileID: 1822515629045912885, guid: c214e4a145d9467458f42cd11ed1b19d, type: 3}
   buttonText: {fileID: 3647700102213679151}
-  returnToHubText: Return To Hub
-  quitGameText: Quit Game
 --- !u!1 &6175697372210936915
 GameObject:
   m_ObjectHideFlags: 0
