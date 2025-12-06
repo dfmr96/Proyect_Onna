@@ -179,7 +179,6 @@ public class GameManager : MonoBehaviour
         {
             pauseInstance = Instantiate(pausePrefab);
 
-        
         }
         else
         {
