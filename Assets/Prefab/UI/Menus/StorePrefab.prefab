@@ -6320,7 +6320,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: LOREM IPSUM
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 359aac6dcd4a9a64988e5459a22829cf, type: 2}
   m_sharedMaterial: {fileID: 310558686158869268, guid: 359aac6dcd4a9a64988e5459a22829cf, type: 2}
