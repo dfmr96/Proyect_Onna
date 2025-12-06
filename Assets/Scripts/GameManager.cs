@@ -63,7 +63,10 @@ public class GameManager : MonoBehaviour
         PlayerHelper.DisableInput();
         Cursor.visible = true;
 
-        if(playerHUD != null)
+        DeactivateEnemies();
+
+
+        if (playerHUD != null)
         {
             playerHUD?.SetActive(false);
 
@@ -76,6 +79,64 @@ public class GameManager : MonoBehaviour
 
         justOnce = true;
     }
+
+    private void DeactivateEnemies()
+    {
+        var enemies = GameObject.FindObjectsOfType<EnemyController>();
+
+        foreach (var enemy in enemies)
+        {
+            if (enemy == null) continue;
+
+            // 1) APAGAR FSM DIRECTAMENTE
+            if (enemy.fsm != null)
+            {
+                enemy.fsm.ExitState();
+            }
+
+
+            // 3) EnemyView (detiene callbacks como AnimationAttackFunc)
+            var view = enemy.GetComponent<EnemyView>();
+            if (view != null)
+            {
+                view.StopAllCoroutines();
+                view.enabled = false;
+            }
+
+            // 4) EnemyModel
+            var model = enemy.GetComponent<EnemyModel>();
+            if (model != null)
+                model.enabled = false;
+
+            // 5) Detener NavMesh
+            var agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (agent != null)
+                agent.isStopped = true;
+
+            // 6) Rigidbody
+            var rb = enemy.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.isKinematic = true;   // opcional pero ultra seguro
+            }
+
+          
+
+            // 8) EnemyController al final
+            enemy.enabled = false;
+        }
+
+        // 9) Destruir partículas que aún existan
+        var allObjects = GameObject.FindObjectsOfType<GameObject>();
+        foreach (var obj in allObjects)
+        {
+            if (obj.name.Contains("MeleePreAttack"))
+                GameObject.Destroy(obj);
+        }
+    }
+
 
     private IEnumerator HandleDefeatSequence()
     {

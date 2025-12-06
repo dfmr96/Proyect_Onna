@@ -212,7 +212,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
         private void CleanupReferences()
         {
-            Debug.Log("[MicrowaveMajor] CleanupReferences - clearing all runtime state.");
+            //Debug.Log("[MicrowaveMajor] CleanupReferences - clearing all runtime state.");
 
             // Desuscribir eventos
             if (playerModel != null)

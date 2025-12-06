@@ -159,7 +159,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
         private void CleanupReferences()
         {
-            Debug.Log("[AlphaMinor] CleanupReferences - clearing all runtime state.");
+            //Debug.Log("[AlphaMinor] CleanupReferences - clearing all runtime state.");
 
             // Desuscribir eventos
             if (playerModel != null)

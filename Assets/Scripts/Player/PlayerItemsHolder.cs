@@ -117,7 +117,7 @@ public class PlayerItemsHolder
                 Debug.LogWarning($"⚠️ UpgradeEffect es null para {upgradeData.name}");
             }
         }
-        Debug.Log($"✅ Aplicadas {upgradesBoughtDictionary.Count} mejoras al MetaStatBlock.");
+        //Debug.Log($"✅ Aplicadas {upgradesBoughtDictionary.Count} mejoras al MetaStatBlock.");
     }
 }
 
