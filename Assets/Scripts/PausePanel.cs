@@ -11,7 +11,8 @@ public class PausePanel : MonoBehaviour
 
     private void OnEnable()
     {
-        switch (GameModeSelector.SelectedMode)
+
+           switch (GameModeSelector.SelectedMode)
         {
             case GameMode.Hub:
                 buttonText.text = quitGameText;
