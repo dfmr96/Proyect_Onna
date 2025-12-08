@@ -22,7 +22,7 @@ public class PausePanel : MonoBehaviour
                 buttonText.text = returnToMenuText;
                 break;
         }
-        PlayerHelper.DisableInput();
+        //PlayerHelper.DisableInput();
         CursorHelper.Show();
     }
 
@@ -42,7 +42,7 @@ public class PausePanel : MonoBehaviour
 
     public void ResumeGame()
     {
-        PlayerHelper.EnableInput();
+       // PlayerHelper.EnableInput();
         CursorHelper.Hide();
         transform.parent.gameObject.SetActive(false);
     }
