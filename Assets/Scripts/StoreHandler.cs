@@ -38,6 +38,7 @@ public class StoreHandler : MonoBehaviour
         
         //Cursor Mouse
         Cursor.visible = true;
+        PlayerHelper.DisableInput();
     }
 
     private IEnumerator DelayedCheck()
@@ -81,6 +82,7 @@ public class StoreHandler : MonoBehaviour
 
         //Cursor Mouse
         Cursor.visible = false;
+        PlayerHelper.EnableInput();
     }
 
     private void UpdateCurrencyStatus()
