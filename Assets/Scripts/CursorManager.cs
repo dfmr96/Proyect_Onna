@@ -8,7 +8,9 @@ public class CursorManager : MonoBehaviour
     [Header("Cursor Sprites")]
     [SerializeField] private Texture2D defaultCursorTexture;
     [SerializeField] private Texture2D clickCursorTexture;
+    [SerializeField] private Texture2D reticleCursorTexture;
     [SerializeField] private Vector2 cursorHotspot = Vector2.zero;
+    [SerializeField] private Vector2 reticleHotspot = new Vector2(16, 16);
 
     [Header("Cursor Settings")]
     [SerializeField] private CursorMode cursorMode = CursorMode.Auto;
@@ -16,6 +18,13 @@ public class CursorManager : MonoBehaviour
 
     private Coroutine clickCoroutine;
     private bool isChangingCursor = false;
+    private CursorType currentCursorType = CursorType.Default;
+
+    private enum CursorType
+    {
+        Default,
+        Reticle
+    }
 
     private void Awake()
     {
@@ -34,7 +43,8 @@ public class CursorManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0) && !isChangingCursor)
+        // Solo detectar clicks cuando el cursor es Default (para menús)
+        if (Input.GetMouseButtonDown(0) && !isChangingCursor && currentCursorType == CursorType.Default)
         {
             OnMouseClick();
         }
@@ -42,14 +52,21 @@ public class CursorManager : MonoBehaviour
 
     private void ValidateCursorTexture()
     {
-        if (defaultCursorTexture != null)
+        ValidateTexture(defaultCursorTexture, "Default");
+        ValidateTexture(clickCursorTexture, "Click");
+        ValidateTexture(reticleCursorTexture, "Reticle");
+    }
+
+    private void ValidateTexture(Texture2D texture, string textureName)
+    {
+        if (texture != null)
         {
-            int width = defaultCursorTexture.width;
-            int height = defaultCursorTexture.height;
+            int width = texture.width;
+            int height = texture.height;
 
             if (width > 128 || height > 128)
             {
-                Debug.LogWarning($"[CursorManager] La textura del cursor es muy grande ({width}x{height}). " +
+                Debug.LogWarning($"[CursorManager] La textura del cursor {textureName} es muy grande ({width}x{height}). " +
                     "Tamaño recomendado: 32x32 o 64x64. El cursor puede escalarse incorrectamente.");
             }
         }
@@ -71,11 +88,22 @@ public class CursorManager : MonoBehaviour
     {
         isChangingCursor = true;
 
+        CursorType previousCursor = currentCursorType;
+
         SetClickCursor();
 
         yield return new WaitForSecondsRealtime(clickDurationMs / 1000f);
 
-        SetDefaultCursor();
+        // Volver al cursor que estaba activo antes del click
+        switch (previousCursor)
+        {
+            case CursorType.Default:
+                SetDefaultCursor();
+                break;
+            case CursorType.Reticle:
+                SetReticleCursor();
+                break;
+        }
 
         isChangingCursor = false;
         clickCoroutine = null;
@@ -83,6 +111,7 @@ public class CursorManager : MonoBehaviour
 
     public void SetDefaultCursor()
     {
+        currentCursorType = CursorType.Default;
         if (defaultCursorTexture != null)
         {
             Cursor.SetCursor(defaultCursorTexture, cursorHotspot, cursorMode);
@@ -98,6 +127,19 @@ public class CursorManager : MonoBehaviour
         if (clickCursorTexture != null)
         {
             Cursor.SetCursor(clickCursorTexture, cursorHotspot, cursorMode);
+        }
+    }
+
+    public void SetReticleCursor()
+    {
+        currentCursorType = CursorType.Reticle;
+        if (reticleCursorTexture != null)
+        {
+            Cursor.SetCursor(reticleCursorTexture, reticleHotspot, cursorMode);
+        }
+        else
+        {
+            Debug.LogWarning("[CursorManager] Reticle cursor texture not assigned.");
         }
     }
 }
