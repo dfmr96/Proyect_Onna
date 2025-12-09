@@ -30,6 +30,10 @@ public class DialogueManager : MonoBehaviour
         currentNPCData = npcData;
         currentNode = npcData.StartingDialogue;
 
+        // Cambiar a cursor default para diálogos/menús
+        if (CursorManager.Instance != null)
+            CursorManager.Instance.SetDefaultCursor();
+
         CursorHelper.Show();
 
 
@@ -76,8 +80,34 @@ public class DialogueManager : MonoBehaviour
         PlayerHelper.EnableInput();
         PlayerHelper.GetPlayer()?.GetComponent<PlayerModel>().SetInvulnerable(false);
 
-        if (!HubManager.Instance || !HubManager.Instance.IsStoreOpen)
+        // Determinar qué cursor usar al cerrar el diálogo
+        bool isInHub = HubManager.Instance != null;
+        bool isStoreOpen = isInHub && HubManager.Instance.IsStoreOpen;
+
+        if (isStoreOpen)
+        {
+            // En la tienda, mantener cursor visible y default
+            return;
+        }
+
+        if (isInHub)
+        {
+            // En el Hub, ocultar cursor
             CursorHelper.Hide();
+        }
+        else
+        {
+            // En gameplay, cambiar a retícula y mostrar
+            if (CursorManager.Instance != null)
+            {
+                CursorManager.Instance.SetReticleCursor();
+                CursorHelper.Show();
+            }
+            else
+            {
+                CursorHelper.Hide();
+            }
+        }
     }
 
         
