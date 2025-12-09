@@ -178,6 +178,7 @@ public class StoreHandler : MonoBehaviour
         upgradeName.text = data.UpgradeName;
     }
 
+    /*
     private void OnGUI()
     {
         GUIStyle buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = 16 };
@@ -219,4 +220,5 @@ public class StoreHandler : MonoBehaviour
             CheckAvailableUpgrades();
         }
     }
+    */
 }
