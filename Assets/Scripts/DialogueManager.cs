@@ -97,16 +97,9 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            // En gameplay, cambiar a retícula y mostrar
-            if (CursorManager.Instance != null)
-            {
-                CursorManager.Instance.SetReticleCursor();
-                CursorHelper.Show();
-            }
-            else
-            {
-                CursorHelper.Hide();
-            }
+            // En gameplay, ocultar cursor del sistema
+            // CustomCursorUI del Player se encargará de mostrar el cursor de combate
+            CursorHelper.Hide();
         }
     }
 

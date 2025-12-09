@@ -8,9 +8,7 @@ public class CursorManager : MonoBehaviour
     [Header("Cursor Sprites")]
     [SerializeField] private Texture2D defaultCursorTexture;
     [SerializeField] private Texture2D clickCursorTexture;
-    [SerializeField] private Texture2D reticleCursorTexture;
     [SerializeField] private Vector2 cursorHotspot = Vector2.zero;
-    [SerializeField] private Vector2 reticleHotspot = new Vector2(16, 16);
 
     [Header("Cursor Settings")]
     [SerializeField] private CursorMode cursorMode = CursorMode.Auto;
@@ -18,13 +16,6 @@ public class CursorManager : MonoBehaviour
 
     private Coroutine clickCoroutine;
     private bool isChangingCursor = false;
-    private CursorType currentCursorType = CursorType.Default;
-
-    private enum CursorType
-    {
-        Default,
-        Reticle
-    }
 
     private void Awake()
     {
@@ -43,8 +34,8 @@ public class CursorManager : MonoBehaviour
 
     private void Update()
     {
-        // Solo detectar clicks cuando el cursor es Default (para menús)
-        if (Input.GetMouseButtonDown(0) && !isChangingCursor && currentCursorType == CursorType.Default)
+        // Detectar clicks para animación de cursor
+        if (Input.GetMouseButtonDown(0) && !isChangingCursor)
         {
             OnMouseClick();
         }
@@ -54,7 +45,6 @@ public class CursorManager : MonoBehaviour
     {
         ValidateTexture(defaultCursorTexture, "Default");
         ValidateTexture(clickCursorTexture, "Click");
-        ValidateTexture(reticleCursorTexture, "Reticle");
     }
 
     private void ValidateTexture(Texture2D texture, string textureName)
@@ -88,22 +78,11 @@ public class CursorManager : MonoBehaviour
     {
         isChangingCursor = true;
 
-        CursorType previousCursor = currentCursorType;
-
         SetClickCursor();
 
         yield return new WaitForSecondsRealtime(clickDurationMs / 1000f);
 
-        // Volver al cursor que estaba activo antes del click
-        switch (previousCursor)
-        {
-            case CursorType.Default:
-                SetDefaultCursor();
-                break;
-            case CursorType.Reticle:
-                SetReticleCursor();
-                break;
-        }
+        SetDefaultCursor();
 
         isChangingCursor = false;
         clickCoroutine = null;
@@ -111,7 +90,6 @@ public class CursorManager : MonoBehaviour
 
     public void SetDefaultCursor()
     {
-        currentCursorType = CursorType.Default;
         if (defaultCursorTexture != null)
         {
             Cursor.SetCursor(defaultCursorTexture, cursorHotspot, cursorMode);
@@ -129,18 +107,6 @@ public class CursorManager : MonoBehaviour
             Cursor.SetCursor(clickCursorTexture, cursorHotspot, cursorMode);
         }
     }
-
-    public void SetReticleCursor()
-    {
-        currentCursorType = CursorType.Reticle;
-        if (reticleCursorTexture != null)
-        {
-            Cursor.SetCursor(reticleCursorTexture, reticleHotspot, cursorMode);
-        }
-        else
-        {
-            Debug.LogWarning("[CursorManager] Reticle cursor texture not assigned.");
-        }
-    }
 }
+
 

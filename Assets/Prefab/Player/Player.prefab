@@ -223,6 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1922190368049770471}
   - component: {fileID: 1023958109057668883}
+  - component: {fileID: 2300993666671320198}
   m_Layer: 6
   m_Name: MovementSystem
   m_TagString: Untagged
@@ -268,6 +269,22 @@ MonoBehaviour:
   planeOffset: 0
   showDebugRay: 1
   isInMeleeMode: 0
+--- !u!114 &2300993666671320198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595343571686328781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 268d5f753c044cd45868d3e3552c9b2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponHeightReference: {fileID: 2511859693823612000}
+  weaponHeight: 1.5
+  reticleCursorSprite: {fileID: -918972203, guid: f895186c6476db44191e09cf0ce94db9, type: 3}
+  showDebugGizmos: 0
 --- !u!1 &1170878639025236566
 GameObject:
   m_ObjectHideFlags: 0

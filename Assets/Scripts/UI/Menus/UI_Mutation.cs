@@ -117,6 +117,14 @@ public class UI_Mutation : MonoBehaviour
         mutationAnimator.SetTrigger("Open");
         yield return new WaitForSeconds(GetAnimationLength(mutationAnimator, "Open"));
 
+        // Ocultar cursor de combate y mostrar cursor del sistema
+        var customCursor = FindObjectOfType<CustomCursorUI>();
+        if (customCursor != null)
+            customCursor.enabled = false;
+
+        if (CursorManager.Instance != null)
+            CursorManager.Instance.SetDefaultCursor();
+
         Cursor.visible = true;
 
         Initialize();
@@ -713,6 +721,12 @@ public class UI_Mutation : MonoBehaviour
 
         yield return new WaitForSeconds(GetAnimationLength(mutationAnimator, "Close"));
         PlayerHelper.EnableInput();
+
+        // Reactivar cursor de combate
+        var customCursor = FindObjectOfType<CustomCursorUI>();
+        if (customCursor != null)
+            customCursor.enabled = true;
+
         Cursor.visible = false;
 
         Destroy(gameObject);

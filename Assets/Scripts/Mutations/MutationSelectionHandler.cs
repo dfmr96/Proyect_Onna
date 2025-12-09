@@ -19,6 +19,14 @@ namespace Mutations
         private PlayerModel _playerModel;
         private void Start()
         {
+            // Ocultar cursor de combate y mostrar cursor del sistema
+            var customCursor = FindObjectOfType<CustomCursorUI>();
+            if (customCursor != null)
+                customCursor.enabled = false;
+
+            if (CursorManager.Instance != null)
+                CursorManager.Instance.SetDefaultCursor();
+
             //Cursor Mouse
             Cursor.visible = true;
 
@@ -105,6 +113,11 @@ namespace Mutations
 
             //Evento para activar portal tras seleccion de mutacion
             //GameManager.Instance?.RaiseMutationUIClosed();
+
+            // Reactivar cursor de combate
+            var customCursor = FindObjectOfType<CustomCursorUI>();
+            if (customCursor != null)
+                customCursor.enabled = true;
 
             //Cursor Mouse
             Cursor.visible = false;

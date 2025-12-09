@@ -27,7 +27,7 @@ namespace Player
         {
             InitializeSubViews();
 
-            //Cursor Mouse - Cambiar a retícula solo en gameplay (no en Hub)
+            //Cursor Mouse - En Hub ocultar cursor
             bool isInHub = HubManager.Instance != null;
 
             if (isInHub)
@@ -35,17 +35,7 @@ namespace Player
                 // En el Hub, ocultar cursor
                 Cursor.visible = false;
             }
-            else if (CursorManager.Instance != null)
-            {
-                // En gameplay, mostrar retícula
-                CursorManager.Instance.SetReticleCursor();
-                CursorHelper.Show();
-            }
-            else
-            {
-                Debug.LogWarning("[PlayerView] CursorManager no encontrado. Ocultando cursor.");
-                Cursor.visible = false;
-            }
+            // En gameplay, CustomCursorUI (si existe) se registrará automáticamente con CursorManager
         }
 
         private void InitializeSubViews()

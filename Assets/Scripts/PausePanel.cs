@@ -11,7 +11,6 @@ public class PausePanel : MonoBehaviour
 
     private void OnEnable()
     {
-
            switch (GameModeSelector.SelectedMode)
         {
             case GameMode.Hub:
@@ -23,6 +22,15 @@ public class PausePanel : MonoBehaviour
                 break;
         }
         //PlayerHelper.DisableInput();
+
+        // Ocultar cursor de combate y mostrar cursor del sistema
+        var customCursor = FindObjectOfType<CustomCursorUI>();
+        if (customCursor != null)
+            customCursor.enabled = false;
+
+        if (CursorManager.Instance != null)
+            CursorManager.Instance.SetDefaultCursor();
+
         CursorHelper.Show();
     }
 
@@ -43,6 +51,16 @@ public class PausePanel : MonoBehaviour
     public void ResumeGame()
     {
        // PlayerHelper.EnableInput();
+
+        // Reactivar cursor de combate si no estamos en Hub
+        bool isInHub = HubManager.Instance != null;
+        if (!isInHub)
+        {
+            var customCursor = FindObjectOfType<CustomCursorUI>();
+            if (customCursor != null)
+                customCursor.enabled = true;
+        }
+
         CursorHelper.Hide();
         transform.parent.gameObject.SetActive(false);
     }
