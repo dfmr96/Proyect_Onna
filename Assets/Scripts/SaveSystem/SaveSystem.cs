@@ -70,6 +70,23 @@ public static class SaveSystem
         Save(data);
     }
 
+    public static bool HasSaveData()
+    {
+        return File.Exists(SavePath);
+    }
+
+    public static void DeleteSaveData()
+    {
+        if (File.Exists(SavePath))
+        {
+            try
+            {
+                File.Delete(SavePath);
+            }
+            catch (Exception) { }
+        }
+    }
+
     private static byte[] Encrypt(string plainText)
     {
         using (Aes aes = Aes.Create())
