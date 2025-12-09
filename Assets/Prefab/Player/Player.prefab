@@ -283,7 +283,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHeightReference: {fileID: 2511859693823612000}
   weaponHeight: 1.5
-  reticleCursorSprite: {fileID: -918972203, guid: f895186c6476db44191e09cf0ce94db9, type: 3}
+  reticleCursorSprite: {fileID: 21300000, guid: 608b447141c71014d8b1186127f6e7ed, type: 3}
   showDebugGizmos: 0
 --- !u!1 &1170878639025236566
 GameObject:
