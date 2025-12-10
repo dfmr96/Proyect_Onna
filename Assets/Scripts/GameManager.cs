@@ -171,9 +171,9 @@ public class GameManager : MonoBehaviour
         GameModeSelector.SelectedMode = GameMode.Hub;
         //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
-        SceneManagementUtils.AsyncLoadSceneByName("HUB", loadScreenPrefab, this);
+        //SceneManagementUtils.AsyncLoadSceneByName("HUB", loadScreenPrefab, this);
         //  NO -- Encima esta hardcodeado
-        //SceneManagementUtils.LoadSceneByName("HUB");
+        SceneManagementUtils.LoadSceneByName("HUB");
     }
     
     public void ReturnToTutorial()
@@ -181,8 +181,8 @@ public class GameManager : MonoBehaviour
         //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
         //  NO -- Encima esta hardcodeado
-        SceneManagementUtils.AsyncLoadSceneByName("Z1_L5_Tutorial", loadScreenPrefab, this);
-        //SceneManagementUtils.LoadSceneByName("Z1_L5_Tutorial");
+        //SceneManagementUtils.AsyncLoadSceneByName("Z1_L5_Tutorial", loadScreenPrefab, this);
+        SceneManagementUtils.LoadSceneByName("Z1_L5_Tutorial");
     }
 
     public void ReturnToHubTutorial()
@@ -190,9 +190,9 @@ public class GameManager : MonoBehaviour
         GameModeSelector.SelectedMode = GameMode.Hub;
         //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
-        SceneManagementUtils.AsyncLoadSceneByName("HUB_Tutorial", loadScreenPrefab, this);
+        //SceneManagementUtils.AsyncLoadSceneByName("HUB_Tutorial", loadScreenPrefab, this);
         //  NO -- Encima esta hardcodeado
-        //SceneManagementUtils.LoadSceneByName("HUB_Tutorial");
+        SceneManagementUtils.LoadSceneByName("HUB_Tutorial");
     }
 
 
