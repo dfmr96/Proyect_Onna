@@ -73,14 +73,14 @@ public class Bullet : MonoBehaviour
         this._damage = damage;
         _maxPenetration = _playerModel.BulletMaxPenetration;
 
-        Debug.Log("Cantidad de Penetracion: " + _maxPenetration);
+        //Debug.Log("Cantidad de Penetracion: " + _maxPenetration);
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
         int layer = 1 << other.gameObject.layer;
-        Debug.Log($"Bullet collided with {other.name} layer {other.gameObject.layer} | ignoreObstacles={ignoreObstacles}");
+        //Debug.Log($"Bullet collided with {other.name} layer {other.gameObject.layer} | ignoreObstacles={ignoreObstacles}");
 
 
         if ((ignoreLayers.value & (1 << other.gameObject.layer)) != 0)

@@ -18,7 +18,7 @@ public class NewMutationController
         systems[SystemType.Integumentary] = new NewMutationSystem { systemType = SystemType.Integumentary };
         systems[SystemType.Muscular] = new NewMutationSystem { systemType = SystemType.Muscular };
 
-        Debug.Log($"🧬 Initialized systems: {string.Join(", ", systems.Keys)}");
+        //Debug.Log($"🧬 Initialized systems: {string.Join(", ", systems.Keys)}");
         
     }
 
@@ -31,7 +31,7 @@ public class NewMutationController
         }
         else
         {
-            Debug.Log($"✅ MutationDB loaded successfully. Total radiations: {_db.AllRadiations.Count}");
+            //Debug.Log($"✅ MutationDB loaded successfully. Total radiations: {_db.AllRadiations.Count}");
         }
     }
 
@@ -129,7 +129,7 @@ public class NewMutationController
 
     public void ApplyEffects(GameObject player)
     {
-        Debug.Log($"🔥 Applying {effects.Count} effects to {player.name}");
+        //Debug.Log($"🔥 Applying {effects.Count} effects to {player.name}");
         foreach (RadiationEffect effect in effects)
         {
             Debug.Log($"➡️ Applying {effect.RadiationType}...");

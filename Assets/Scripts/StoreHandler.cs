@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class StoreHandler : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class StoreHandler : MonoBehaviour
         
         //Cursor Mouse
         Cursor.visible = true;
+        PlayerHelper.DisableInput();
     }
 
     private IEnumerator DelayedCheck()
@@ -80,6 +82,7 @@ public class StoreHandler : MonoBehaviour
 
         //Cursor Mouse
         Cursor.visible = false;
+        PlayerHelper.EnableInput();
     }
 
     private void UpdateCurrencyStatus()
@@ -101,6 +104,20 @@ public class StoreHandler : MonoBehaviour
 
             var uiButton = buttonObj.GetComponent<Button>();
             //uiButton.interactable = true;
+        }
+
+        //Seleccionar automaticamente el primer item
+        if (upgradeButtons.Count > 0)
+        {
+            var firstButtonObj = upgradeButtons[0];
+            var uiButton = firstButtonObj.GetComponent<Button>();
+
+            // Esto activa el highlight normal del botón (según su configuración original)
+            uiButton.Select();
+
+            // Opcionalmente también podés disparar el detalle:
+            var b = firstButtonObj.GetComponent<BuyUpgradeButton>();
+            OnUpgradeClicked(b);
         }
     }
 
@@ -163,6 +180,7 @@ public class StoreHandler : MonoBehaviour
         upgradeName.text = data.UpgradeName;
     }
 
+    /*
     private void OnGUI()
     {
         GUIStyle buttonStyle = new GUIStyle(GUI.skin.button) { fontSize = 16 };
@@ -204,4 +222,5 @@ public class StoreHandler : MonoBehaviour
             CheckAvailableUpgrades();
         }
     }
+    */
 }

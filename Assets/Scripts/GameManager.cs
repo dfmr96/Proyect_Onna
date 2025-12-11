@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     //Evento para activar portal tras seleccion de mutacion
     public event Action OnMutationUIClosed;
 
+    private bool justOnce = false;
     private void Awake()
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
@@ -45,20 +46,97 @@ public class GameManager : MonoBehaviour
         player.GetComponent<PlayerController>().HandlePauseAccess += TogglePauseMenu;
     }
 
-    private void OnDestroy() => player.GetComponent<PlayerController>().HandlePauseAccess -= TogglePauseMenu;
-
+    private void OnDestroy()
+    {
+        if (player != null && player.TryGetComponent<PlayerController>(out var pc))
+            pc.HandlePauseAccess -= TogglePauseMenu;
+        justOnce = false;
+    }
     private void WinGame() => enemySpawner.OnAllWavesCompleted -= WinGame;
 
     private void DefeatGame()
     {
+        if (justOnce) return;
+        if (this == null) return;
+
         PlayerModel.OnPlayerDie -= DefeatGame;
         PlayerHelper.DisableInput();
         Cursor.visible = true;
-        playerHUD?.SetActive(false);
+
+        DeactivateEnemies();
+
+
+        if (playerHUD != null)
+        {
+            playerHUD?.SetActive(false);
+
+        }
+
         Time.timeScale = 0f;
 
-        StartCoroutine(HandleDefeatSequence());
+        if (this != null && gameObject != null)
+            StartCoroutine(HandleDefeatSequence());
+
+        justOnce = true;
     }
+
+    private void DeactivateEnemies()
+    {
+        var enemies = GameObject.FindObjectsOfType<EnemyController>();
+
+        foreach (var enemy in enemies)
+        {
+            if (enemy == null) continue;
+
+            // 1) APAGAR FSM DIRECTAMENTE
+            if (enemy.fsm != null)
+            {
+                enemy.fsm.ExitState();
+            }
+
+
+            // 3) EnemyView (detiene callbacks como AnimationAttackFunc)
+            var view = enemy.GetComponent<EnemyView>();
+            if (view != null)
+            {
+                view.StopAllCoroutines();
+                view.enabled = false;
+            }
+
+            // 4) EnemyModel
+            var model = enemy.GetComponent<EnemyModel>();
+            if (model != null)
+                model.enabled = false;
+
+            // 5) Detener NavMesh
+            var agent = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>();
+            if (agent != null)
+                agent.isStopped = true;
+
+            // 6) Rigidbody
+            var rb = enemy.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.isKinematic = true;   // opcional pero ultra seguro
+            }
+
+          
+
+            // 8) EnemyController al final
+            enemy.enabled = false;
+        }
+
+        // 9) Destruir partículas que aún existan
+        var allObjects = GameObject.FindObjectsOfType<GameObject>();
+        foreach (var obj in allObjects)
+        {
+            if (obj.name.Contains("MeleePreAttack"))
+                GameObject.Destroy(obj);
+        }
+    }
+
 
     private IEnumerator HandleDefeatSequence()
     {
@@ -91,30 +169,30 @@ public class GameManager : MonoBehaviour
     public void ReturnToHub()
     {
         GameModeSelector.SelectedMode = GameMode.Hub;
-        PlayerHelper.EnableInput();
+        //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
-        SceneManagementUtils.AsyncLoadSceneByName("HUB", loadScreenPrefab, this);
+        //SceneManagementUtils.AsyncLoadSceneByName("HUB", loadScreenPrefab, this);
         //  NO -- Encima esta hardcodeado
-        //SceneManagementUtils.LoadSceneByName("HUB");
+        SceneManagementUtils.LoadSceneByName("HUB");
     }
     
     public void ReturnToTutorial()
     {
-        PlayerHelper.EnableInput();
+        //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
         //  NO -- Encima esta hardcodeado
-        SceneManagementUtils.AsyncLoadSceneByName("Z1_L5_Tutorial", loadScreenPrefab, this);
-        //SceneManagementUtils.LoadSceneByName("Z1_L5_Tutorial");
+        //SceneManagementUtils.AsyncLoadSceneByName("Z1_L5_Tutorial", loadScreenPrefab, this);
+        SceneManagementUtils.LoadSceneByName("Z1_L5_Tutorial");
     }
 
     public void ReturnToHubTutorial()
     {
         GameModeSelector.SelectedMode = GameMode.Hub;
-        PlayerHelper.EnableInput();
+        //PlayerHelper.EnableInput();
         Time.timeScale = 1f;
-        SceneManagementUtils.AsyncLoadSceneByName("HUB_Tutorial", loadScreenPrefab, this);
+        //SceneManagementUtils.AsyncLoadSceneByName("HUB_Tutorial", loadScreenPrefab, this);
         //  NO -- Encima esta hardcodeado
-        //SceneManagementUtils.LoadSceneByName("HUB_Tutorial");
+        SceneManagementUtils.LoadSceneByName("HUB_Tutorial");
     }
 
 

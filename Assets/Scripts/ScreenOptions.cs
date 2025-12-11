@@ -18,25 +18,27 @@ public class ScreenOptions : MonoBehaviour
 
     private void Initialize()
     {
-        resolutions = Screen.resolutions;
+        
+        Resolution[] allowed = new Resolution[]
+        {
+            new Resolution(){ width=1176, height=664 },
+            new Resolution(){ width=1280, height=720 },
+            new Resolution(){ width=1360, height=768 },
+            new Resolution(){ width=1600, height=900 },
+            new Resolution(){ width=1920, height=1080 }
+        };
+
+        resolutions = allowed;
+
         resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
-        HashSet<string> uniqueResolutions = new HashSet<string>();
-        List<Resolution> uniqueResolutionObjects = new List<Resolution>();
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            string resolutionKey = resolutions[i].width + "x" + resolutions[i].height;
-            if (!uniqueResolutions.Contains(resolutionKey))
-            {
-                uniqueResolutions.Add(resolutionKey);
-                uniqueResolutionObjects.Add(resolutions[i]);
-                string resolutionText = resolutions[i].width + " x " + resolutions[i].height;
-                options.Add(resolutionText);
-            }
+            string resolutionText = resolutions[i].width + " x " + resolutions[i].height;
+            options.Add(resolutionText);
         }
-        resolutions = uniqueResolutionObjects.ToArray();
 
         int savedResolutionIndex = PlayerPrefs.GetInt("ResolutionIndex", 0);
         if (savedResolutionIndex >= resolutions.Length)

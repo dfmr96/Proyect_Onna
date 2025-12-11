@@ -30,6 +30,7 @@ public class DefeatUIController : MonoBehaviour
         {
             arrangeLetters.ShowAndFillLetters();
         }
+
     }
 
     public void OnReturnToHubButton() => GameManager.Instance?.ReturnToHub();

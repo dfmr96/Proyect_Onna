@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using Player;
 
 public class EnemyController : BaseEnemyController, ITriggerCheck, IEnemyBaseController
 {
@@ -86,6 +87,14 @@ public class EnemyController : BaseEnemyController, ITriggerCheck, IEnemyBaseCon
     //Status de DoTs por Mutaciones
     private EnemyStatusHandler _statusHandler;
 
+
+    //Movimiento Enemigo
+    private Vector3 _lastPosition;
+    private float _stuckTimer = 0f;
+    [SerializeField] private float checkInterval = 0.5f;
+    [SerializeField] private float minMoveDistance = 0.1f;
+
+
     void Awake()
     {
         // Instanciar behaviors
@@ -134,6 +143,9 @@ public class EnemyController : BaseEnemyController, ITriggerCheck, IEnemyBaseCon
             _statusHandler = gameObject.AddComponent<EnemyStatusHandler>();
             //Debug.Log("[EnemyController] EnemyStatusHandler agregado autom�ticamente.");
         }
+
+        //PlayerModel.OnPlayerDie += DefeatGame;
+
     }
 
     void Start()
@@ -167,9 +179,59 @@ void Update()
         // Solo reproducir animación de movimiento si NO está atacando
         if (fsm.CurrentState != AttackState)
         {
-            view.PlayMovingAnimation(_navMeshAgent.speed);
+            if (_navMeshAgent.velocity.magnitude > 0.1)
+            {
+                view.ResetIdleAnimation();
+
+                view.PlayMovingAnimation(_navMeshAgent.speed);
+
+            }
+            else
+            {
+                view.PlayIdleAnimation();
+            }
         }
+
+
+
         fsm.CurrentState?.FrameUpdate();
+
+        //float actualSpeed = _navMeshAgent.velocity.magnitude;
+
+        //// ---- Movimiento visible (basado en velocidad real) ----
+        //if (fsm.CurrentState != AttackState)
+        //{
+        //    if (actualSpeed > 0.1f)
+        //    {
+        //        view.PlayMovingAnimation(actualSpeed);
+        //    }
+        //}
+        ////else
+        ////{
+        ////    view.PlayIdleAnimation();
+        ////}
+
+        //// ---- Detección de bloqueo/traba ----
+        //_stuckTimer += Time.deltaTime;
+        //if (_stuckTimer >= checkInterval)
+        //{
+        //    float movedDist = Vector3.Distance(transform.position, _lastPosition);
+
+        //    if (movedDist < minMoveDistance && actualSpeed < 0.1f)
+        //    {
+        //        //  El enemigo no avanzó: podés forzar animación o resetear path
+        //        view.PlayIdleAnimation();
+
+        //        //if (_navMeshAgent.hasPath)
+        //        //{
+        //        //    _navMeshAgent.ResetPath();
+        //        //}
+        //    }
+
+        //    _lastPosition = transform.position;
+        //    _stuckTimer = 0f;
+        //}
+
 
         //Debug.Log("ESTADO: " + fsm.CurrentState);
 
@@ -211,10 +273,14 @@ void Update()
             finalDamage *= multiplier;
         }
 
-        target.TakeDamage(finalDamage);
+        if(target != null)
+        {
+            target.TakeDamage(finalDamage);
+
+        }
 
         //Si el que ataque es una variante verde aplica veneno
-        if(model.variantSO.variantType == EnemyVariantType.Green)
+        if (model.variantSO.variantType == EnemyVariantType.Green)
         {
             target.ApplyDebuffDoT(model.variantSO.dotDuration, model.variantSO.dotDamage);
         }
@@ -259,5 +325,11 @@ void Update()
 
     //        GUI.Label(new Rect(10, 200, 400, 30), $"Estado FSM: {fsm.CurrentState.GetType().Name}", style);
     //    }
+    //}
+
+    //private void DefeatGame()
+    //{
+    //    fsm.ChangeState(IdleState);
+
     //}
 }

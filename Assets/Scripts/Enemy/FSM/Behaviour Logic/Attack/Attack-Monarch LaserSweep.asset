@@ -15,8 +15,6 @@ MonoBehaviour:
   _distanceToCountExit: 3
   AttackingMovingSpeed: 0
   isMovingSpeedChangesOnAttack: 0
-  _timeBetweenAttacks: 1.5
-  _initialAttackDelay: 0.3
   isLookingPlayer: 0
   rotationSpeed: 5
   laserDuration: 5
@@ -24,10 +22,3 @@ MonoBehaviour:
   rotationSmoothness: 5
   rotationMultiply: 12
   trackingDelay: 0.1
-  messageDuration: 4
-  bossMessage:
-  - Behold the ray of judgment!
-  - I shall burn your existence from this universe!
-  - The crown's light shall incinerate you!
-  - I grow tired of your defiance. Burn!
-  - 'Laser execution: commence.'

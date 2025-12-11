@@ -37,13 +37,13 @@ namespace Mutations.Effects.IntegumentarySystem
 
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-            Debug.Log("[MicrowaveMajor] OnEnable called - subscribed to playModeStateChanged.");
+            //Debug.Log("[MicrowaveMajor] OnEnable called - subscribed to playModeStateChanged.");
 #endif
         }
 
         private void OnDisable()
         {
-            Debug.Log("[MicrowaveMajor] OnDisable called - cleaning up all references.");
+            //Debug.Log("[MicrowaveMajor] OnDisable called - cleaning up all references.");
             CleanupReferences();
 
 #if UNITY_EDITOR
@@ -56,7 +56,7 @@ namespace Mutations.Effects.IntegumentarySystem
         {
             if (state == PlayModeStateChange.ExitingPlayMode || state == PlayModeStateChange.EnteredEditMode)
             {
-                Debug.Log($"[MicrowaveMajor] Play mode state changed to {state} - forcing cleanup.");
+                //Debug.Log($"[MicrowaveMajor] Play mode state changed to {state} - forcing cleanup.");
                 CleanupReferences();
             }
         }
@@ -65,7 +65,7 @@ namespace Mutations.Effects.IntegumentarySystem
         public override void ApplyEffect(GameObject player, int level = 1)
         {
             // Cleanup preventivo: limpiar cualquier estado de sesión anterior
-            Debug.Log("[MicrowaveMajor] ApplyEffect - performing preventive cleanup.");
+            //Debug.Log("[MicrowaveMajor] ApplyEffect - performing preventive cleanup.");
             CleanupReferences();
 
             if (!ValidateReferences())
@@ -101,16 +101,16 @@ namespace Mutations.Effects.IntegumentarySystem
             playerModel.OnTakeDamage += OnPlayerDamaged;
 
             float procChance = GetProcChance(level);
-            Debug.Log($"[MicrowaveMajor] Subscribed to player.OnTakeDamage at level {level}. Proc chance: {procChance:P0}, Burn duration: {scaledBurnBehavior.burnDuration:F1}s");
+            //Debug.Log($"[MicrowaveMajor] Subscribed to player.OnTakeDamage at level {level}. Proc chance: {procChance:P0}, Burn duration: {scaledBurnBehavior.burnDuration:F1}s");
 
 #if UNITY_EDITOR
-            Debug.Log($"[MicrowaveMajor] Player has {playerModel.GetTakeDamageSubscriberCount()} active OnTakeDamage subscribers");
+            //Debug.Log($"[MicrowaveMajor] Player has {playerModel.GetTakeDamageSubscriberCount()} active OnTakeDamage subscribers");
 #endif
         }
 
         public override void RemoveEffect(GameObject player)
         {
-            Debug.Log("[MicrowaveMajor] RemoveEffect called.");
+            //Debug.Log("[MicrowaveMajor] RemoveEffect called.");
             CleanupReferences();
         }
 
@@ -135,11 +135,11 @@ namespace Mutations.Effects.IntegumentarySystem
             {
                 lastTriggerTime = Time.time;
                 TriggerThermalField();
-                Debug.Log($"[MicrowaveMajor] 🔥 THERMAL FIELD! Player took {damage} damage (roll={roll:F2} <= {procChance:F2})");
+                //Debug.Log($"[MicrowaveMajor] 🔥 THERMAL FIELD! Player took {damage} damage (roll={roll:F2} <= {procChance:F2})");
             }
             else
             {
-                Debug.Log($"[MicrowaveMajor] No proc (roll={roll:F2} > {procChance:F2})");
+                //Debug.Log($"[MicrowaveMajor] No proc (roll={roll:F2} > {procChance:F2})");
             }
         }
 
@@ -156,7 +156,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
             // Aplicar un único tick de burn instantáneo
             scaledBurnBehavior.OnAuraTick(auraCtrl.transform.position, auraData.radius, LayerMask.GetMask("Enemy"));
-            Debug.Log("[MicrowaveMajor] Thermal field applied burn to nearby enemies.");
+            //Debug.Log("[MicrowaveMajor] Thermal field applied burn to nearby enemies.");
 
             // Retirar aura visual luego de breve delay
             auraCtrl.StartCoroutine(RemoveAuraAfterDelay(visualDuration));
@@ -212,7 +212,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
         private void CleanupReferences()
         {
-            Debug.Log("[MicrowaveMajor] CleanupReferences - clearing all runtime state.");
+            //Debug.Log("[MicrowaveMajor] CleanupReferences - clearing all runtime state.");
 
             // Desuscribir eventos
             if (playerModel != null)

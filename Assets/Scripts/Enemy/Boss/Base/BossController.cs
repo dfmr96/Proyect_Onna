@@ -137,6 +137,9 @@ public class BossController : BaseEnemyController, ITriggerCheck, IEnemyBaseCont
             pillar.OnPillarDestroyed += HandlePillarDestroyed;
 
         ActivatePillars();
+
+        PlayerModel.OnPlayerDie += DefeatGame;
+
     }
 
     private void Start()
@@ -469,4 +472,11 @@ public class BossController : BaseEnemyController, ITriggerCheck, IEnemyBaseCont
     }
 
     #endregion
+
+
+    private void DefeatGame()
+    {
+        fsm.ChangeState(IdleState);
+
+    }
 }

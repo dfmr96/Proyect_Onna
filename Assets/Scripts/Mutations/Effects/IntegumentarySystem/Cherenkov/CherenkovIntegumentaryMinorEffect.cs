@@ -29,13 +29,13 @@ namespace Mutations.Effects.IntegumentarySystem
 
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-            Debug.Log("[CherenkovMinor] OnEnable called - subscribed to playModeStateChanged.");
+            //Debug.Log("[CherenkovMinor] OnEnable called - subscribed to playModeStateChanged.");
 #endif
         }
 
         private void OnDisable()
         {
-            Debug.Log("[CherenkovMinor] OnDisable called - cleaning up all references.");
+            ////Debug.Log("[CherenkovMinor] OnDisable called - cleaning up all references.");
             CleanupReferences();
 
 #if UNITY_EDITOR
@@ -48,7 +48,7 @@ namespace Mutations.Effects.IntegumentarySystem
         {
             if (state == PlayModeStateChange.ExitingPlayMode || state == PlayModeStateChange.EnteredEditMode)
             {
-                Debug.Log($"[CherenkovMinor] Play mode state changed to {state} - forcing cleanup.");
+                //Debug.Log($"[CherenkovMinor] Play mode state changed to {state} - forcing cleanup.");
                 CleanupReferences();
             }
         }
@@ -126,7 +126,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
         private void CleanupReferences()
         {
-            Debug.Log("[CherenkovMinor] CleanupReferences - clearing all runtime state.");
+            //Debug.Log("[CherenkovMinor] CleanupReferences - clearing all runtime state.");
 
             // Limpiar aura
             if (auraCtrl != null)

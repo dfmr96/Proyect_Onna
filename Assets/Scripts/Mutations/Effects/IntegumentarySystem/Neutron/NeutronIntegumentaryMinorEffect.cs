@@ -32,13 +32,13 @@ namespace Mutations.Effects.IntegumentarySystem
 
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-            Debug.Log("[NeutronMinor] OnEnable called - subscribed to playModeStateChanged.");
+            //Debug.Log("[NeutronMinor] OnEnable called - subscribed to playModeStateChanged.");
 #endif
         }
 
         private void OnDisable()
         {
-            Debug.Log("[NeutronMinor] OnDisable called - cleaning up all references.");
+            //Debug.Log("[NeutronMinor] OnDisable called - cleaning up all references.");
             CleanupReferences();
 
 #if UNITY_EDITOR
@@ -51,7 +51,7 @@ namespace Mutations.Effects.IntegumentarySystem
         {
             if (state == PlayModeStateChange.ExitingPlayMode || state == PlayModeStateChange.EnteredEditMode)
             {
-                Debug.Log($"[NeutronMinor] Play mode state changed to {state} - forcing cleanup.");
+                //Debug.Log($"[NeutronMinor] Play mode state changed to {state} - forcing cleanup.");
                 CleanupReferences();
             }
         }
@@ -181,7 +181,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
         private void CleanupReferences()
         {
-            Debug.Log("[NeutronMinor] CleanupReferences - clearing all runtime state.");
+            //Debug.Log("[NeutronMinor] CleanupReferences - clearing all runtime state.");
 
             // Detener coroutine activa
             if (drainReductionRoutine != null && playerModel != null)

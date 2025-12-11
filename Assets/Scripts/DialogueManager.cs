@@ -30,6 +30,15 @@ public class DialogueManager : MonoBehaviour
         currentNPCData = npcData;
         currentNode = npcData.StartingDialogue;
 
+        // Ocultar cursor de combate y mostrar cursor del sistema
+        var customCursor = FindObjectOfType<CustomCursorUI>();
+        if (customCursor != null)
+            customCursor.enabled = false;
+
+        // Cambiar a cursor default para diálogos/menús
+        if (CursorManager.Instance != null)
+            CursorManager.Instance.SetDefaultCursor();
+
         CursorHelper.Show();
 
 
@@ -76,8 +85,30 @@ public class DialogueManager : MonoBehaviour
         PlayerHelper.EnableInput();
         PlayerHelper.GetPlayer()?.GetComponent<PlayerModel>().SetInvulnerable(false);
 
-        if (!HubManager.Instance || !HubManager.Instance.IsStoreOpen)
+        // Determinar qué cursor usar al cerrar el diálogo
+        bool isInHub = HubManager.Instance != null;
+        bool isStoreOpen = isInHub && HubManager.Instance.IsStoreOpen;
+
+        if (isStoreOpen)
+        {
+            // En la tienda, mantener cursor visible y default
+            return;
+        }
+
+        if (isInHub)
+        {
+            // En el Hub, ocultar cursor
             CursorHelper.Hide();
+        }
+        else
+        {
+            // En gameplay, ocultar cursor del sistema
+            // CustomCursorUI del Player se encargará de mostrar el cursor de combate
+            var customCursor = FindObjectOfType<CustomCursorUI>();
+            if (customCursor != null)
+                customCursor.enabled = true;
+            CursorHelper.Hide();
+        }
     }
 
         

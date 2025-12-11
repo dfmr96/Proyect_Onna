@@ -29,13 +29,13 @@ namespace Mutations.Effects.IntegumentarySystem
 
 #if UNITY_EDITOR
             EditorApplication.playModeStateChanged += OnPlayModeStateChanged;
-            Debug.Log("[CherenkovMajor] OnEnable called - subscribed to playModeStateChanged.");
+            //Debug.Log("[CherenkovMajor] OnEnable called - subscribed to playModeStateChanged.");
 #endif
         }
 
         private void OnDisable()
         {
-            Debug.Log("[CherenkovMajor] OnDisable called - cleaning up all references.");
+            //Debug.Log("[CherenkovMajor] OnDisable called - cleaning up all references.");
             CleanupReferences();
 
 #if UNITY_EDITOR
@@ -48,7 +48,7 @@ namespace Mutations.Effects.IntegumentarySystem
         {
             if (state == PlayModeStateChange.ExitingPlayMode || state == PlayModeStateChange.EnteredEditMode)
             {
-                Debug.Log($"[CherenkovMajor] Play mode state changed to {state} - forcing cleanup.");
+                //Debug.Log($"[CherenkovMajor] Play mode state changed to {state} - forcing cleanup.");
                 CleanupReferences();
             }
         }
@@ -57,7 +57,7 @@ namespace Mutations.Effects.IntegumentarySystem
         public override void ApplyEffect(GameObject player, int level = 1)
         {
             // Cleanup preventivo: limpiar cualquier estado de sesión anterior
-            Debug.Log("[CherenkovMajor] ApplyEffect - performing preventive cleanup.");
+            //Debug.Log("[CherenkovMajor] ApplyEffect - performing preventive cleanup.");
             CleanupReferences();
 
             if (!ValidateReferences())
@@ -91,12 +91,12 @@ namespace Mutations.Effects.IntegumentarySystem
             // Activar aura permanente
             auraCtrl.AddAura(auraData, scaledWeakenBehavior);
 
-            Debug.Log($"[CherenkovMajor] ⚛️ WEAKENING AURA ACTIVE! Level {level}, Damage multiplier: {scaledWeakenBehavior.damageMultiplier:P0}, Radius: {auraData.radius}");
+            //Debug.Log($"[CherenkovMajor] ⚛️ WEAKENING AURA ACTIVE! Level {level}, Damage multiplier: {scaledWeakenBehavior.damageMultiplier:P0}, Radius: {auraData.radius}");
         }
 
         public override void RemoveEffect(GameObject player)
         {
-            Debug.Log("[CherenkovMajor] RemoveEffect called.");
+            //Debug.Log("[CherenkovMajor] RemoveEffect called.");
             CleanupReferences();
         }
 
@@ -125,7 +125,7 @@ namespace Mutations.Effects.IntegumentarySystem
 
         private void CleanupReferences()
         {
-            Debug.Log("[CherenkovMajor] CleanupReferences - clearing all runtime state.");
+            //Debug.Log("[CherenkovMajor] CleanupReferences - clearing all runtime state.");
 
             // Limpiar aura
             if (auraCtrl != null)
@@ -142,7 +142,7 @@ namespace Mutations.Effects.IntegumentarySystem
                 auraCtrl = null;
             }
 
-            // Destruir instancia runtime
+            //Destruir instancia runtime
             if (scaledWeakenBehavior != null)
             {
                 try

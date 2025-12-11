@@ -193,7 +193,12 @@ public class EnemyView : MonoBehaviour
 
     public void PlayIdleAnimation()
     {
-        //animator.SetTrigger("Idle");
+        animator.SetTrigger("Idle");
+    }
+
+    public void ResetIdleAnimation()
+    {
+        animator.ResetTrigger("Idle");
     }
 
     public void PlayMovingAnimation(float moveSpeed)
@@ -204,6 +209,11 @@ public class EnemyView : MonoBehaviour
     public void PlayStunnedAnimation()
     {
         animator.SetTrigger("IsStunned");
+    }
+
+    public void ResetStunnedAnimation()
+    {
+        animator.ResetTrigger("IsStunned");
     }
 
     public void HandleDamage()

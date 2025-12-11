@@ -24,7 +24,7 @@ public class DeathScreenTransition : MonoBehaviour
         float t = 0f;
         while (t < scaleDuration)
         {
-            t += Time.unscaledDeltaTime; // 👈 importante!
+            t += Time.unscaledDeltaTime; //  importante!
             float progress = Mathf.Clamp01(t / scaleDuration);
             float scale = Mathf.Lerp(0f, finalScale, progress);
             transform.localScale = new Vector3(scale, scale, scale);

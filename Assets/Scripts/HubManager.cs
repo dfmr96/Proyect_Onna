@@ -78,6 +78,9 @@ public class HubManager : MonoBehaviour
 
     private void TogglePauseMenu()
     {
+        //Si la tienda esta abierta, la cerramos
+        if (IsStoreOpen) CloseStore();
+
         if (pauseInstance == null)
         {
             pauseInstance = Instantiate(pausePrefab);

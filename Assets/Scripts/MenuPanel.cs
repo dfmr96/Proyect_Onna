@@ -9,8 +9,15 @@ public class MenuPanel : MonoBehaviour
     [SerializeField] private string hubTutorialLevelName;
     [SerializeField] private string introLevelName;
     [SerializeField] private AudioClip mainMenuMusic;
+    [SerializeField] private GameObject continueButton;
 
-    private void Start() => AudioManager.Instance?.PlayMusic(mainMenuMusic);
+    private void Start()
+    {
+        AudioManager.Instance?.PlayMusic(mainMenuMusic);
+
+        if (continueButton != null)
+            continueButton.SetActive(SaveSystem.HasSaveData());
+    }
 
     public void PlayButton() 
     {
@@ -22,7 +29,7 @@ public class MenuPanel : MonoBehaviour
     private IEnumerator ZoomToEyeAndStartGame()
     {
         var parallax = UI_MainMenu_ParallaxZoom.Instance;
-        
+
         float originalTransition = parallax.transitionTime;
         float originalEyeScale = parallax.eyeScaleFactor;
 
@@ -46,17 +53,59 @@ public class MenuPanel : MonoBehaviour
         StartGame();
     }
 
+    private IEnumerator ZoomToEyeAndContinueGame()
+    {
+        var parallax = UI_MainMenu_ParallaxZoom.Instance;
+
+        float originalTransition = parallax.transitionTime;
+        float originalEyeScale = parallax.eyeScaleFactor;
+
+        // Aceleramos y aumentamos zoom solo para esta transición
+        parallax.transitionTime = 0.45f;
+        parallax.eyeScaleFactor = 2f; // mucho más grande
+
+        int currentIndex = parallax.CurrentIndex;
+        int lastIndex = parallax.LayersCount - 1;
+
+        while (currentIndex < lastIndex)
+        {
+            yield return parallax.ZoomToNextCoroutine();
+            currentIndex = parallax.CurrentIndex;
+        }
+
+        // Restauramos valores normales
+        parallax.transitionTime = originalTransition;
+        parallax.eyeScaleFactor = originalEyeScale;
+
+        ContinueGame();
+    }
+
     private void StartGame()
     {
+        SaveSystem.DeleteSaveData();
         levelProgression.ResetProgress();
-        if (SaveSystem.Load().progress.hasSeenIntro) 
+        SceneManagementUtils.AsyncLoadSceneByName(introLevelName, loadCanvasPrefab, this);
+    }
+
+    public void ContinueButton()
+    {
+        if (UI_MainMenu_ParallaxZoom.Instance != null)
+            StartCoroutine(ZoomToEyeAndContinueGame());
+        else ContinueGame();
+    }
+
+    private void ContinueGame()
+    {
+        var saveData = SaveSystem.Load();
+
+        if (saveData.progress.hasSeenIntro)
         {
-            if (SaveSystem.Load().progress.hasTutorialEnded)
+            if (saveData.progress.hasTutorialEnded)
                 SceneManagementUtils.AsyncLoadSceneByName(hubLevelName, loadCanvasPrefab, this);
             else
-                SceneManagementUtils.AsyncLoadSceneByName(introLevelName, loadCanvasPrefab, this);
+                SceneManagementUtils.AsyncLoadSceneByName(hubTutorialLevelName, loadCanvasPrefab, this);
         }
-        else 
+        else
             SceneManagementUtils.AsyncLoadSceneByName(introLevelName, loadCanvasPrefab, this);
     }
 

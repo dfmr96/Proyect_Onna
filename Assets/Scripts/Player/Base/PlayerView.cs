@@ -27,8 +27,15 @@ namespace Player
         {
             InitializeSubViews();
 
-            //Cursor Mouse
-            Cursor.visible = false;
+            //Cursor Mouse - En Hub ocultar cursor
+            bool isInHub = HubManager.Instance != null;
+
+            if (isInHub)
+            {
+                // En el Hub, ocultar cursor
+                Cursor.visible = false;
+            }
+            // En gameplay, CustomCursorUI (si existe) se registrará automáticamente con CursorManager
         }
 
         private void InitializeSubViews()
